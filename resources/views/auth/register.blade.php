@@ -9,7 +9,7 @@
         <label for="id" class="col-md-4 col-form-label text-md-right">{{ __('ID') }}</label>
 
         <div class="col-md-6">
-            <input id="id" type="text" class="form-control{{ $errors->has('id') ? ' is-invalid' : '' }}" name="id" value="{{ old('id') }}" required autofocus>
+            <input id="id" type="text" class="form-control{{ $errors->has('id') ? ' is-invalid' : '' }}" name="id" value="{{ old('id') }}" placeholder="/^[A-Za-z0-9_]{1,16}$/" required autofocus>
 
             @if ($errors->has('id'))
                 <span class="invalid-feedback" role="alert">
