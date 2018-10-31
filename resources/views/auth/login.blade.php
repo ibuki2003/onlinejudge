@@ -1,5 +1,5 @@
 @extends('layouts.page')
-@section('title', 'Login')
+@section('title', 'title.login')
 @section('content')
 <form method="POST" action="{{ route('login') }}">
     @csrf

@@ -1,5 +1,5 @@
 @extends('layouts.page')
-@section('title', 'Signup')
+@section('title', __('name.register'))
 @section('content')
 
 <form method="POST" action="{{ route('register') }}">
