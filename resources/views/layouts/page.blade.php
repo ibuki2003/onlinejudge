@@ -34,10 +34,10 @@
                     <ul class="navbar-nav ml-auto">
                         @guest
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('login') }}">{{ __('title.login') }}</a>
+                                <a class="nav-link" href="{{ route('login') }}">{{ __('name.login') }}</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('register') }}">{{ __('title.register') }}</a>
+                                <a class="nav-link" href="{{ route('register') }}">{{ __('name.register') }}</a>
                             </li>
                         @else
                             <li class="nav-item dropdown">
@@ -49,7 +49,7 @@
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                         onclick="event.preventDefault();
                                                         document.getElementById('logout-form').submit();">
-                                        {{ __('title.logout') }}
+                                        {{ __('name.logout') }}
                                     </a>
 
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
