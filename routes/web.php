@@ -11,7 +11,6 @@
 |
 */
 
-Route::get('/', 'MainController@index')->name('top');
 
 Route::get ('signin', 'Auth\LoginController@showLoginForm')->name('login');
 Route::post('signin', 'Auth\LoginController@login');
@@ -19,3 +18,7 @@ Route::post('signout', 'Auth\LoginController@logout')->name('logout');
 
 Route::get ('signup', 'Auth\RegisterController@showRegistrationForm')->name('register');
 Route::post('signup', 'Auth\RegisterController@register');
+
+Route::group(['middleware' => ['auth']], function () {
+    Route::get('/', 'MainController@index')->name('top');
+});
