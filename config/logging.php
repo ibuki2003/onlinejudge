@@ -35,19 +35,19 @@ return [
     'channels' => [
         'stack' => [
             'driver' => 'stack',
-            'channels' => ['single'],
+            'channels' => ['daily'],
         ],
 
         'single' => [
             'driver' => 'single',
             'path' => storage_path('logs/laravel.log'),
-            'level' => 'debug',
+            'level' => config('app.debug') ? 'debug' : 'error',
         ],
 
         'daily' => [
             'driver' => 'daily',
             'path' => storage_path('logs/laravel.log'),
-            'level' => 'debug',
+            'level' => config('app.debug') ? 'debug' : 'error',
             'days' => 7,
         ],
 
