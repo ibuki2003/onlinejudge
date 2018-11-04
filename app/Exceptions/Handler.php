@@ -4,6 +4,7 @@ namespace App\Exceptions;
 
 use Exception;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 
 class Handler extends ExceptionHandler
 {
@@ -37,15 +38,34 @@ class Handler extends ExceptionHandler
         parent::report($exception);
     }
 
-    /**
-     * Render an exception into an HTTP response.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Exception  $exception
-     * @return \Illuminate\Http\Response
-     */
-    public function render($request, Exception $exception)
-    {
-        return parent::render($request, $exception);
+    
+    protected function renderHttpException(HttpException $e){
+        $this->registerErrorViewPaths();
+        $message = $e->getMessage();
+        switch ($e->getStatusCode()) {
+            case 400:
+                $name = "Bad Request";
+                break;
+            case 403:
+                $name = "Forbidden";
+                break;
+            case 404:
+                $name = "Not Found";
+                break;
+            case 500:
+                $name = "Internal Server Error";
+                $message="";
+                break;
+            default:
+                $name = "Error";
+                break;
+            
+        }
+
+        return response()->view('error', [
+            'statuscode' => (string)($e->getStatusCode()),
+            'name' => $name,
+            'message' => $message
+        ],$e->getStatusCode(), $e->getHeaders());
     }
 }
