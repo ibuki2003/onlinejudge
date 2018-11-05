@@ -56,6 +56,9 @@ class Handler extends ExceptionHandler
                 $name = "Internal Server Error";
                 $message="";
                 break;
+            case 503:
+                $name = "Service Unavailable";
+                break;
             default:
                 $name = "Error";
                 break;
