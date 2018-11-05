@@ -12,5 +12,6 @@ return [
         'title' => 'タイトル',
         'creator' => '製作者',
         'difficulty' => '難易度',
+        'not_opened' => 'この問題はまだ公開されていません.',
     ],
 ];

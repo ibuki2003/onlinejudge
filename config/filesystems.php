@@ -64,6 +64,11 @@ return [
             'url' => env('AWS_URL'),
         ],
 
+        'data' => [
+            'driver' => 'local',
+            'root' => env('OJ_DATA_DIR'),
+        ],
+
     ],
 
 ];
