@@ -16,6 +16,8 @@
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet" type="text/css">
     @yield('style')
+    
+    @yield('script')
 </head>
 <body class="bg-light">
     <header>
@@ -65,7 +67,6 @@
         <h1>@yield('title')</h1>
         @yield('content')
     </main>
-    @yield('script')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" crossorigin="anonymous"></script>
 </body>
