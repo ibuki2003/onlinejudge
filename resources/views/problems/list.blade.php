@@ -14,7 +14,7 @@
         @foreach ($problems as $problem)
         <tr>
             <th scope="row">{{$problem->{'id'} }}</th>
-            <td><a href="#">{{$problem->{'title'} }}</a></td>
+            <td><a href="{{route('problem',['id'=>$problem->id])}}">{{$problem->{'title'} }}</a></td>
             <td>{{$problem->{'creator'} }}</td>
             <td>
                 <div class="progress">
