@@ -10,5 +10,6 @@ return [
 
     'login' => 'ログイン',
     'register' => '新規登録',
-    'logout' => 'ログアウト'
+    'logout' => 'ログアウト',
+    'problemList' => '問題一覧',
 ];

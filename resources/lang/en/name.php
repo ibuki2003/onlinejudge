@@ -10,5 +10,6 @@ return [
 
     'login' => 'Login',
     'register' => 'Register',
-    'logout' => 'Logout'
+    'logout' => 'Logout',
+    'problemList' => 'Problems',
 ];
