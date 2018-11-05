@@ -21,4 +21,5 @@ Route::post('signup', 'Auth\RegisterController@register');
 
 Route::group(['middleware' => ['auth']], function () {
     Route::get('/', 'MainController@index')->name('top');
+    Route::get('problems', 'MainController@problemList');
 });
