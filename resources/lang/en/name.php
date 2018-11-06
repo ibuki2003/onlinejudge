@@ -13,4 +13,5 @@ return [
     'logout' => 'Logout',
     'problemList' => 'Problems',
     'submit' => 'Submit',
+    'submissions' => 'Submissions',
 ];

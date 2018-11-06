@@ -19,5 +19,15 @@ return [
         'lang' => 'Language',
         'source' => 'Source Code',
     ],
+    'submissionList' => [
+        'problemId' => 'Problem',
+        'lang' => 'Language',
+        'sender' => 'User',
+        'point' => 'Point',
+        'size' => 'Code Length',
+        'status' => 'Status',
+        'detail' => 'Detail',
+        'time' => 'Submission Time',
+    ],
     'submit' => 'Submit',
 ];

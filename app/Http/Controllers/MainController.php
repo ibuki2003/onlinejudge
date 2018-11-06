@@ -61,5 +61,11 @@ class MainController extends Controller{
         //return view('submit', ['id' => $id, 'problems' => $problems]);
     }
 
+    public function submissions(){
+        $submissions = DB::table('submissions')->get();
+        $langs = DB::table('langs')->get()->pluck('name', 'id');
+        return view('submissions', ['submissions' => $submissions, 'langs' => $langs]);
+    }
+
     
 }
