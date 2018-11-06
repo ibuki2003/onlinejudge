@@ -14,7 +14,8 @@
 
     <!-- Styles -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=M+PLUS+Rounded+1c&subset=japanese" rel="stylesheet">
+    <link href="{{asset('css/style.css')}}" rel="stylesheet">
     @yield('style')
     
     @yield('script')
