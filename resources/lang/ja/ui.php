@@ -14,4 +14,10 @@ return [
         'difficulty' => '難易度',
         'not_opened' => 'この問題はまだ公開されていません.',
     ],
+    'submitSource' => [
+        'problemId' => '問題ID',
+        'lang' => '言語',
+        'source' => 'ソースコード',
+    ],
+    'submit' => '送信',
 ];

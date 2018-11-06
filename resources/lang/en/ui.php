@@ -14,5 +14,10 @@ return [
         'difficulty' => 'Difficulty',
         'not_opened' => 'This problem hasn\'t been published yet.',
     ],
-
+    'submitSource' => [
+        'problemId' => 'Problem ID',
+        'lang' => 'Language',
+        'source' => 'Source Code',
+    ],
+    'submit' => 'Submit',
 ];

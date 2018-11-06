@@ -31,4 +31,35 @@ class MainController extends Controller{
 
         return view('problems/problem', ['problem' => $problem, 'id' => $id, 'content' => $content]);
     }
+
+    public function submitForm($id=0){
+        $problems = DB::table('problems')->where('open', NULL)->get();
+        $langs = DB::table('langs')->get();
+
+        return view('submit', ['id' => $id, 'problems' => $problems, 'langs' => $langs]);
+    }
+
+    public function submit(\App\Http\Requests\SubmitRequest $request){
+        $problem = $request->input('problem');
+        $source = $request->input('source');
+        $length = strlen($source);
+        $lang = DB::table('langs')->where('id',$request->input('lang'))->first();
+
+        $id=DB::table('submissions')->insertGetId([
+            'problem' => $problem,
+            'sender' => auth()->id(),
+            'size' => $length,
+            'lang' => $lang->id,
+        ]);
+
+        Storage::disk('data')->makeDirectory('submissions/'.$id);
+        Storage::disk('data')->put('submissions/'.$id.'/main.'.$lang->extension, $source);
+        DB::table('submissions')->where('id', $id)->update(['status' => 'WJ']);
+
+        return redirect()->route('top');
+
+        //return view('submit', ['id' => $id, 'problems' => $problems]);
+    }
+
+    
 }

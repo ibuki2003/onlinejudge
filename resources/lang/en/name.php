@@ -12,4 +12,5 @@ return [
     'register' => 'Register',
     'logout' => 'Logout',
     'problemList' => 'Problems',
+    'submit' => 'Submit',
 ];

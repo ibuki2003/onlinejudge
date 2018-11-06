@@ -12,4 +12,5 @@ return [
     'register' => '新規登録',
     'logout' => 'ログアウト',
     'problemList' => '問題一覧',
+    'submit' => '提出',
 ];
