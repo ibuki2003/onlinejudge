@@ -5,13 +5,13 @@
     <thead>
         <tr>
             <th scope="col">#</th>
-            <th scope="col">{{__('ui.submissionList.problemId')}}</th>
-            <th scope="col">{{__('ui.submissionList.sender')}}</th>
-            <th scope="col">{{__('ui.submissionList.lang')}}</th>
-            <th scope="col">{{__('ui.submissionList.point')}}</th>
-            <th scope="col">{{__('ui.submissionList.size')}}</th>
-            <th scope="col">{{__('ui.submissionList.time')}}</th>
-            <th scope="col">{{__('ui.submissionList.status')}}</th>
+            <th scope="col">{{__('ui.submission.problemId')}}</th>
+            <th scope="col">{{__('ui.submission.sender')}}</th>
+            <th scope="col">{{__('ui.submission.lang')}}</th>
+            <th scope="col">{{__('ui.submission.point')}}</th>
+            <th scope="col">{{__('ui.submission.size')}}</th>
+            <th scope="col">{{__('ui.submission.time')}}</th>
+            <th scope="col">{{__('ui.submission.status')}}</th>
             <th scope="col"></th>
         </tr>
     </thead>
@@ -26,7 +26,7 @@
             <td>{{$submission->size}}</td>
             <td>{{$submission->time}}</td>
             <td>{{$submission->status}}</td>
-            <td><a href="{{route('top')}}">{{__('ui.submissionList.detail')}}</a></td>
+            <td><a href="{{route('top')}}">{{__('ui.submission.detail')}}</a></td>
         </tr>
         @endforeach
     </tbody>

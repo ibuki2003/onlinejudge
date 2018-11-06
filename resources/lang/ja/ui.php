@@ -14,14 +14,10 @@ return [
         'difficulty' => '難易度',
         'not_opened' => 'この問題はまだ公開されていません.',
     ],
-    'submitSource' => [
-        'problemId' => '問題ID',
-        'lang' => '言語',
-        'source' => 'ソースコード',
-    ],
-    'submissionList' => [
+    'submission' => [
         'problemId' => '問題',
         'lang' => '言語',
+        'source' => 'ソースコード',
         'sender' => 'ユーザー',
         'point' => '得点',
         'size' => 'コード長',

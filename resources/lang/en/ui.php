@@ -14,14 +14,10 @@ return [
         'difficulty' => 'Difficulty',
         'not_opened' => 'This problem hasn\'t been published yet.',
     ],
-    'submitSource' => [
-        'problemId' => 'Problem ID',
-        'lang' => 'Language',
-        'source' => 'Source Code',
-    ],
-    'submissionList' => [
+    'submission' => [
         'problemId' => 'Problem',
         'lang' => 'Language',
+        'source' => 'Source Code',
         'sender' => 'User',
         'point' => 'Point',
         'size' => 'Code Length',
