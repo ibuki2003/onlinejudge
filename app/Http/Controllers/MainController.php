@@ -64,12 +64,12 @@ class MainController extends Controller{
     public function allSubmissions(){
         $submissions = DB::table('submissions')->get();
         $langs = DB::table('langs')->get()->pluck('name', 'id');
-        return view('submissions', ['submissions' => $submissions, 'langs' => $langs, 'me' => FALSE]);
+        return view('submissions/list', ['submissions' => $submissions, 'langs' => $langs, 'me' => FALSE]);
     }
     public function mySubmissions(){
         $submissions = DB::table('submissions')->where('sender',auth()->id())->get();
         $langs = DB::table('langs')->get()->pluck('name', 'id');
-        return view('submissions', ['submissions' => $submissions, 'langs' => $langs, 'me' => TRUE]);
+        return view('submissions/list', ['submissions' => $submissions, 'langs' => $langs, 'me' => TRUE]);
     }
 
     public function submission($id){
@@ -89,7 +89,7 @@ class MainController extends Controller{
             $judge_result=json_decode(Storage::disk('data')->get('submissions/'.$id.'/judge_log.json'));
         }
 
-        return view('submission', [
+        return view('submissions/submission', [
             'id' => $id,
             'submission' => $submission,
             'lang' => $lang,
