@@ -1,5 +1,5 @@
 @extends('layouts.page')
-@section('title', __('name.submissions'))
+@section('title', __('name.submissions.'.($me?'me':'all')))
 @section('content')
 <table class="table table-hover">
     <thead>

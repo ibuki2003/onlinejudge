@@ -13,5 +13,8 @@ return [
     'logout' => 'ログアウト',
     'problemList' => '問題一覧',
     'submit' => '提出',
-    'submissions' => '提出一覧',
+    'submissions' => [
+        'all' => 'すべての提出',
+        'me' => '自分の提出',
+    ],
 ];

@@ -13,5 +13,8 @@ return [
     'logout' => 'Logout',
     'problemList' => 'Problems',
     'submit' => 'Submit',
-    'submissions' => 'Submissions',
+    'submissions' => [
+        'all' => 'All Submissions',
+        'me' => 'My Submissions',
+    ],
 ];
