@@ -21,13 +21,13 @@ Route::post('signup', 'Auth\RegisterController@register');
 
 Route::group(['middleware' => ['auth']], function () {
     Route::get('/', 'MainController@index')->name('top');
-    Route::get('problems', 'MainController@problemList')->name('problemList');
+    Route::get('problems', 'MainController@problemList')->name('problems');
     Route::get('problems/{id}', 'MainController@problem')->where('id', '\d+')->name('problem');
 
     Route::get('submit/{id?}', 'MainController@submitForm')->where('id', '\d+')->name('submit');
     Route::post('submit', 'MainController@submit');
 
-    Route::get('submissions', 'MainController@allSubmissions')->name('allSubmissions');
-    Route::get('submissions/me', 'MainController@mySubmissions')->name('mySubmissions');
+    Route::get('submissions', 'MainController@allSubmissions')->name('submissions');
+    Route::get('submissions/me', 'MainController@mySubmissions')->name('submissions_me');
     Route::get('submissions/{id}', 'MainController@submission')->where('id', '\d+')->name('submission');
 });

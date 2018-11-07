@@ -56,7 +56,7 @@ class MainController extends Controller{
         Storage::disk('data')->put('submissions/'.$id.'/main.'.$lang->extension, $source);
         DB::table('submissions')->where('id', $id)->update(['status' => 'WJ']);
 
-        return redirect()->route('mySubmissions');
+        return redirect()->route('submissions_me');
 
         //return view('submit', ['id' => $id, 'problems' => $problems]);
     }
