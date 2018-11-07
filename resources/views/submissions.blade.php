@@ -26,7 +26,7 @@
             <td>{{$submission->size}}</td>
             <td>{{$submission->time}}</td>
             <td>{{$submission->status}}</td>
-            <td><a href="{{route('top')}}">{{__('ui.submission.detail')}}</a></td>
+            <td><a href="{{route('submission',['id'=>$submission->id])}}">{{__('ui.submission.detail')}}</a></td>
         </tr>
         @endforeach
     </tbody>
