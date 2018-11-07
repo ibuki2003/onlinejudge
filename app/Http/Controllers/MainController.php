@@ -72,4 +72,32 @@ class MainController extends Controller{
         return view('submissions', ['submissions' => $submissions, 'langs' => $langs, 'me' => TRUE]);
     }
 
+    public function submission($id){
+        $submission = DB::table('submissions')->where('id',$id)->first();
+        $lang = DB::table('langs')->where('id',$submission->lang)->first();
+        $problem = DB::table('problems')->where('id',$submission->problem)->value('title');
+        
+        $source = Storage::disk('data')->get('submissions/'.$id.'/main.'.$lang->extension);
+
+        $compile_result=NULL;
+        if(Storage::disk('data')->exists('submissions/'.$id.'/judge_log.txt')){
+            $compile_result=Storage::disk('data')->get('submissions/'.$id.'/judge_log.txt');
+        }
+
+        $judge_result=NULL;
+        if(Storage::disk('data')->exists('submissions/'.$id.'/judge_log.json')){
+            $judge_result=json_decode(Storage::disk('data')->get('submissions/'.$id.'/judge_log.json'));
+        }
+
+        return view('submission', [
+            'id' => $id,
+            'submission' => $submission,
+            'lang' => $lang,
+            'problem' => $problem,
+            'source' => $source,
+            'compile_result' => $compile_result,
+            'judge_result' => $judge_result,
+        ]);
+    }
+
 }

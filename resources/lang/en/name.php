@@ -17,4 +17,5 @@ return [
         'all' => 'All Submissions',
         'me' => 'My Submissions',
     ],
+    'submission' => 'Submission',
 ];

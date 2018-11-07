@@ -29,4 +29,5 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::get('submissions', 'MainController@allSubmissions')->name('allSubmissions');
     Route::get('submissions/me', 'MainController@mySubmissions')->name('mySubmissions');
+    Route::get('submissions/{id}', 'MainController@submission')->where('id', '\d+')->name('submission');
 });

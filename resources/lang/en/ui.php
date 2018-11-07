@@ -13,6 +13,14 @@ return [
         'creator' => 'Creator',
         'difficulty' => 'Difficulty',
         'not_opened' => 'This problem hasn\'t been published yet.',
+        'test_case' => [
+            'testcases' => 'Test Cases',
+            'set_name' => 'Set Name',
+            'point' => 'Point',
+            'filename' => 'File Name',
+            'status' => 'Status',
+            'exec_time' => 'Exec Time',
+        ],
     ],
     'submission' => [
         'problemId' => 'Problem',
@@ -24,6 +32,7 @@ return [
         'status' => 'Status',
         'detail' => 'Detail',
         'time' => 'Submission Time',
+        'compile_result' => 'Compile Result',
     ],
     'submit' => 'Submit',
 ];
