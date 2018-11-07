@@ -74,6 +74,9 @@ class MainController extends Controller{
 
     public function submission($id){
         $submission = DB::table('submissions')->where('id',$id)->first();
+        
+        abort_unless(($submission->sender==auth()->id()) || (auth()->user()->permission & 8),403);
+
         $lang = DB::table('langs')->where('id',$submission->lang)->first();
         $problem = DB::table('problems')->where('id',$submission->problem)->value('title');
         
