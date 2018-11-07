@@ -1,7 +1,7 @@
 @extends('layouts.page')
 @section('title', __('name.submit'))
 @section('content')
-<form action="{{route('submit')}}" method="post">
+<form action="{{route('submit')}}" method="post" name="form">
     @csrf
     <div class="form-group">
         <label for="problem-select">{{__('ui.submission.problemId')}}</label>
@@ -38,7 +38,22 @@
         </div>
         @endif
     </div>
-    <button type="submit" class="btn btn-primary">{{__('ui.submit')}}</button>
+    <button type="button" onclick="submit_source()" class="btn btn-primary">{{__('ui.submit')}}</button>
 </form>
+@endsection
+
+@section('script')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+<script>
+    function submit_source(){
+        $.cookie('lang',$('#lang-select option:selected').val(),{expires:365});
+        form.submit();
+    }
+    $(function(){
+        if($.cookie('lang')){
+            $('#lang-select').val($.cookie('lang'));
+        }
+    });
+</script>
 @endsection
 
