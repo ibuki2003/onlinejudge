@@ -2,3 +2,23 @@
 body,.tooltip,.popover {
     font-family: 'M PLUS Rounded 1c', sans-serif;
 }
+
+code{
+	font-family: Consolas, 'Courier New', Courier, Monaco, monospace;
+    line-height: 1.2;
+    border: 1px solid var(--gray);
+    background-color: var(--light);
+    border-radius: .25rem;
+	overflow-x: auto;
+}
+
+pre code{
+    display: block;
+    margin: 10px;
+    padding: 10px 10px 10px 5px;
+}
+
+/*pre code{
+    width: 100%;
+}
+*/
