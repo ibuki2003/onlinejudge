@@ -53,7 +53,7 @@ class MainController extends Controller{
         ]);
 
         Storage::disk('data')->makeDirectory('submissions/'.$id);
-        Storage::disk('data')->put('submissions/'.$id.'/main.'.$lang->extension, $source);
+        Storage::disk('data')->put('submissions/'.$id.'/source.'.$lang->extension, $source);
         DB::table('submissions')->where('id', $id)->update(['status' => 'WJ']);
 
         return redirect()->route('submissions_me');
@@ -77,7 +77,7 @@ class MainController extends Controller{
         $lang = DB::table('langs')->where('id',$submission->lang)->first();
         $problem = DB::table('problems')->where('id',$submission->problem)->value('title');
         
-        $source = Storage::disk('data')->get('submissions/'.$id.'/main.'.$lang->extension);
+        $source = Storage::disk('data')->get('submissions/'.$id.'/source.'.$lang->extension);
 
         $compile_result=NULL;
         if(Storage::disk('data')->exists('submissions/'.$id.'/judge_log.txt')){
