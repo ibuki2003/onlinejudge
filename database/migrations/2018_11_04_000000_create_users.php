@@ -18,6 +18,7 @@ class CreateUsers extends Migration
                 $table->string('id',16);
                 $table->primary('id');
                 $table->string('password');
+                $table->integer('permission')->default(0);
                 $table->rememberToken();
                 $table->timestamps();
             });
