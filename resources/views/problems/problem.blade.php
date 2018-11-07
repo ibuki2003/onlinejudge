@@ -7,6 +7,8 @@
 @endif
 <hr>
 <div id="md">{{$content}}</div>
+
+<a href="{{route('submit',['id'=>$id])}}" class="btn btn-primary">{{__('name.submit')}}</a>
 @endsection
 
 @section('style')
