@@ -24,6 +24,10 @@ class CreateSubmissions extends Migration
                 $table->integer('size')->default(0);
                 $table->timestamp('time')->useCurrent();
             });
+        }else{
+            Schema::table('submissions', function (Blueprint $table) {
+                $table->string('status')->default('SB')->change();
+            });
         }
     }
 
