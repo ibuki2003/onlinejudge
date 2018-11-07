@@ -27,6 +27,6 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('submit/{id?}', 'MainController@submitForm')->where('id', '\d+')->name('submit');
     Route::post('submit', 'MainController@submit');
 
-    Route::get('submissions', 'MainController@allSubmissions');
-    Route::get('submissions/me', 'MainController@mySubmissions');
+    Route::get('submissions', 'MainController@allSubmissions')->name('allSubmissions');
+    Route::get('submissions/me', 'MainController@mySubmissions')->name('mySubmissions');
 });
