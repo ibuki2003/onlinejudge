@@ -22,4 +22,12 @@ class ProblemController extends Controller
         return view('problems/problem', ['problem' => $problem]);
     }
 
+    public function editorial($id){
+        $problem = Problem::find($id);
+        abort_if($problem===NULL,404);
+        abort_unless($problem->is_visible(),403);
+        abort_unless($problem->has_editorial(),404);
+        return view('problems/editorial', ['problem' => $problem]);
+    }
+
 }

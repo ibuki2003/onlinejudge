@@ -52,7 +52,7 @@ class Problem extends Model
      * @return bool
      */
     public function has_editorial(){
-        return Storage::disk('data')->exists('problems/'.$this->id.'/main.md');
+        return Storage::disk('data')->exists('problems/'.$this->id.'/editorial.md');
     }
 
     /**
@@ -61,6 +61,6 @@ class Problem extends Model
      */
     public function get_editorial(){
         if(!$this->has_editorial())return NULL;
-        return Storage::disk('data')->get('problems/'.$id.'/main.md');
+        return Storage::disk('data')->get('problems/'.$this->id.'/editorial.md');
     }
 }

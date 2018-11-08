@@ -12,6 +12,7 @@ return [
     'register' => '新規登録',
     'logout' => 'ログアウト',
     'problemList' => '問題一覧',
+    'editorial' => '解説',
     'submit' => '提出',
     'submissions' => [
         'all' => 'すべての提出',

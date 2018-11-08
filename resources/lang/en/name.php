@@ -12,6 +12,7 @@ return [
     'register' => 'Register',
     'logout' => 'Logout',
     'problemList' => 'Problems',
+    'editorial' => 'Editorial',
     'submit' => 'Submit',
     'submissions' => [
         'all' => 'All Submissions',
