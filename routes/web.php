@@ -25,18 +25,18 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('problems/{id}', 'ProblemController@problem')->where('id', '\d+')->name('problem');
     Route::get('problems/{id}/editorial', 'ProblemController@editorial')->where('id', '\d+')->name('problem_editorial');
 
-    Route::get('submissions/me', 'MainController@mySubmissions')->name('submissions_me');
-    Route::get('submissions/{id}', 'MainController@submission')->where('id', '\d+')->name('submission');
+    Route::get('submissions/me', 'SubmissionController@mySubmissions')->name('submissions_me');
+    Route::get('submissions/{id}', 'SubmissionController@submission')->where('id', '\d+')->name('submission');
 
     Route::group(['middleware' => ['permission:1']], function () {
-        Route::get('submit/{id?}', 'MainController@submitForm')->where('id', '\d+')->name('submit');
-        Route::post('submit', 'MainController@submit');
+        Route::get('submit/{id?}', 'SubmissionController@submitForm')->where('id', '\d+')->name('submit');
+        Route::post('submit', 'SubmissionController@submit');
     });
 
     Route::group(['middleware' => ['permission:2']], function () {});
     Route::group(['middleware' => ['permission:4']], function () {});
     Route::group(['middleware' => ['permission:8']], function () {
-        Route::get('submissions', 'MainController@allSubmissions')->name('submissions');
+        Route::get('submissions', 'SubmissionController@allSubmissions')->name('submissions');
     });
 
 

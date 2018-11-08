@@ -1,5 +1,5 @@
 @extends('layouts.page')
-@section('title', __('name.submission')." #$id")
+@section('title', __('name.submission').' #'.$submission->id)
 @section('content')
 <table class="table table-striped">
     <tbody>
@@ -9,7 +9,7 @@
         </tr>
         <tr>
             <th scope="row">{{__("ui.submission.problemId")}}</th>
-            <td><a href="{{route('problem',['id'=>$submission->problem])}}">{{$submission->problem}} {{$problem}}</a></td>
+            <td><a href="{{route('problem',['id'=>$submission->problem])}}">{{$submission->problem}} {{$submission->get_problem_title()}}</a></td>
         </tr>
         <tr>
             <th scope="row">{{__("ui.submission.sender")}}</th>
@@ -17,7 +17,7 @@
         </tr>
         <tr>
             <th scope="row">{{__("ui.submission.lang")}}</th>
-            <td>{{$lang->name}}</td>
+            <td>{{$submission->get_lang_name()}}</td>
         </tr>
         <tr>
             <th scope="row">{{__("ui.submission.point")}}</th>
@@ -35,14 +35,17 @@
 </table>
 <hr>
 <h2>{{__('ui.submission.source')}}</h2>
-<pre><code>{{$source}}</code></pre>
+<pre><code>{{$submission->get_source()}}</code></pre>
 
-@if($compile_result!==NULL)
+@if($submission->has_compile_result())
 <h2>{{__('ui.submission.compile_result')}}</h2>
-<pre><code>{{$compile_result}}</code></pre>
+<pre><code>{{$submission->get_compile_result()}}</code></pre>
 @endif
 
-@if($judge_result!==NULL)
+@if($submission->has_judge_result())
+@php
+    $judge_result=$submission->get_judge_result();
+@endphp
 <h2>{{__('ui.problem.test_case.testcases')}}</h2>
 <table class="table table-striped">
     <thead>
