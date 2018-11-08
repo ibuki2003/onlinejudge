@@ -1,14 +1,14 @@
 @extends('layouts.page')
-@section('title', __("#$id ".$problem->title))
+@section('title', __('#'.$problem->id.' '.$problem->title))
 @section('content')
 <h2>{{__('ui.problem.creator')}}:{{$problem->creator}}</h2>
-@if ($problem->open!==NULL)
+@if (!$problem->is_opened())
 <div class="alert alert-info" role="alert">{{__('ui.problem.not_opened')}}</div>
 @endif
 <hr>
-<div id="md">{{$content}}</div>
+<div id="md">{{$problem->get_content()}}</div>
 
-<a href="{{route('submit',['id'=>$id])}}" class="btn btn-primary">{{__('name.submit')}}</a>
+<a href="{{route('submit',['id'=>$problem->id])}}" class="btn btn-primary">{{__('name.submit')}}</a>
 @endsection
 
 @section('style')

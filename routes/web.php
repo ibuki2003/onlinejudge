@@ -21,8 +21,9 @@ Route::post('signup', 'Auth\RegisterController@register');
 
 Route::group(['middleware' => ['auth']], function () {
     Route::get('/', 'MainController@index')->name('top');
-    Route::get('problems', 'MainController@problemList')->name('problems');
-    Route::get('problems/{id}', 'MainController@problem')->where('id', '\d+')->name('problem');
+    Route::get('problems', 'ProblemController@list')->name('problems');
+    Route::get('problems/{id}', 'ProblemController@problem')->where('id', '\d+')->name('problem');
+    Route::get('problems/{id}/editorial', 'ProblemController@editorial')->where('id', '\d+')->name('problem_editorial');
 
     Route::get('submissions/me', 'MainController@mySubmissions')->name('submissions_me');
     Route::get('submissions/{id}', 'MainController@submission')->where('id', '\d+')->name('submission');

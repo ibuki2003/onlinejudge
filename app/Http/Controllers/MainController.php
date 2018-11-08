@@ -17,21 +17,6 @@ class MainController extends Controller{
         return view('home');
     }
 
-    public function problemList(){
-        $problems = DB::table('problems')->where('open', NULL)->get();
-        return view('problems/list', ['problems' => $problems]);
-    }
-
-    public function problem($id){
-        $problem = DB::table('problems')->where('id', $id)->first();
-        abort_if($problem===NULL,404);
-        abort_if($problem->open!==NULL && $problem->creator!==auth()->id(),403);
-
-        $content = Storage::disk('data')->get('problems/'.$id.'/main.md');
-
-        return view('problems/problem', ['problem' => $problem, 'id' => $id, 'content' => $content]);
-    }
-
     public function submitForm($id=0){
         $problems = DB::table('problems')->where('open', NULL)->get();
         $langs = DB::table('langs')->get();
