@@ -62,7 +62,7 @@ class Submission extends Model
      * @returns string
      */
     public function get_lang_name(){
-        return Lang::find($this->lang)->value('name');
+        return Lang::find($this->lang)->name;
     }
 
     /**
@@ -70,7 +70,7 @@ class Submission extends Model
      * @returns string
      */
     public function get_problem_title(){
-        return Problem::find($this->problem)->value('title');
+        return Problem::find($this->problem)->title;
     }
 
     /**
@@ -78,7 +78,7 @@ class Submission extends Model
      * @return string
      */
     public function get_source(){
-        return Storage::disk('data')->get('submissions/'.$this->id.'/source.'.Lang::find($this->lang)->value('extension'));
+        return Storage::disk('data')->get('submissions/'.$this->id.'/source.'.Lang::find($this->lang)->extension);
     }
 
     /**
