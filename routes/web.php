@@ -28,14 +28,14 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('submissions/me', 'SubmissionController@index_my')->name('submissions_me');
     Route::get('submissions/{id}', 'SubmissionController@show')->where('id', '\d+')->name('submission');
 
-    Route::group(['middleware' => ['permission:1']], function () {
+    Route::group(['middleware' => ['permission:submit']], function () {
         Route::get('submit/{id?}', 'SubmissionController@store')->where('id', '\d+')->name('submit');
         Route::post('submit', 'SubmissionController@store');
     });
 
-    Route::group(['middleware' => ['permission:2']], function () {});
-    Route::group(['middleware' => ['permission:4']], function () {});
-    Route::group(['middleware' => ['permission:8']], function () {
+    Route::group(['middleware' => ['permission:create_problem']], function () {});
+    Route::group(['middleware' => ['permission:create_contest']], function () {});
+    Route::group(['middleware' => ['permission:admit_users']], function () {
         Route::get('submissions', 'SubmissionController@index')->name('submissions');
     });
 

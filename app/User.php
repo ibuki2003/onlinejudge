@@ -33,4 +33,27 @@ class User extends Authenticatable
     protected $keyType = 'string';
 
     public $incrementing = false;
+
+    /**
+     * @var string $permission
+     * @return bool
+     */
+    public function has_permission(string $permission){
+        $permbit=0;
+        switch($permission){
+            case 'submit':
+                $permbit=1;
+                break;
+            case 'create_problem':
+                $permbit=2;
+                break;
+            case 'create_contest':
+                $permbit=4;
+                break;
+            case 'admit_users':
+                $permbit=8;
+                break;
+        }
+        return !!($this->permission & $permbit);
+    }
 }

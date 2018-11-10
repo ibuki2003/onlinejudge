@@ -11,13 +11,12 @@ class RequirePermission
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \Closure  $next
-     * @param  int       $permission
+     * @param  string    $permission
      * @return mixed
      */
-    public function handle($request, Closure $next ,int $permission)
+    public function handle($request, Closure $next ,string $permission)
     {
-        abort_unless(auth()->user()->permission & $permission,403);
-
+        abort_unless(auth()->user()->has_permission($permission),403);
         return $next($request);
     }
 }
