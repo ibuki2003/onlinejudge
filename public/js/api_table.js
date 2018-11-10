@@ -23,7 +23,7 @@ function autoreload(url, table, prevbtn, nextbtn, staticon, updatetime, columns,
     prevbtn.on('click',function(){page--;load();});
     nextbtn.on('click',function(){page++;load();});
 
-    //if(!$('#auto-reload').is(':checked')){return;}
+    setInterval(load,interval);
     load();
 
     function load(){
@@ -45,8 +45,6 @@ function autoreload(url, table, prevbtn, nextbtn, staticon, updatetime, columns,
                 console.error(data);
                 staticon.removeClass('loading').addClass('error');
             }
-        }).done(function(){
-            setTimeout(load,interval);
         });
     }
 
