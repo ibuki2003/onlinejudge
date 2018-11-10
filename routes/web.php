@@ -29,7 +29,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('submissions/{id}', 'SubmissionController@show')->where('id', '\d+')->name('submission');
 
     Route::group(['middleware' => ['permission:submit']], function () {
-        Route::get('submit/{id?}', 'SubmissionController@store')->where('id', '\d+')->name('submit');
+        Route::get('submit/{id?}', 'SubmissionController@create')->where('id', '\d+')->name('submit');
         Route::post('submit', 'SubmissionController@store');
     });
 
