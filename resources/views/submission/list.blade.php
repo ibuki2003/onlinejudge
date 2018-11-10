@@ -37,7 +37,7 @@
         @endforeach
     };
     $(function(){
-        autoreload('/api/submissions/{{$me?'me':''}}', $('tbody'), $('#prev'), $('#next'), $('#stat'), $('#last'), [
+        autoreload('/api/submissions{{$me?'/me':''}}', $('tbody'), $('#prev'), $('#next'), $('#stat'), $('#last'), [
             'id',
             function(data){return '<a href="/problems/'+data.problem+'">'+data.problem+'</a>'}, // problem
             'sender',
