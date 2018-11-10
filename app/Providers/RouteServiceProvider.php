@@ -39,6 +39,8 @@ class RouteServiceProvider extends ServiceProvider
 
         $this->mapWebRoutes();
 
+        $this->mapStatefulApiRoutes();
+        
         //
     }
 
@@ -69,5 +71,20 @@ class RouteServiceProvider extends ServiceProvider
              ->middleware('api')
              ->namespace($this->namespace)
              ->group(base_path('routes/api.php'));
+    }
+
+    /**
+     * Define the "statefulApi" routes for the application.
+     *
+     * These routes are typically stateless.
+     *
+     * @return void
+     */
+    protected function mapStatefulApiRoutes()
+    {
+        Route::prefix('api')
+             ->middleware('stateful_api')
+             ->namespace($this->namespace)
+             ->group(base_path('routes/statefulApi.php'));
     }
 }

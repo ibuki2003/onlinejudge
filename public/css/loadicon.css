@@ -1,0 +1,18 @@
+.loading::after {
+    content: url('/img/spinner.svg');
+    margin: 0;
+    height: 1em;
+
+}
+
+.error::after {
+    content: url('/img/error.svg');
+    margin: 0;
+    height: 1em;
+}
+
+.done::after {
+    content: url('/img/check.svg');
+    margin: 0;
+    height: 1em;
+}

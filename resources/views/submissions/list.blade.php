@@ -2,6 +2,7 @@
 @section('title', __('name.submissions.'.($me?'me':'all')))
 @section('content')
 <div class="table-responsive">
+    <output id="last"></output><span id="stat"></span>
     <table class="table table-hover">
         <thead>
             <tr>
@@ -16,21 +17,40 @@
                 <th scope="col"></th>
             </tr>
         </thead>
-        <tbody>
-            @foreach ($submissions as $submission)
-            <tr class="table-{{config('oj.status_color')[$submission->status]}}">
-                <th scope="row">{{$submission->id}}</th>
-                <td><a href="{{route('problem',['id'=>$submission->problem])}}">{{$submission->problem}}</a></td>
-                <td>{{$submission->sender}}</td>
-                <td>{{$langs[$submission->lang]}}</td>
-                <td>{{$submission->point}}</td>
-                <td>{{$submission->size}}</td>
-                <td>{{$submission->time}}</td>
-                <td>{{$submission->status}}</td>
-                <td><a href="{{route('submission',['id'=>$submission->id])}}">{{__('ui.submission.detail')}}</a></td>
-            </tr>
-            @endforeach
-        </tbody>
+        <tbody></tbody>
     </table>
+    <button class="btn" id="prev">{{__('pagination.previous')}}</button>
+    <button class="btn" id="next">{{__('pagination.next')}}</button>
 </div>
+@endsection
+
+@section('style')
+<link rel="stylesheet" href="{{asset('css/loadicon.css')}}">
+@endsection
+
+@section('script')
+<script src="{{asset('js/api_table.js')}}"></script>
+<script>
+    var statusColors={
+        @foreach (config('oj.status_color') as $key=>$data)
+        {{$key}}:'table-{{$data}}',
+        @endforeach
+    };
+    $(function(){
+        autoreload('/api/submissions/{{$me?'me':''}}', $('tbody'), $('#prev'), $('#next'), $('#stat'), $('#last'), [
+            'id',
+            function(data){return '<a href="/problems/'+data.problem+'">'+data.problem+'</a>'}, // problem
+            'sender',
+            'lang',
+            'point',
+            'size',
+            'time',
+            'status',
+            function(data){return '<a href="/submissions/'+data.id+'">詳細</a>';} // detail
+        ], 5000,
+        function(row, data){
+            row.addClass(statusColors[data['status']]);
+        });
+    });
+</script>
 @endsection
