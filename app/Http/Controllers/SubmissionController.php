@@ -38,7 +38,7 @@ class SubmissionController extends Controller
     }
 
     public function store(SubmitRequest $request){
-        Submission::submit($request->all());
+        Submission::create($request->all());
         
         return redirect()->route('submissions_me');
     }

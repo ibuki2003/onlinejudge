@@ -16,21 +16,16 @@ class Submission extends Model
     const UPDATED_AT = null;
 
     /**
-     * create new submission
-     * do insert and write out
-     *
-     * @param   array  $data
-     *
-     * @return  Submission
+     * @inheritdoc
      */
-    public static function submit(array $data) {
+    public static function create(array $data) {
         $source=$data['source'];
         unset($data['source']);
         $data['size']=strlen($source);
         $data['sender']=auth()->id();
 
         
-        $model = parent::create($data);
+        $model = static::query()->create($data);
         $id=$model->id;
         $lang=Lang::find($model->lang);
         Storage::disk('data')->makeDirectory('submissions/'.$id);
