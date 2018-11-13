@@ -43,7 +43,6 @@
     <button type="submit" class="btn btn-primary">{{__('ui.submit')}}</button>
 </form>
 <nav class="nav flex-column my-4">
-    <a href="#">作問ガイド</a>
-    <a href="#">Markdown Editor</a>
+    <a href="#">{{__('name.md_editor')}}</a>
 </nav>
 @endsection
