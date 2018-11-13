@@ -22,4 +22,5 @@ return [
         'me' => 'My Submissions',
     ],
     'submission' => 'Submission',
+    'md_editor' => 'Markdown Editor',
 ];

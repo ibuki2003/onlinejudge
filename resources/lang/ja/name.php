@@ -22,4 +22,5 @@ return [
         'me' => '自分の提出',
     ],
     'submission' => '提出',
+    'md_editor' => 'Markdownエディタ',
 ];
