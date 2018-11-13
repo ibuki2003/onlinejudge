@@ -11,7 +11,10 @@ return [
     'login' => 'Login',
     'register' => 'Register',
     'logout' => 'Logout',
-    'problemList' => 'Problems',
+    'problem' => [
+        'list' => 'Problems',
+        'create' => 'Create A Problem',
+    ],
     'editorial' => 'Editorial',
     'submit' => 'Submit',
     'submissions' => [

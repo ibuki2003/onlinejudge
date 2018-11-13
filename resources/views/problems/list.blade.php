@@ -1,5 +1,5 @@
 @extends('layouts.page')
-@section('title', __('name.problemList'))
+@section('title', __('name.problem.list'))
 @section('content')
 <div class="table-responsive">
     <table class="table table-hover">

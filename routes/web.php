@@ -33,7 +33,10 @@ Route::group(['middleware' => ['auth']], function () {
         Route::post('submit', 'SubmissionController@store');
     });
 
-    Route::group(['middleware' => ['permission:create_problem']], function () {});
+    Route::group(['middleware' => ['permission:create_problem']], function () {
+        Route::get('problems/new', 'ProblemController@create')->name('create_problem');
+        Route::post('problems/new', 'ProblemController@store');
+    });
     Route::group(['middleware' => ['permission:create_contest']], function () {});
     Route::group(['middleware' => ['permission:admit_users']], function () {
         Route::get('submissions', 'SubmissionController@index')->name('submissions');

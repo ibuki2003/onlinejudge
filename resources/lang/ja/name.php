@@ -11,7 +11,10 @@ return [
     'login' => 'ログイン',
     'register' => '新規登録',
     'logout' => 'ログアウト',
-    'problemList' => '問題一覧',
+    'problem' => [
+        'list' => '問題一覧',
+        'create' => '問題の作成',
+    ],
     'editorial' => '解説',
     'submit' => '提出',
     'submissions' => [

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Problem;
+use App\Http\Requests\CreateProblemRequest;
 
 
 class ProblemController extends Controller
@@ -20,6 +21,14 @@ class ProblemController extends Controller
         abort_unless($problem->is_visible(),403);
 
         return view('problems/problem', ['problem' => $problem]);
+    }
+
+    public function create(){
+        return view('problems/create');
+    }
+
+    public function store(CreateProblemRequest $request){
+        Problem::create($request->all(),$request->allFiles());
     }
 
     public function editorial($id){

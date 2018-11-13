@@ -5,10 +5,53 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
 use \DateTime;
+use PHPUnit\Framework\Constraint\Exception;
+use Psy\Exception\ErrorException;
+use \ZipArchive;
 
 class Problem extends Model
 {
-    protected $fillable = ['title', 'creator', 'difficulty'];
+    protected $fillable = ['title', 'creator', 'difficulty', 'open'];
+    protected $dates = ['open'];
+    const CREATED_AT = null;
+    const UPDATED_AT = null;
+
+
+    /**
+     * @inheritdoc
+     */
+    public static function create(array $data, array $files) {
+        $data['creator']=auth()->id();
+        if($data['open']!==NULL)$data['open']=new Datetime($data['open']);
+
+        $filepath = $files['zip_content']->store('uploads');
+        $filepath=storage_path('app/'.$filepath);
+
+        abort_unless(self::is_valid_problem_zip($filepath),400,__('ui.problem.invalid_zip'));
+
+        $model = static::query()->create($data);
+        $id=$model->id;
+        Storage::disk('data')->makeDirectory('problems/'.$id);
+        Storage::disk('data')->extractTo('problems/'.$id.'/', $filepath);
+        unlink($filepath);
+        return $model;
+    }
+
+    /**
+     * returns whether zip file valid
+     * @param string $path
+     * @return bool
+     */
+    private static function is_valid_problem_zip(string $path){
+        $zip = new ZipArchive;
+
+        if ($zip->open($path) !== TRUE) {
+            return false;
+        }
+        $result=$zip->getFromName('main.md',1);
+        $zip->close();
+        return $result;
+    }
 
     /**
      * filters only visible problem

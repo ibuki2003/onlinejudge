@@ -8,6 +8,7 @@ return [
     |--------------------------------------------------------------------------
  */
 
+    'zip_file' => 'zip file',
     'problem' => [
         'title' => 'Title',
         'creator' => 'Creator',
@@ -21,6 +22,9 @@ return [
             'status' => 'Status',
             'exec_time' => 'Exec Time',
         ],
+        'open' => 'Publish Time',
+        'open_empty' => 'Empty to no reservation',
+        'invalid_zip' => 'zip file is invalid.',
     ],
     'submission' => [
         'problemId' => 'Problem',
