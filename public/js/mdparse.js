@@ -11,12 +11,13 @@ function mdoverride(text){
     });
 }
 
-function renderMD(text, elm) {
+function renderMD(text, elm, decode=true) {
     /*elm.find('code').each(function (i, e) {
         $(e).text(unsanitize($(e).text()));
     });
     */
-    elm.html(mdoverride(unsanitize(text)));
+   if(decode)text=unsanitize(text);
+    elm.html(mdoverride(text));
     renderMathInElement(elm[0],{delimiters: [
         {left: "$", right: "$", display: false}
     ]});

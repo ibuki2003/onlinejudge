@@ -19,6 +19,9 @@ Route::post('signout', 'Auth\LoginController@logout')->name('logout');
 Route::get ('signup', 'Auth\RegisterController@showRegistrationForm')->name('register');
 Route::post('signup', 'Auth\RegisterController@register');
 
+Route::get('mdeditor', 'MainController@mdeditor')->name('md_editor');
+
+
 Route::group(['middleware' => ['auth']], function () {
     Route::get('/', 'MainController@index')->name('top');
     Route::get('problems', 'ProblemController@list')->name('problems');
