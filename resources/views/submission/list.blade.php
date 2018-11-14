@@ -44,7 +44,7 @@
             'lang',
             'point',
             'size',
-            'time',
+            function(data){return data.time.date;}, // time
             'status',
             function(data){return '<a href="/submissions/'+data.id+'">詳細</a>';} // detail
         ], 5000,
