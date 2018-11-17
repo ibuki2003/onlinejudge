@@ -43,6 +43,6 @@
     <button type="submit" class="btn btn-primary">{{__('ui.submit')}}</button>
 </form>
 <nav class="nav flex-column my-4">
-    <a href="#">{{__('name.md_editor')}}</a>
+    <a href="{{route('md_editor')}}">{{__('name.md_editor')}}</a>
 </nav>
 @endsection
