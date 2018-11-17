@@ -28,7 +28,8 @@ class ProblemController extends Controller
     }
 
     public function store(CreateProblemRequest $request){
-        Problem::create($request->all(),$request->allFiles());
+        $problem=Problem::create($request->all(),$request->allFiles());
+        return redirect()->route('problem', ['id' => $problem->id]);
     }
 
     public function editorial($id){
