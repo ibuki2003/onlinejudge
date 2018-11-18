@@ -14,6 +14,7 @@ return [
     'problem' => [
         'list' => '問題一覧',
         'create' => '問題の作成',
+        'edit' => '問題の変更',
     ],
     'editorial' => '解説',
     'submit' => '提出',

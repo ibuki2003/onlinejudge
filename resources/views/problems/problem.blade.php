@@ -5,6 +5,9 @@
 @if ($problem->has_editorial())
 <p><a href="{{route('problem_editorial',['id'=>$problem->id])}}" class="btn btn-secondary">{{__('name.editorial')}}</a></p>
 @endif
+@if ($problem->creator === auth()->id())
+<p><a href="{{route('problem_edit',['id'=>$problem->id])}}" class="btn btn-dark">{{__('name.problem.edit')}}</a></p>
+@endif
 @if (!$problem->is_opened())
 <div class="alert alert-info" role="alert">{{__('ui.problem.not_opened')}}</div>
 @endif
