@@ -18,5 +18,7 @@ class MainController extends Controller{
     public function mdeditor(){
         return view('md_editor');
     }
-
+    public function statistics(){
+        return view('statistics');
+    }
 }

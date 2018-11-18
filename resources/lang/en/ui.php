@@ -10,6 +10,7 @@ return [
 
     'zip_file' => 'zip file',
     'problem' => [
+        'problem' => 'Problem',
         'title' => 'Title',
         'creator' => 'Creator',
         'difficulty' => 'Difficulty',
@@ -27,6 +28,7 @@ return [
         'invalid_zip' => 'zip file is invalid.',
     ],
     'submission' => [
+        'submission' => 'Submission',
         'problemId' => 'Problem',
         'lang' => 'Language',
         'source' => 'Source Code',
