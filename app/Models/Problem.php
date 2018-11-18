@@ -36,7 +36,31 @@ class Problem extends Model
         unlink($filepath);
         return $model;
     }
+    
+    public function edit(array $data, array $files) {
+        $this->title = $data['title'];
+        $this->difficulty = $data['difficulty'];
+        if ($data['open'] !== NULL) $this->open=new Datetime($data['open']);
+        else $this->open=NULL;
+        
+        if (array_key_exists('zip_content', $files)) {
+            $filepath = $files['zip_content']->store('uploads');
+            $filepath=storage_path('app/'.$filepath);
+            abort_unless(self::is_valid_problem_zip($filepath),400,__('ui.problem.invalid_zip'));
+        
+            Storage::disk('data')->deleteDirectory('problems/'.$this->id);
+            Storage::disk('data')->makeDirectory('problems/'.$this->id);
+            Storage::disk('data')->extractTo('problems/'.$this->id.'/', $filepath);
+            unlink($filepath);
+        }
 
+        $model = static::query()->where('id', $this->id);
+        $model->update(['title'=>$this->title,
+                        'difficulty'=>$this->difficulty,
+                        'open'=>$this->open]);
+        return $this;
+    }
+    
     /**
      * returns whether zip file valid
      * @param string $path
