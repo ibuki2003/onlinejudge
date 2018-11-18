@@ -19,6 +19,7 @@ html,body,main{
     height:100%;
 }
 </style>
+<link rel="stylesheet" href="{{asset('katex/katex.min.css')}}">
 @endsection
 
 @section('script')
