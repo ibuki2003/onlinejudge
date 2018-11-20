@@ -25,6 +25,7 @@ return [
         'open' => '公開日時',
         'open_empty' => '空欄にすると公開予約を行いません',
         'invalid_zip' => 'zipファイルに不備があります',
+        'rejudge' => 'リジャッジ',
     ],
     'submission' => [
         'problemId' => '問題',

@@ -58,5 +58,13 @@ class SubmissionController extends Controller
         return SubmissionResource::collection(Submission::ownFilter()->orderBy('id', 'desc')->paginate());
     }
 
-    
+    public function rejudge($id){
+        $submission = Submission::find($id);
+        $problem = Problem::find($submission->problem);
+        abort_if($submission===NULL,404);
+        abort_unless($submission->sender === auth()->id() || $problem->creator == auth()->id(), 403);
+        
+        Submission::where('id',$id)->update(['status'=>'WR']);
+        return redirect()->route('submission', ['id'=>$id]);
+    }
 }

@@ -29,9 +29,13 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('problems/{id}/editorial', 'ProblemController@editorial')->where('id', '\d+')->name('problem_editorial');
     Route::get('problems/{id}/edit', 'ProblemController@edit')->where('id', '\d+')->name('problem_edit');
     Route::post('problems/{id}/edit', 'ProblemController@edit_write')->where('id', '\d+');
+    Route::get('problems/{id}/rejudge', 'ProblemController@rejudge')->where('id', '\d+')->name('problem_rejudge');
+    Route::post('problems/{id}/rejudge', 'ProblemController@rejudge_post')->where('id', '\d+');
 
     Route::get('submissions/me', 'SubmissionController@index_my')->name('submissions_me');
     Route::get('submissions/{id}', 'SubmissionController@show')->where('id', '\d+')->name('submission');
+    Route::post('submissions/{id}/rejudge', 'SubmissionController@rejudge')->where('id', '\d+')->name('submission_rejudge');
+	
 
     Route::group(['middleware' => ['permission:submit']], function () {
         Route::get('submit/{id?}', 'SubmissionController@create')->where('id', '\d+')->name('submit');

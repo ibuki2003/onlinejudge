@@ -53,6 +53,13 @@ class Submission extends Model
         if(auth()->user()->permission & 8)return true;
         return $this->creator==auth()->id();
     }
+    
+    /**
+     * returns the creator of problem 
+     */
+    public function get_problem_creator(){
+        return Problem::find($this->problem)->creator;
+    }
 
     /**
      * returns lang name of the submission

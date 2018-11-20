@@ -35,6 +35,12 @@
         </tbody>
     </table>
 </div>
+@if ($submission->sender === auth()->id() || $submission->get_problem_creator() == auth()->id())
+<form method="post" name="form_rejudge" action="{{route('submission_rejudge', ['id' => $submission->id])}}" enctype="multipart/form-data">
+    @csrf
+    <p><a href="javascript:form_rejudge.submit()" class="btn btn-secondary">{{__('ui.problem.rejudge')}}</a></p>
+</form>
+@endif
 <hr>
 <h2>{{__('ui.submission.source')}}</h2>
 <pre><code>{{$submission->get_source()}}</code></pre>

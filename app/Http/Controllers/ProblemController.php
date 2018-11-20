@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Problem;
 use App\Http\Requests\CreateProblemRequest;
 use App\Http\Requests\EditProblemRequest;
+use App\Http\Requests\RejudgeRequest;
 
 
 class ProblemController extends Controller
@@ -53,5 +54,19 @@ class ProblemController extends Controller
         abort_unless($problem->creator === auth()->id(), 403);
         $problem->edit($request->all(),$request->allFiles());
         return redirect()->route('problem', ['id' => $problem->id]);
+    }
+    
+    public function rejudge($id){
+        $problem = Problem::find($id);
+        abort_if($problem===NULL,404);
+        abort_unless($problem->creator === auth()->id(), 403);
+        return view('problems/rejudge', ['problem' => $problem]);
+    }
+    public function rejudge_post(RejudgeRequest $request){
+        $problem=Problem::find($request->id);
+        abort_if($problem===NULL,404);
+        abort_unless($problem->creator === auth()->id(), 403);
+        $problem->rejudge($request->all());
+        return redirect()->route('submissions');
     }
 }
