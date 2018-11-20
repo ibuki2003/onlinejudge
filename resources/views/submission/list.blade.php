@@ -1,6 +1,34 @@
 @extends('layouts.page')
 @section('title', __('name.submissions.'.($me?'me':'all')))
 @section('content')
+<div class="form-inline my-4">
+    <div class="form-group m-2">
+        <label for="filter_problem">問題</label>
+        <input type="number" class="form-control" id="filter_problem">
+    </div>
+    <div class="form-group m-2">
+        <label for="filter_lang">言語</label>
+        <select class="form-control" id="filter_lang">
+                <option value="">-</option>
+                @foreach($langs as $lang)
+                    <option value="{{$lang->id}}">{{$lang->name}}</option>
+                @endforeach
+        </select>
+    </div>
+    <div class="form-group m-2">
+        <label for="filter_status">結果</label>
+        <select class="form-control" id="filter_status">
+                <option value="">-</option>
+                @foreach(['AC','WA','CE','TLE','OLE','IE','RE'] as $stat)
+                    <option class="text-{{config('oj.status_color')[$stat]}}" value="{{$stat}}">{{$stat}}</option>
+                @endforeach
+        </select>
+    </div>
+    <div class="form-group m-2">
+        <label for="filter_sender">ユーザ</label>
+        <input type="text" class="form-control" id="filter_sender">
+    </div>
+</div>
 <div class="table-responsive">
     <output id="last"></output><span id="stat"></span>
     <table class="table table-hover">
@@ -48,6 +76,14 @@
             'status',
             function(data){return '<a href="/submissions/'+data.id+'">詳細</a>';} // detail
         ], 5000,
+        function(){
+            ret={};
+            if($('#filter_problem').val()!='')ret['problem']=$('#filter_problem').val();
+            if($('#filter_lang')   .val()!='')ret['lang']   =$('#filter_lang').val();
+            if($('#filter_status') .val()!='')ret['status'] =$('#filter_status').val();
+            if($('#filter_sender') .val()!='')ret['sender'] =$('#filter_sender').val();
+            return ret;
+        },
         function(row, data){
             row.addClass(statusColors[data['status']]);
         });
