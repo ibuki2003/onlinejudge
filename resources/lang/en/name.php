@@ -23,4 +23,5 @@ return [
     ],
     'submission' => 'Submission',
     'md_editor' => 'Markdown Editor',
+    'statistics' => 'Statistics Info'
 ];

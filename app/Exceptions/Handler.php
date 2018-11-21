@@ -40,7 +40,8 @@ class Handler extends ExceptionHandler
 
     public function render($request, Exception $e)
     {
-        if($request->is('api/*') || $request->ajax()){
+        //if($request->is('api/*') || $request->ajax()){
+        if(false){
             $status = 400;
             if ($this->isHttpException($e)) {
                 $status = $e->getStatusCode();
@@ -53,7 +54,7 @@ class Handler extends ExceptionHandler
         return parent::render($request, $e);
     }
 
-    
+
     protected function renderHttpException(HttpException $e){
         $this->registerErrorViewPaths();
         $message = $e->getMessage();
@@ -77,7 +78,7 @@ class Handler extends ExceptionHandler
             default:
                 $name = "Error";
                 break;
-            
+
         }
 
         return response()->view('error', [

@@ -30,6 +30,8 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('problems/{id}/edit', 'ProblemController@edit')->where('id', '\d+')->name('problem_edit');
     Route::post('problems/{id}/edit', 'ProblemController@edit_write')->where('id', '\d+');
 
+    Route::get('statistics', 'MainController@statistics')->name('statistics');
+
     Route::get('submissions/me', 'SubmissionController@index_my')->name('submissions_me');
     Route::get('submissions/{id}', 'SubmissionController@show')->where('id', '\d+')->name('submission');
 
@@ -48,5 +50,5 @@ Route::group(['middleware' => ['auth']], function () {
     });
 
 
-    
+
 });

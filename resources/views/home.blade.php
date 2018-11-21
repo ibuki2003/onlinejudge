@@ -20,6 +20,9 @@
             <a class="nav-link" href="{{route('submissions')}}">{{__('name.submissions.all')}}</a>
         </li>
     @endif
+    <li class="nav-item">
+        <a class="nav-link" href="{{route('statistics')}}">{{__('name.statistics')}}</a>
+    </li>
 </ul>
 
 @endsection

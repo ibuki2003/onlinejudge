@@ -24,4 +24,5 @@ return [
     ],
     'submission' => '提出',
     'md_editor' => 'Markdownエディタ',
+    'statistics' => '統計情報',
 ];
