@@ -62,9 +62,9 @@ class SubmissionController extends Controller
         $submission = Submission::find($id);
         $problem = Problem::find($submission->problem);
         abort_if($submission===NULL,404);
-        abort_unless($submission->sender === auth()->id() || $problem->creator == auth()->id(), 403);
+        abort_unless(auth()->user()->has_permission('admit_users'), 403);
         
-        Submission::where('id',$id)->update(['status'=>'WR']);
+        Submission::find($id)->rejudge();
         return redirect()->route('submission', ['id'=>$id]);
     }
 }

@@ -117,4 +117,11 @@ class Submission extends Model
     public function get_judge_result(){
         return json_decode(Storage::disk('data')->get('submissions/'.$this->id.'/judge_log.json'));
     }
+    
+    /**
+     * rejudge the submission
+     */
+    public function rejudge(){
+        $this->update(['status' => 'WR']);
+    }
 }

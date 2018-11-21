@@ -35,10 +35,10 @@
         </tbody>
     </table>
 </div>
-@if ($submission->sender === auth()->id() || $submission->get_problem_creator() == auth()->id())
-<form method="post" name="form_rejudge" action="{{route('submission_rejudge', ['id' => $submission->id])}}" enctype="multipart/form-data">
+@if (auth()->user()->has_permission('admit_users'))
+<form method="post" name="form_rejudge" action="{{route('submission_rejudge', ['id' => $submission->id])}}">
     @csrf
-    <p><a href="javascript:form_rejudge.submit()" class="btn btn-secondary">{{__('ui.problem.rejudge')}}</a></p>
+    <p><a href="javascript:form_rejudge.submit()" class="btn btn-danger">{{__('ui.problem.rejudge')}}</a></p>
 </form>
 @endif
 <hr>

@@ -133,14 +133,4 @@ class Problem extends Model
         if(!$this->has_editorial())return NULL;
         return Storage::disk('data')->get('problems/'.$this->id.'/editorial.md');
     }
-    
-    /**
-     * process rejudge request
-     */
-     public function rejudge(array $data){
-         $rejudges = Submission::where('problem',$this->id)->cursor();
-         foreach ($rejudges as $rejudge){
-             Submission::where('id',$rejudge->id)->update(['status' => 'WR']);
-         }
-     }
 }
