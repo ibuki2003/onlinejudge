@@ -10,6 +10,7 @@ return [
 
     'zip_file' => 'zipファイル',
     'problem' => [
+        'problem' => '問題',
         'title' => 'タイトル',
         'creator' => '製作者',
         'difficulty' => '難易度',
@@ -28,6 +29,7 @@ return [
         'rejudge' => 'リジャッジ',
     ],
     'submission' => [
+        'submission' => '提出',
         'problemId' => '問題',
         'lang' => '言語',
         'source' => 'ソースコード',

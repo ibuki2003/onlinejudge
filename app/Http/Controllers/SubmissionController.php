@@ -22,11 +22,13 @@ class SubmissionController extends Controller
 
     public function index(){
         $submissions = Submission::all();
-        return view('submission/list', ['submissions' => $submissions, 'me' => FALSE]);
+        $langs = Lang::all();
+        return view('submission/list', ['submissions' => $submissions, 'me' => FALSE, 'langs' => $langs]);
     }
     public function index_my(){
         $submissions = Submission::ownFilter()->get();
-        return view('submission/list', ['submissions' => $submissions, 'me' => TRUE]);
+        $langs = Lang::all();
+        return view('submission/list', ['submissions' => $submissions, 'me' => TRUE, 'langs' => $langs]);
     }
 
 
@@ -39,7 +41,7 @@ class SubmissionController extends Controller
 
     public function store(SubmitRequest $request){
         Submission::create($request->all());
-        
+
         return redirect()->route('submissions_me');
     }
 
@@ -52,10 +54,10 @@ class SubmissionController extends Controller
     }
 
     public function allSubmissionsApi(){
-        return SubmissionResource::collection(Submission::orderBy('id', 'desc')->paginate());
+        return SubmissionResource::collection(Submission::filterWithRequest()->orderBy('id', 'desc')->paginate());
     }
     public function mySubmissionsApi(){
-        return SubmissionResource::collection(Submission::ownFilter()->orderBy('id', 'desc')->paginate());
+        return SubmissionResource::collection(Submission::ownFilter()->filterWithRequest()->orderBy('id', 'desc')->paginate());
     }
     
     public function rejudge($id){

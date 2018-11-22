@@ -16,7 +16,7 @@ jQuery.preloadImages = function(){
     }
 };
 
-function autoreload(url, table, prevbtn, nextbtn, staticon, updatetime, columns, interval, rowCallback){
+function autoreload(url, table, prevbtn, nextbtn, staticon, updatetime, columns, interval, filterfunc, rowCallback){
     $.preloadImages("/img/check.svg","/img/error.svg","/img/spinner.svg");
     var page=1;
 
@@ -34,7 +34,7 @@ function autoreload(url, table, prevbtn, nextbtn, staticon, updatetime, columns,
         $.ajax({
             type: "GET",
             url: url,
-            data: param,
+            data: Object.assign(param, filterfunc()),
             dataType: "json",
             timeout: 1000, // 1 second
             success: function(data){
@@ -50,7 +50,7 @@ function autoreload(url, table, prevbtn, nextbtn, staticon, updatetime, columns,
 
     function update(response){
         lastdata=response;
-        
+
         if(!response.links.prev || page<=1)
             prevbtn.attr('disabled', true);
         else{
@@ -62,7 +62,7 @@ function autoreload(url, table, prevbtn, nextbtn, staticon, updatetime, columns,
         else{
             nextbtn.attr('disabled', false);
         }
-        
+
         table.empty();
         for (var data of response['data']) {
             var row = $('<tr>');
