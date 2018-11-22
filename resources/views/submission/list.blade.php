@@ -24,10 +24,12 @@
                 @endforeach
         </select>
     </div>
+    @if(!$me)
     <div class="form-group m-2">
         <label for="filter_sender">ユーザ</label>
         <input type="text" class="form-control" id="filter_sender">
     </div>
+    @endif
 </div>
 <div class="table-responsive">
     <output id="last"></output><span id="stat"></span>
