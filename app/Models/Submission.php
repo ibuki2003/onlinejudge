@@ -26,13 +26,13 @@ class Submission extends Model
         $data['size']=strlen($source);
         $data['sender']=auth()->id();
 
-        
+
         $model = static::query()->create($data);
         $id=$model->id;
         $lang=Lang::find($model->lang);
         Storage::disk('data')->makeDirectory('submissions/'.$id);
         Storage::disk('data')->put('submissions/'.$id.'/source.'.$lang->extension, $source);
-        
+
         $model->update(['status'=>'WJ']);
 
         return $model;
@@ -43,6 +43,26 @@ class Submission extends Model
      */
     public function scopeOwnFilter($query){
         return $query->Where('sender', auth()->id());
+    }
+
+    /**
+     * filters only visible problem
+     */
+    public function scopeFilterWithRequest($query){
+        $request=request();
+        if($request->filled('problem'))
+            $query->Where('problem', $request->input('problem'));
+
+        if($request->filled('lang'))
+        $query->Where('lang', $request->input('lang'));
+
+        if($request->filled('status'))
+        $query->Where('status', $request->input('status'));
+
+        if($request->filled('sender'))
+        $query->Where('sender', $request->input('sender'));
+
+        return $query;
     }
 
     /**
@@ -91,7 +111,7 @@ class Submission extends Model
      * @return string
      */
     public function get_compile_result(){
-        
+
         return Storage::disk('data')->get('submissions/'.$this->id.'/judge_log.txt');
     }
 
