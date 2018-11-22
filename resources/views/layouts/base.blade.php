@@ -17,8 +17,6 @@
     <link href="https://fonts.googleapis.com/css?family=M+PLUS+Rounded+1c&subset=japanese" rel="stylesheet">
     <link href="{{asset('css/style.css')}}" rel="stylesheet">
     @yield('style')
-    
-    @yield('script')
 </head>
 <body class="bg-light">
     <header>
@@ -67,5 +65,7 @@
     @yield('main')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.{{config('app.debug')?'':'min.'}}js"></script>
+    @yield('script')
 </body>
 </html>
