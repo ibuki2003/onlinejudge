@@ -38,7 +38,7 @@
 @if (auth()->user()->has_permission('admit_users'))
 <form method="post" name="form_rejudge" action="{{route('submission_rejudge', ['id' => $submission->id])}}">
     @csrf
-    <p><a href="javascript:form_rejudge.submit()" class="btn btn-danger">{{__('ui.problem.rejudge')}}</a></p>
+    <button type="submit" class="btn btn-danger">{{__('ui.problem.rejudge')}}</button>
 </form>
 @endif
 <hr>

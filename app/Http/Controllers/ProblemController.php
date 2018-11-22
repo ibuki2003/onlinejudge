@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 use App\Models\Problem;
 use App\Http\Requests\CreateProblemRequest;
 use App\Http\Requests\EditProblemRequest;
-use App\Http\Requests\RejudgeRequest;
 
 
 class ProblemController extends Controller

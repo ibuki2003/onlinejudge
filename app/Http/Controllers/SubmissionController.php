@@ -57,7 +57,7 @@ class SubmissionController extends Controller
     public function mySubmissionsApi(){
         return SubmissionResource::collection(Submission::ownFilter()->orderBy('id', 'desc')->paginate());
     }
-
+    
     public function rejudge($id){
         $submission = Submission::find($id);
         $problem = Problem::find($submission->problem);
