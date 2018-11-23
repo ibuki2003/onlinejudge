@@ -1,11 +1,5 @@
 function mdoverride(text){
-    var renderer = new marked.Renderer()
-
-    renderer.heading = function (text, level) {
-        return `<h${level + 1}>${text}</h${level + 1}>`
-    }
     return marked(text, {
-        renderer: renderer,
         gfm: true,
         breaks: true,
     });
