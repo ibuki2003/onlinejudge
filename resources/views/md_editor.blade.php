@@ -36,7 +36,6 @@ html,body,main{
             renderMD: function () {
                 var html=mdoverride(this.mdtext);
                 return html.replace(/\$(.+?)\$/g, function (match, p1){
-                    console.log(typeof p1);
                     return katex.renderToString(p1);
                 });
             }
