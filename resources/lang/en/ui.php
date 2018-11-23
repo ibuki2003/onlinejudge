@@ -26,6 +26,7 @@ return [
         'open' => 'Publish Time',
         'open_empty' => 'Empty to no reservation',
         'invalid_zip' => 'zip file is invalid.',
+        'random' => 'Random Problem',
     ],
     'submission' => [
         'submission' => 'Submission',

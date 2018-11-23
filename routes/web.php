@@ -25,6 +25,7 @@ Route::get('mdeditor', 'MainController@mdeditor')->name('md_editor');
 Route::group(['middleware' => ['auth']], function () {
     Route::get('/', 'MainController@index')->name('top');
     Route::get('problems', 'ProblemController@list')->name('problems');
+    Route::get('problems/random', 'ProblemController@random')->name('random_problem');
     Route::get('problems/{id}', 'ProblemController@problem')->where('id', '\d+')->name('problem');
     Route::get('problems/{id}/editorial', 'ProblemController@editorial')->where('id', '\d+')->name('problem_editorial');
     Route::get('problems/{id}/edit', 'ProblemController@edit')->where('id', '\d+')->name('problem_edit');

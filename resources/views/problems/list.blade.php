@@ -1,6 +1,7 @@
 @extends('layouts.page')
 @section('title', __('name.problem.list'))
 @section('content')
+<a href="{{route('random_problem')}}" class="btn btn-info">{{__('ui.problem.random')}}</a>
 <div class="table-responsive">
     <table class="table table-hover">
         <thead>

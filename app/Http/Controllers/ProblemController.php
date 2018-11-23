@@ -40,7 +40,7 @@ class ProblemController extends Controller
         abort_unless($problem->has_editorial(),404);
         return view('problems/editorial', ['problem' => $problem]);
     }
-    
+
     public function edit($id){
         $problem = Problem::find($id);
         abort_if($problem===NULL,404);
@@ -54,4 +54,9 @@ class ProblemController extends Controller
         $problem->edit($request->all(),$request->allFiles());
         return redirect()->route('problem', ['id' => $problem->id]);
     }
+    public function random(){
+        $id=rand(1,Problem::count());
+        return redirect()->route('problem', ['id' => $id]);
+    }
+
 }
