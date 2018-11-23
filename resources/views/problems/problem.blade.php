@@ -2,6 +2,7 @@
 @section('title', __('#'.$problem->id.' '.$problem->title))
 @section('content')
 <h2>{{__('ui.problem.creator')}}:{{$problem->creator}}</h2>
+<p>{{__('ui.problem.difficulty')}}:{{$problem->difficulty}}</p>
 @if ($problem->has_editorial())
 <p><a href="{{route('problem_editorial',['id'=>$problem->id])}}" class="btn btn-secondary">{{__('name.editorial')}}</a></p>
 @endif
