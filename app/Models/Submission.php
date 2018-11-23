@@ -73,6 +73,13 @@ class Submission extends Model
         if(auth()->user()->permission & 8)return true;
         return $this->creator==auth()->id();
     }
+    
+    /**
+     * returns the creator of problem 
+     */
+    public function get_problem_creator(){
+        return Problem::find($this->problem)->creator;
+    }
 
     /**
      * returns lang name of the submission
@@ -129,5 +136,12 @@ class Submission extends Model
      */
     public function get_judge_result(){
         return json_decode(Storage::disk('data')->get('submissions/'.$this->id.'/judge_log.json'));
+    }
+    
+    /**
+     * rejudge the submission
+     */
+    public function rejudge(){
+        $this->update(['status' => 'WR']);
     }
 }

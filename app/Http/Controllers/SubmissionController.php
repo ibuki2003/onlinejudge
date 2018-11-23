@@ -59,5 +59,14 @@ class SubmissionController extends Controller
     public function mySubmissionsApi(){
         return SubmissionResource::collection(Submission::ownFilter()->filterWithRequest()->orderBy('id', 'desc')->paginate());
     }
-
+    
+    public function rejudge($id){
+        $submission = Submission::find($id);
+        $problem = Problem::find($submission->problem);
+        abort_if($submission===NULL,404);
+        abort_unless(auth()->user()->has_permission('admit_users'), 403);
+        
+        Submission::find($id)->rejudge();
+        return redirect()->route('submission', ['id'=>$id]);
+    }
 }

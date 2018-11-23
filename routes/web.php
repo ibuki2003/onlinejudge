@@ -34,6 +34,7 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::get('submissions/me', 'SubmissionController@index_my')->name('submissions_me');
     Route::get('submissions/{id}', 'SubmissionController@show')->where('id', '\d+')->name('submission');
+    Route::post('submissions/{id}/rejudge', 'SubmissionController@rejudge')->where('id', '\d+')->name('submission_rejudge');
 
     Route::group(['middleware' => ['permission:submit']], function () {
         Route::get('submit/{id?}', 'SubmissionController@create')->where('id', '\d+')->name('submit');

@@ -35,6 +35,12 @@
         </tbody>
     </table>
 </div>
+@if (auth()->user()->has_permission('admit_users'))
+<form method="post" name="form_rejudge" action="{{route('submission_rejudge', ['id' => $submission->id])}}">
+    @csrf
+    <button type="submit" class="btn btn-danger">{{__('ui.problem.rejudge')}}</button>
+</form>
+@endif
 <hr>
 <h2>{{__('ui.submission.source')}}</h2>
 <pre><code>{{$submission->get_source()}}</code></pre>

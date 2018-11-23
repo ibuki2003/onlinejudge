@@ -37,6 +37,9 @@ class Problem extends Model
         return $model;
     }
     
+    /**
+     * edit problem with given data
+     */
     public function edit(array $data, array $files) {
         $this->title = $data['title'];
         $this->difficulty = $data['difficulty'];
