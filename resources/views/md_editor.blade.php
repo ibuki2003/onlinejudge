@@ -1,12 +1,11 @@
 @extends('layouts.base')
 @section('title',__('name.md_editor'))
 @section('main')
-<main class="h-100 my-4 py-4 bg-white shadow-sm rounded d-flex">
+<main class="h-100 my-4 py-4 bg-white shadow-sm rounded d-flex" id="mdeditor">
     <div class="col m-3 p-0 border">
-        <textarea class="w-100 h-100 p-0 m-0" id="editor"></textarea>
+        <textarea class="w-100 h-100 p-0 m-0" v-model="mdtext"></textarea>
     </div>
-    <div class="col m-3 border" id="output">
-    </div>
+    <div class="col m-3 border" id="output" v-html='renderMD'></div>
 </main>
 @endsection
 
@@ -28,11 +27,20 @@ html,body,main{
 <script src="{{asset('katex/contrib/auto-render.min.js')}}"></script>
 <script src="{{asset('js/mdparse.js')}}"></script>
 <script>
-$(function(){
-    $('#editor').on('keyup',function(){
-        renderMD($('#editor').val(),$('#output'));
-        //renderMD($('#editor').html(),$('#output'),false);
-    })
-})
+    new Vue({
+        el: '#mdeditor',
+        data: {
+            mdtext: '',
+        },
+        computed: {
+            renderMD: function () {
+                var html=mdoverride(this.mdtext);
+                return html.replace(/\$(.+?)\$/g, function (match, p1){
+                    console.log(typeof p1);
+                    return katex.renderToString(p1);
+                });
+            }
+        },
+    });
 </script>
 @endsection
