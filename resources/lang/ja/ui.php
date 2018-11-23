@@ -41,4 +41,7 @@ return [
         'time' => '送信日時',
     ],
     'submit' => '送信',
+    'reload' => '更新',
+    'autoreload' => '自動更新',
+    'filter' => '検索',
 ];

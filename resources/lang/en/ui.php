@@ -41,4 +41,7 @@ return [
         'compile_result' => 'Compile Result',
     ],
     'submit' => 'Submit',
+    'reload' => 'Reload',
+    'autoreload' => 'Auto Reload',
+    'filter' => 'Filter',
 ];
