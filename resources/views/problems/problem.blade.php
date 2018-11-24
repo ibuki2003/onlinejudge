@@ -2,6 +2,9 @@
 @section('title', __('#'.$problem->id.' '.$problem->title))
 @section('content')
 <h2>{{__('ui.problem.creator')}}:{{$problem->creator}}</h2>
+@if($problem->solved_by(auth()->user()))
+<p class="alert alert-success">{{__('ui.problem.solved')}}</p>
+@endif
 @if ($problem->has_editorial())
 <p><a href="{{route('problem_editorial',['id'=>$problem->id])}}" class="btn btn-secondary">{{__('name.editorial')}}</a></p>
 @endif
