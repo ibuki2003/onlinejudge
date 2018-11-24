@@ -34,10 +34,7 @@ html,body,main{
         },
         computed: {
             renderMD: function () {
-                var html=mdoverride(this.mdtext);
-                return html.replace(/\$(.+?)\$/g, function (match, p1){
-                    return katex.renderToString(p1);
-                });
+                return parseMD(this.mdtext);
             }
         },
     });
