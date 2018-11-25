@@ -2,6 +2,7 @@
 @section('title', __('#'.$problem->id.' '.$problem->title))
 @section('content')
 <h2>{{__('ui.problem.creator')}}:{{$problem->creator}}</h2>
+<p>{{__('ui.problem.difficulty')}}:{{$problem->difficulty}}</p>
 @if($problem->solved_by(auth()->user()))
 <p class="alert alert-success">{{__('ui.problem.solved')}}</p>
 @endif
