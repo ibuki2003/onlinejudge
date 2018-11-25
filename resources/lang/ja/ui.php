@@ -28,6 +28,7 @@ return [
         'invalid_zip' => 'zipファイルに不備があります',
         'rejudge' => 'リジャッジ',
         'random' => 'おまかせ出題',
+        'solved' => '正解済み',
     ],
     'submission' => [
         'submission' => '提出',

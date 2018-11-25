@@ -8,6 +8,7 @@ use \DateTime;
 use PHPUnit\Framework\Constraint\Exception;
 use Psy\Exception\ErrorException;
 use \ZipArchive;
+use App\User;
 
 class Problem extends Model
 {
@@ -36,7 +37,7 @@ class Problem extends Model
         unlink($filepath);
         return $model;
     }
-    
+
     /**
      * edit problem with given data
      */
@@ -45,12 +46,12 @@ class Problem extends Model
         $this->difficulty = $data['difficulty'];
         if ($data['open'] !== NULL) $this->open=new Datetime($data['open']);
         else $this->open=NULL;
-        
+
         if (array_key_exists('zip_content', $files)) {
             $filepath = $files['zip_content']->store('uploads');
             $filepath=storage_path('app/'.$filepath);
             abort_unless(self::is_valid_problem_zip($filepath),400,__('ui.problem.invalid_zip'));
-        
+
             Storage::disk('data')->deleteDirectory('problems/'.$this->id);
             Storage::disk('data')->makeDirectory('problems/'.$this->id);
             Storage::disk('data')->extractTo('problems/'.$this->id.'/', $filepath);
@@ -63,7 +64,7 @@ class Problem extends Model
                         'open'=>$this->open]);
         return $this;
     }
-    
+
     /**
      * returns whether zip file valid
      * @param string $path
@@ -132,5 +133,14 @@ class Problem extends Model
     public function get_editorial(){
         if(!$this->has_editorial())return NULL;
         return Storage::disk('data')->get('problems/'.$this->id.'/editorial.md');
+    }
+
+    /**
+     * returns whether the problem solved by user
+     * @param \App\User $user
+     * @return bool
+     */
+    public function solved_by(User $user){
+        return Submission::Where('sender', $user->id)->Where('problem',$this->id)->Where('status','AC')->limit(1)->count()!=0;
     }
 }

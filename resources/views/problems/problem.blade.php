@@ -3,6 +3,9 @@
 @section('content')
 <h2>{{__('ui.problem.creator')}}:{{$problem->creator}}</h2>
 <p>{{__('ui.problem.difficulty')}}:{{$problem->difficulty}}</p>
+@if($problem->solved_by(auth()->user()))
+<p class="alert alert-success">{{__('ui.problem.solved')}}</p>
+@endif
 @if ($problem->has_editorial())
 <p><a href="{{route('problem_editorial',['id'=>$problem->id])}}" class="btn btn-secondary">{{__('name.editorial')}}</a></p>
 @endif
@@ -30,7 +33,7 @@
 <script>
 $(function(){
     var elm=$('#md');
-    renderMD(elm.text(),elm);
-}); 
+    elm.html(parseMD(elm.text()));
+});
 </script>
 @endsection

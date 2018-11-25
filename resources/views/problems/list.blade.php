@@ -14,7 +14,7 @@
         </thead>
         <tbody>
             @foreach ($problems as $problem)
-            <tr>
+            <tr class="{{$problem->solved_by(auth()->user())?'table-success':''}}">
                 <th scope="row">{{$problem->{'id'} }}</th>
                 <td><a href="{{route('problem',['id'=>$problem->id])}}">{{$problem->{'title'} }}</a></td>
                 <td>{{$problem->{'creator'} }}</td>

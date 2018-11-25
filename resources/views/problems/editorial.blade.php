@@ -21,7 +21,7 @@
 <script>
 $(function(){
     var elm=$('#md');
-    renderMD(elm.text(),elm);
-}); 
+    elm.html(parseMD(elm.text()));
+});
 </script>
 @endsection
