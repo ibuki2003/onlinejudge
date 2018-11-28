@@ -23,5 +23,6 @@ return [
     ],
     'submission' => 'Submission',
     'md_editor' => 'Markdown Editor',
-    'statistics' => 'Statistics Info'
+    'statistics' => 'Statistics Info',
+    'change_password' => 'Change Password',
 ];

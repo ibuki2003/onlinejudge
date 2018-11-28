@@ -24,6 +24,9 @@ Route::get('mdeditor', 'MainController@mdeditor')->name('md_editor');
 
 Route::group(['middleware' => ['auth']], function () {
     Route::get('/', 'MainController@index')->name('top');
+    Route::get ('change_password', 'Auth\ChangePasswordController@showChangePasswordForm')->name('change_password');
+    Route::post('change_password', 'Auth\ChangePasswordController@changePassword');
+
     Route::get('problems', 'ProblemController@list')->name('problems');
     Route::get('problems/random', 'ProblemController@random')->name('random_problem');
     Route::get('problems/{id}', 'ProblemController@problem')->where('id', '\d+')->name('problem');

@@ -46,4 +46,7 @@ return [
     'reload' => '更新',
     'autoreload' => '自動更新',
     'filter' => '検索',
+    'old_password' => '元のパスワード',
+    'new_password' => '新しいパスワード',
+    'confirm' => '確認',
 ];

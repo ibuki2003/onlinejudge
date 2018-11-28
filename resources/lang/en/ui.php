@@ -46,4 +46,7 @@ return [
     'reload' => 'Reload',
     'autoreload' => 'Auto Reload',
     'filter' => 'Filter',
+    'old_password' => 'Old Password',
+    'new_password' => 'New Password',
+    'confirm' => 'Confirm',
 ];
