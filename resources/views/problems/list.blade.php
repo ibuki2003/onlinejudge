@@ -28,6 +28,9 @@
         </tbody>
     </table>
 </div>
+<p>
+    {{$problems->links()}}
+</p>
 @endsection
 
 @section('style')
