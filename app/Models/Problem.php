@@ -9,9 +9,12 @@ use PHPUnit\Framework\Constraint\Exception;
 use Psy\Exception\ErrorException;
 use \ZipArchive;
 use App\User;
+use Kyslik\ColumnSortable\Sortable;
 
 class Problem extends Model
 {
+    use Sortable;
+    protected $sortable = ['id', 'difficulty', 'creator'];
     protected $fillable = ['title', 'creator', 'difficulty', 'open'];
     protected $dates = ['open'];
     const CREATED_AT = null;

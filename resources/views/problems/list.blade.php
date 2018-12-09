@@ -6,10 +6,10 @@
     <table class="table table-hover">
         <thead>
             <tr>
-            <th scope="col">ID</th>
+            <th scope="col">@sortablelink('id', 'ID')</th>
             <th scope="col">{{__('ui.problem.title')}}</th>
-            <th scope="col">{{__('ui.problem.creator')}}</th>
-            <th scope="col">{{__('ui.problem.difficulty')}}</th>
+            <th scope="col">@sortablelink('creator',__('ui.problem.creator'))</th>
+            <th scope="col">@sortablelink('difficulty',__('ui.problem.difficulty'))</th>
             </tr>
         </thead>
         <tbody>
