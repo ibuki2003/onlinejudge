@@ -29,7 +29,7 @@
     </table>
 </div>
 <p>
-    {{$problems->links()}}
+    {{$problems->appends(\Request::except('page'))->render()}}
 </p>
 @endsection
 
