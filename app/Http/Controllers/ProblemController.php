@@ -11,7 +11,7 @@ use App\Http\Requests\EditProblemRequest;
 class ProblemController extends Controller
 {
     public function list(){
-        $problems = Problem::visibleFilter()->get();
+        $problems = Problem::visibleFilter()->sortable()->paginate();
         return view('problems/list', ['problems' => $problems]);
     }
 

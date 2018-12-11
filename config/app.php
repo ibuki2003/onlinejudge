@@ -161,6 +161,7 @@ return [
         App\Providers\RouteServiceProvider::class,
 
         App\Providers\ExtendedLocalServiceProvider::class,
+        Kyslik\ColumnSortable\ColumnSortableServiceProvider::class,
     ],
 
     /*
