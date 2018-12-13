@@ -42,6 +42,12 @@ return [
         'time' => 'Submission Time',
         'compile_result' => 'Compile Result',
     ],
+    'user' => [
+        'permission' => 'Permission',
+    ],
+    'admit' => [
+        'confirm' => 'Really do you apply these settings?',
+    ],
     'submit' => 'Submit',
     'reload' => 'Reload',
     'autoreload' => 'Auto Reload',
@@ -49,4 +55,5 @@ return [
     'old_password' => 'Old Password',
     'new_password' => 'New Password',
     'confirm' => 'Confirm',
+    'cancel' => 'Cancel',
 ];

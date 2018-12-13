@@ -57,3 +57,6 @@ Route::group(['middleware' => ['auth']], function () {
 
 
 });
+
+Route::get('admin/manage_users', 'AdminController@manage_users')->name('manage_users');
+Route::post('admin/manage_users', 'AdminController@manage_users_apply');
