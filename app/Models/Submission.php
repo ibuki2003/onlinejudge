@@ -11,7 +11,7 @@ use App\Models\Problem;
 
 class Submission extends Model
 {
-    protected $fillable = ['problem', 'lang', 'sender', 'size', 'status'];
+    protected $fillable = ['problem', 'lang', 'sender', 'size', 'status', 'exec_time'];
     protected $dates = ['time'];
     protected $dateFormat='Y-m-d H:i:s';
     const CREATED_AT = null;

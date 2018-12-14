@@ -56,6 +56,7 @@
                     <th scope="col">{{__('ui.submission.point')}}</th>
                     <th scope="col">{{__('ui.submission.size')}}</th>
                     <th scope="col">{{__('ui.submission.time')}}</th>
+                    <th scope="col">{{__('ui.submission.exec_time')}}</th>
                     <th scope="col">{{__('ui.submission.status')}}</th>
                     <th scope="col"></th>
                 </tr>
@@ -69,6 +70,7 @@
                     <td>@{{row.point}}</td>
                     <td>@{{row.size}}</td>
                     <td>@{{row.time}}</td>
+                    <td>@{{row.exec_time !== null ? row.exec_time+'ms' : '--'}}</td>
                     <td>@{{row.status}}</td>
                     <td><a v-bind:href="'/submissions/'+row.id">{{__('ui.submission.detail')}}</a></td>
                 </tr>

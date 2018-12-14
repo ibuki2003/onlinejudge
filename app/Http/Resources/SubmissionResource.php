@@ -25,6 +25,7 @@ class SubmissionResource extends JsonResource
             'lang' => Lang::find($this->lang)->name,
             'size' => $this->size,
             'time' => $this->time->format('Y-m-d H:i:s'),
+            'exec_time' => $this->exec_time,
         ];
     }
 }

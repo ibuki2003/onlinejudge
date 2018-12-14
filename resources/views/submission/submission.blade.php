@@ -28,6 +28,17 @@
                 <th scope="row">{{__("ui.submission.size")}}</th>
                 <td>{{$submission->size}}</td>
             </tr>
+            <tr>
+                <th scope="row">{{__("ui.submission.exec_time")}}</th>
+                
+                <td>
+                    @if ($submission->exec_time !== NULL)
+                        {{$submission->exec_time}}ms
+                    @else
+                        --
+                    @endif
+                </td>
+            </tr>
             <tr class="table-{{config('oj.status_color')[$submission->status]}}">
                 <th scope="row">{{__("ui.submission.status")}}</th>
                 <td>{{$submission->status}}</td>
