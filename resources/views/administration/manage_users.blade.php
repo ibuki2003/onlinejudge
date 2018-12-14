@@ -105,14 +105,15 @@ new Vue({
             })
             .done(function(){
                 this.load_status=3;
+                $('#confirm-modal').modal('hide');
             }.bind(this))
             .fail(function(jqXHR, textStatus, errorThrown){
                 console.error(textStatus);
                 this.load_status=2;
-            }.bind(this))
-            .always(function(){
-                setTimeout(function(){$('#confirm-modal').modal('hide')},2000);
-            });
+                setTimeout(function(){
+                    $('#confirm-modal').modal('hide')
+                },2000);
+            }.bind(this));
         }
     }
 });
