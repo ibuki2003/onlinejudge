@@ -68,7 +68,7 @@
                     <td>@{{row.lang}}</td>
                     <td>@{{row.point}}</td>
                     <td>@{{row.size}}</td>
-                    <td>@{{row.time.date}}</td>
+                    <td>@{{row.time}}</td>
                     <td>@{{row.status}}</td>
                     <td><a v-bind:href="'/submissions/'+row.id">{{__('ui.submission.detail')}}</a></td>
                 </tr>

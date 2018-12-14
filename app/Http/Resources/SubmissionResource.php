@@ -24,7 +24,7 @@ class SubmissionResource extends JsonResource
             'point' => $this->point,
             'lang' => Lang::find($this->lang)->name,
             'size' => $this->size,
-            'time' => $this->time,
+            'time' => $this->time->format('Y-m-d H:i:s'),
         ];
     }
 }
