@@ -25,4 +25,5 @@ return [
     'md_editor' => 'Markdown Editor',
     'statistics' => 'Statistics Info',
     'change_password' => 'Change Password',
+    'manage_users' => 'Manage Users',
 ];

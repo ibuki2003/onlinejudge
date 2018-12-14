@@ -26,4 +26,5 @@ return [
     'md_editor' => 'Markdownエディタ',
     'statistics' => '統計情報',
     'change_password' => 'パスワードの変更',
+    'manage_users' => 'ユーザーの管理',
 ];

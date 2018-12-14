@@ -42,6 +42,12 @@ return [
         'detail' => '詳細',
         'time' => '送信日時',
     ],
+    'user' => [
+        'permission' => '権限',
+    ],
+    'admit' => [
+        'confirm' => 'これらの設定を適用してもよろしいですか?',
+    ],
     'submit' => '送信',
     'reload' => '更新',
     'autoreload' => '自動更新',
@@ -49,4 +55,5 @@ return [
     'old_password' => '元のパスワード',
     'new_password' => '新しいパスワード',
     'confirm' => '確認',
+    'cancel' => 'キャンセル',
 ];

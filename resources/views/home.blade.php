@@ -19,6 +19,9 @@
         <li class="nav-item">
             <a class="nav-link" href="{{route('submissions')}}">{{__('name.submissions.all')}}</a>
         </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{{route('manage_users')}}">{{__('name.manage_users')}}</a>
+        </li>
     @endif
     <li class="nav-item">
         <a class="nav-link" href="{{route('statistics')}}">{{__('name.statistics')}}</a>
