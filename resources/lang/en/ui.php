@@ -37,6 +37,7 @@ return [
         'sender' => 'User',
         'point' => 'Point',
         'size' => 'Code Length',
+        'exec_time' => 'Exec time',
         'status' => 'Status',
         'detail' => 'Detail',
         'time' => 'Submission Time',

@@ -38,6 +38,7 @@ return [
         'sender' => 'ユーザー',
         'point' => '得点',
         'size' => 'コード長',
+        'exec_time' => '実行時間',
         'status' => '結果',
         'detail' => '詳細',
         'time' => '送信日時',
