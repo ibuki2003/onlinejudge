@@ -70,7 +70,7 @@ class Submission extends Model
      * @return bool
      */
     public function is_visible(){
-        if(auth()->user()->permission & 8)return true;
+        if(auth()->user()->has_permission('admit_users'))return true;
         return $this->creator==auth()->id();
     }
     
