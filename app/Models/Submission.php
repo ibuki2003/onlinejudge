@@ -71,7 +71,7 @@ class Submission extends Model
      */
     public function is_visible(){
         if(auth()->user()->has_permission('admit_users'))return true;
-        return $this->creator==auth()->id();
+        return $this->sender==auth()->id();
     }
     
     /**
