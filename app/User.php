@@ -56,4 +56,12 @@ class User extends Authenticatable
         }
         return !!($this->permission & $permbit);
     }
+
+    public function problems(){
+        return $this->hasMany('App\Models\Problem');
+    }
+
+    public function submissions(){
+        return $this->hasMany('App\Models\Submission');
+    }
 }

@@ -10,15 +10,15 @@
             </tr>
             <tr>
                 <th scope="row">{{__("ui.submission.problemId")}}</th>
-                <td><a href="{{route('problem',['id'=>$submission->problem])}}">{{$submission->problem}} {{$submission->get_problem_title()}}</a></td>
+                <td><a href="{{route('problem',['id'=>$submission->problem->id])}}">{{$submission->problem->id}} {{$submission->problem->title}}</a></td>
             </tr>
             <tr>
                 <th scope="row">{{__("ui.submission.sender")}}</th>
-                <td>{{$submission->sender}}</td>
+                <td>{{$submission->user_id}}</td>
             </tr>
             <tr>
                 <th scope="row">{{__("ui.submission.lang")}}</th>
-                <td>{{$submission->get_lang_name()}}</td>
+                <td>{{$submission->lang->name}}</td>
             </tr>
             <tr>
                 <th scope="row">{{__("ui.submission.point")}}</th>

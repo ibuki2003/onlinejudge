@@ -24,9 +24,9 @@ class SubmitRequest extends FormRequest
     public function rules()
     {
         return [
-            'problem'=>'numeric|required',
+            'problem_id'=>'numeric|required',
             'source'=>'required',
-            'lang'=>'string|exists:langs,id|required'
+            'lang_id'=>'string|exists:langs,id|required'
         ];
     }
 }

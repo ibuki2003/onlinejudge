@@ -64,7 +64,7 @@
             <tbody>
                 <tr v-for="row in data.data" v-bind:class="'table-'+statusColors[row.status]">
                     <td>@{{row.id}}</td>
-                    <td><a v-bind:href="'/problems/'+row.problem">@{{row.problem}}</a></td>
+                    <td><a v-bind:href="'/problems/'+row.problem.id">@{{row.problem.id}}</a></td>
                     <td>@{{row.sender}}</td>
                     <td>@{{row.lang}}</td>
                     <td>@{{row.point}}</td>
@@ -147,10 +147,10 @@
             },
             updatefilter: function(){
                 var filter={};
-                if(this.filter_problem!='')filter.problem=filter_problem.value;
-                if(this.filter_lang   !='')filter.lang   =filter_lang.value;
-                if(this.filter_status !='')filter.status =filter_status.value;
-                if(this.filter_sender !='')filter.sender =filter_sender.value;
+                if(this.filter_problem!='')filter.problem_id=filter_problem.value;
+                if(this.filter_lang   !='')filter.lang_id   =filter_lang.value;
+                if(this.filter_status !='')filter.status    =filter_status.value;
+                if(this.filter_sender !='')filter.user_id   =filter_sender.value;
                 this.filter=filter;
                 this.reload();
             }

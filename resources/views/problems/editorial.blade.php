@@ -1,7 +1,7 @@
 @extends('layouts.page')
 @section('title', __('name.editorial').__(':#'.$problem->id.' '.$problem->title))
 @section('content')
-<h2>{{__('ui.problem.creator')}}:{{$problem->creator}}</h2>
+<h2>{{__('ui.problem.creator')}}:{{$problem->creator->id}}</h2>
 @if (!$problem->is_opened())
 <div class="alert alert-info" role="alert">{{__('ui.problem.not_opened')}}</div>
 @endif

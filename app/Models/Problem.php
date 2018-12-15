@@ -14,8 +14,9 @@ use Kyslik\ColumnSortable\Sortable;
 class Problem extends Model
 {
     use Sortable;
-    protected $sortable = ['id', 'difficulty', 'creator'];
-    protected $fillable = ['title', 'creator', 'difficulty', 'open'];
+    protected $sortable = ['id', 'difficulty', 'user_id'];
+    protected $fillable = ['title', 'user_id', 'difficulty', 'open'];
+    protected $hidden = ['open'];
     protected $dates = ['open'];
     const CREATED_AT = null;
     const UPDATED_AT = null;
@@ -25,7 +26,7 @@ class Problem extends Model
      * @inheritdoc
      */
     public static function create(array $data, array $files) {
-        $data['creator']=auth()->id();
+        $data['user_id']=auth()->id();
         if($data['open']!==NULL)$data['open']=new Datetime($data['open']);
 
         $filepath = $files['zip_content']->store('uploads');
@@ -90,7 +91,7 @@ class Problem extends Model
     public function scopeVisibleFilter($query){
         return $query->whereNull('open')
                     ->orWhereTime('open', '<=', 'now()')
-                    ->orWhere('creator', auth()->id());
+                    ->orWhere('user_id', auth()->id());
     }
 
     /**
@@ -110,7 +111,7 @@ class Problem extends Model
      */
     public function is_visible(){
         if($this->is_opened())return true;
-        return $this->creator==auth()->id();
+        return $this->creator->id==auth()->id();
     }
 
     /**
@@ -144,6 +145,14 @@ class Problem extends Model
      * @return bool
      */
     public function solved_by(User $user){
-        return Submission::Where('sender', $user->id)->Where('problem',$this->id)->Where('status','AC')->limit(1)->count()!=0;
+        return Submission::Where('user_id', $user->id)->Where('problem_id',$this->id)->Where('status','AC')->limit(1)->count()!=0;
+    }
+
+    public function user(){
+        return $this->belongsTo('App\User');
+    }
+
+    public function submissions(){
+        return $this->hasMany('App\Models\Submission');
     }
 }
