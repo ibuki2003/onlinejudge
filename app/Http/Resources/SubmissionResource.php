@@ -19,10 +19,10 @@ class SubmissionResource extends JsonResource
         return [
             'id' => $this->id,
             'problem' => $this->problem,
-            'sender' => $this->sender,
+            'sender' => $this->user_id,
             'status' => $this->status,
             'point' => $this->point,
-            'lang' => Lang::find($this->lang)->name,
+            'lang' => $this->lang->name,
             'size' => $this->size,
             'time' => $this->time->format('Y-m-d H:i:s'),
             'exec_time' => $this->exec_time,

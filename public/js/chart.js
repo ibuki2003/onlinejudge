@@ -28,7 +28,7 @@ function drawProblemCreatorChart(target_id){
         success: function(jsondata){
             for(var row of jsondata){
                 console.debug(row);
-                data.addRow([row.creator,Number(row.count)]);
+                data.addRow([row.user_id,Number(row.count)]);
             }
             df.resolve();
         },
@@ -133,7 +133,7 @@ function drawSubmissionLangChart(target_id){
         dataType: "json",
         success: function(jsondata){
             for(var row of jsondata){
-                data.addRow([row.lang,Number(row.count)]);
+                data.addRow([row.lang_id,Number(row.count)]);
             }
             df.resolve();
         },
@@ -168,7 +168,7 @@ function drawSubmissionUserChart(target_id){
         dataType: "json",
         success: function(jsondata){
             for(var row of jsondata){
-                data.addRow([row.sender,Number(row.count)]);
+                data.addRow([row.user_id,Number(row.count)]);
             }
             df.resolve();
         },

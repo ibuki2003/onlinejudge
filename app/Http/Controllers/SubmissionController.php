@@ -62,7 +62,6 @@ class SubmissionController extends Controller
     
     public function rejudge($id){
         $submission = Submission::find($id);
-        $problem = Problem::find($submission->problem);
         abort_if($submission===NULL,404);
         abort_unless(auth()->user()->has_permission('admit_users'), 403);
         

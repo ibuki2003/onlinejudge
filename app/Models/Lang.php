@@ -12,4 +12,8 @@ class Lang extends Model
     public static function get_map(){
         return Lang::all()->pluck('name', 'id');
     }
+
+    public function submissions(){
+        return $this->hasMany('App\Models\Submission');
+    }
 }

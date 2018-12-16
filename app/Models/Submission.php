@@ -11,7 +11,7 @@ use App\Models\Problem;
 
 class Submission extends Model
 {
-    protected $fillable = ['problem', 'lang', 'sender', 'size', 'status', 'exec_time'];
+    protected $fillable = ['problem_id', 'lang_id', 'user_id', 'size', 'status', 'exec_time'];
     protected $dates = ['time'];
     protected $dateFormat='Y-m-d H:i:s';
     const CREATED_AT = null;
@@ -24,14 +24,13 @@ class Submission extends Model
         $source=$data['source'];
         unset($data['source']);
         $data['size']=strlen($source);
-        $data['sender']=auth()->id();
+        $data['user_id']=auth()->id();
 
 
         $model = static::query()->create($data);
         $id=$model->id;
-        $lang=Lang::find($model->lang);
         Storage::disk('data')->makeDirectory('submissions/'.$id);
-        Storage::disk('data')->put('submissions/'.$id.'/source.'.$lang->extension, $source);
+        Storage::disk('data')->put('submissions/'.$id.'/source.'.$model->lang->extension, $source);
 
         $model->update(['status'=>'WJ']);
 
@@ -42,7 +41,7 @@ class Submission extends Model
      * filters only visible problem
      */
     public function scopeOwnFilter($query){
-        return $query->Where('sender', auth()->id());
+        return $query->Where('user_id', auth()->id());
     }
 
     /**
@@ -50,17 +49,17 @@ class Submission extends Model
      */
     public function scopeFilterWithRequest($query){
         $request=request();
-        if($request->filled('problem'))
-            $query->Where('problem', $request->input('problem'));
+        if($request->filled('problem_id'))
+            $query->Where('problem_id', $request->input('problem_id'));
 
-        if($request->filled('lang'))
-        $query->Where('lang', $request->input('lang'));
+        if($request->filled('lang_id'))
+        $query->Where('lang_id', $request->input('lang_id'));
 
         if($request->filled('status'))
         $query->Where('status', $request->input('status'));
 
-        if($request->filled('sender'))
-        $query->Where('sender', $request->input('sender'));
+        if($request->filled('user_id'))
+        $query->Where('user_id', $request->input('user_id'));
 
         return $query;
     }
@@ -71,38 +70,15 @@ class Submission extends Model
      */
     public function is_visible(){
         if(auth()->user()->has_permission('admit_users'))return true;
-        return $this->sender==auth()->id();
+        return $this->user_id===auth()->id();
     }
     
-    /**
-     * returns the creator of problem 
-     */
-    public function get_problem_creator(){
-        return Problem::find($this->problem)->creator;
-    }
-
-    /**
-     * returns lang name of the submission
-     * @returns string
-     */
-    public function get_lang_name(){
-        return Lang::find($this->lang)->name;
-    }
-
-    /**
-     * returns problem title of the submission
-     * @returns string
-     */
-    public function get_problem_title(){
-        return Problem::find($this->problem)->title;
-    }
-
     /**
      * returns the submission source
      * @return string
      */
     public function get_source(){
-        return Storage::disk('data')->get('submissions/'.$this->id.'/source.'.Lang::find($this->lang)->extension);
+        return Storage::disk('data')->get('submissions/'.$this->id.'/source.'.$this->lang->extension);
     }
 
     /**
@@ -118,7 +94,6 @@ class Submission extends Model
      * @return string
      */
     public function get_compile_result(){
-
         return Storage::disk('data')->get('submissions/'.$this->id.'/judge_log.txt');
     }
 
@@ -144,4 +119,17 @@ class Submission extends Model
     public function rejudge(){
         $this->update(['status' => 'WR']);
     }
+
+    public function user(){
+        return $this->belongsTo('App\User');
+    }
+
+    public function problem(){
+        return $this->belongsTo('App\Models\Problem');
+    }
+
+    public function lang(){
+        return $this->belongsTo('App\Models\Lang');
+    }
+
 }

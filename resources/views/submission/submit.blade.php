@@ -5,12 +5,12 @@
     @csrf
     <div class="form-group">
         <label for="problem-select">{{__('ui.submission.problemId')}}</label>
-        <select id="problem-select" name="problem" class="form-control{{ $errors->has('problem') ? ' is-invalid' : '' }}">
+        <select id="problem-select" name="problem_id" class="form-control{{ $errors->has('problem_id') ? ' is-invalid' : '' }}">
             @foreach ($problems as $problem)
                 <option {{$problem->id == $id?'selected ':''}}value="{{$problem->id}}">{{$problem->id}} {{$problem->title}}</option>
             @endforeach
         </select>
-        @if ($errors->has('problem'))
+        @if ($errors->has('problem_id'))
         <div class="invalid-feedback">
             <strong>{{ $errors->first('problem') }}</strong>
         </div>
@@ -18,12 +18,12 @@
     </div>
     <div class="form-group">
         <label for="lang-select">{{__('ui.submission.lang')}}</label>
-        <select id="lang-select" name="lang" class="form-control{{ $errors->has('lang') ? ' is-invalid' : '' }}">
+        <select id="lang-select" name="lang_id" class="form-control{{ $errors->has('lang_id') ? ' is-invalid' : '' }}">
             @foreach ($langs as $lang)
                 <option value="{{$lang->id}}">{{$lang->name}}</option>
             @endforeach
         </select>
-        @if ($errors->has('lang'))
+        @if ($errors->has('lang_id'))
         <div class="invalid-feedback">
             <strong>{{ $errors->first('lang') }}</strong>
         </div>

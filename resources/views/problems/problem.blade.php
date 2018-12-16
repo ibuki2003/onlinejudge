@@ -1,7 +1,7 @@
 @extends('layouts.page')
 @section('title', __('#'.$problem->id.' '.$problem->title))
 @section('content')
-<h2>{{__('ui.problem.creator')}}:{{$problem->creator}}</h2>
+<h2>{{__('ui.problem.creator')}}:{{$problem->user_id}}</h2>
 <p>{{__('ui.problem.difficulty')}}:{{$problem->difficulty}}</p>
 @if($problem->solved_by(auth()->user()))
 <p class="alert alert-success">{{__('ui.problem.solved')}}</p>
@@ -9,7 +9,7 @@
 @if ($problem->has_editorial())
 <p><a href="{{route('problem_editorial',['id'=>$problem->id])}}" class="btn btn-secondary">{{__('name.editorial')}}</a></p>
 @endif
-@if ($problem->creator === auth()->id())
+@if ($problem->user_id === auth()->id())
 <p><a href="{{route('problem_edit',['id'=>$problem->id])}}" class="btn btn-dark">{{__('name.problem.edit')}}</a></p>
 @endif
 @if (!$problem->is_opened())
