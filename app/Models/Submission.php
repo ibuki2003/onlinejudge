@@ -29,9 +29,8 @@ class Submission extends Model
 
         $model = static::query()->create($data);
         $id=$model->id;
-        $lang=Lang::find($model->lang_id);
         Storage::disk('data')->makeDirectory('submissions/'.$id);
-        Storage::disk('data')->put('submissions/'.$id.'/source.'.$lang->extension, $source);
+        Storage::disk('data')->put('submissions/'.$id.'/source.'.$model->lang->extension, $source);
 
         $model->update(['status'=>'WJ']);
 
@@ -71,7 +70,7 @@ class Submission extends Model
      */
     public function is_visible(){
         if(auth()->user()->has_permission('admit_users'))return true;
-        return $this->sender->id===auth()->id();
+        return $this->user_id===auth()->id();
     }
     
     /**

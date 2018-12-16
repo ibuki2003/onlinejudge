@@ -111,7 +111,7 @@ class Problem extends Model
      */
     public function is_visible(){
         if($this->is_opened())return true;
-        return $this->creator->id==auth()->id();
+        return $this->user_id==auth()->id();
     }
 
     /**

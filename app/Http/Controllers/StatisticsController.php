@@ -12,7 +12,7 @@ use App\Models\Problem;
 class StatisticsController extends Controller
 {
     public function problemCreatorApi(){
-        // SELECT sender, count(*) as count FROM submissions GROUP BY sender ORDER BY count desc;
+        // SELECT user_id, count(*) as count FROM submissions GROUP BY user_id ORDER BY count desc;
         return Problem::select('user_id', DB::raw('count(*) as count'))->groupBy('user_id')->orderBy('count', 'desc')->get();
     }
     public function problemDifficultyApi(){
