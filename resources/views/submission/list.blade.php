@@ -5,7 +5,12 @@
     <div class="form-inline my-4">
         <div class="form-group m-2">
             <label for="filter_problem">{{__('ui.submission.problemId')}}</label>
-            <input type="number" class="form-control" id="filter_problem" min="1" v-model.number="filter_problem">
+            <select class="form-control" id="filter_problem" v-model="filter_problem">
+                    <option value="">-</option>
+                    @foreach($problems as $problem)
+                        <option value="{{$problem->id}}">{{$problem->id.' : '.$problem->title}}</option>
+                    @endforeach
+            </select>
         </div>
         <div class="form-group m-2">
             <label for="filter_lang">{{__('ui.submission.lang')}}</label>

@@ -23,12 +23,14 @@ class SubmissionController extends Controller
     public function index(){
         $submissions = Submission::all();
         $langs = Lang::all();
-        return view('submission/list', ['submissions' => $submissions, 'me' => FALSE, 'langs' => $langs]);
+$problems = Problem::all();
+        return view('submission/list', ['submissions' => $submissions, 'me' => FALSE, 'langs' => $langs, 'problems' => $problems]);
     }
     public function index_my(){
         $submissions = Submission::ownFilter()->get();
         $langs = Lang::all();
-        return view('submission/list', ['submissions' => $submissions, 'me' => TRUE, 'langs' => $langs]);
+$problems = Problem::all();
+        return view('submission/list', ['submissions' => $submissions, 'me' => TRUE, 'langs' => $langs, 'problems' => $problems]);
     }
 
 
