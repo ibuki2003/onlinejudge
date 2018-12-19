@@ -69,7 +69,11 @@
             <tbody>
                 <tr v-for="row in data.data" v-bind:class="'table-'+statusColors[row.status]">
                     <td>@{{row.id}}</td>
-                    <td><a v-bind:href="'/problems/'+row.problem.id">@{{row.problem.id}}</a></td>
+                    <td>
+                        <a v-bind:href="'/problems/'+row.problem.id"
+                            v-bind:title="'#'+row.problem.id+' '+row.problem.title+'<br>'+row.problem.user_id"
+                            data-toggle="tooltip" data-html="true">@{{row.problem.id}}</a>
+                    </td>
                     <td>@{{row.sender}}</td>
                     <td>@{{row.lang}}</td>
                     <td>@{{row.point}}</td>
@@ -165,6 +169,9 @@
                 if(this.autoreload)this.reload()
             }.bind(this),5000);
             this.reload();
+        },
+        updated: function(){
+            $('[data-toggle="tooltip"]').tooltip();
         }
     });
 </script>
