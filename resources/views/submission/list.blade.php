@@ -67,7 +67,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="row in data.data" v-bind:class="'table-'+statusColors[row.status]">
+                <tr v-for="row in data.data" v-bind:class="'table-'+statusColors[row.status]" v-bind:key="row.id">
                     <td>@{{row.id}}</td>
                     <td>
                         <a v-bind:href="'/problems/'+row.problem.id"
