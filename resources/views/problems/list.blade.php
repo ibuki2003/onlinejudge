@@ -29,7 +29,7 @@
     </table>
 </div>
 <p>
-    {{$problems->appends(\Request::except('page'))->render()}}
+    {{$problems->appends(\Request::except('page'))->render('vendor.pagination.bootstrap-4-binary')}}
 </p>
 @endsection
 
