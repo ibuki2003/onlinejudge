@@ -57,7 +57,6 @@ export default {
             }
             if(this.last>this.current)
                 pages.push(this.last);
-            console.log(pages);
             return pages;
         }
     }
