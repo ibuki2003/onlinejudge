@@ -67,9 +67,13 @@
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="row in data" v-bind:class="'table-'+statusColors[row.status]">
+                <tr v-for="row in data" v-bind:class="'table-'+statusColors[row.status]" v-bind:key="row.id">
                     <td>@{{row.id}}</td>
-                    <td><a v-bind:href="'/problems/'+row.problem.id">@{{row.problem.id}}</a></td>
+                    <td>
+                        <a v-bind:href="'/problems/'+row.problem.id"
+                            v-bind:title="'#'+row.problem.id+' '+row.problem.title+'<br>'+row.problem.user_id"
+                            data-toggle="tooltip" data-html="true">@{{row.problem.id}}</a>
+                    </td>
                     <td>@{{row.sender}}</td>
                     <td>@{{row.lang}}</td>
                     <td>@{{row.point}}</td>
@@ -164,9 +168,9 @@
             }.bind(this),5000);
             this.reload();
         },
-        /*components: {
-            paginate_link,
-        },*/
+        updated: function(){
+            $('[data-toggle="tooltip"]').tooltip();
+        }
     });
 </script>
 @endsection

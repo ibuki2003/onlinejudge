@@ -2,7 +2,12 @@
 @section('title', __('#'.$problem->id.' '.$problem->title))
 @section('content')
 <h2>{{__('ui.problem.creator')}}:{{$problem->user_id}}</h2>
-<p>{{__('ui.problem.difficulty')}}:{{$problem->difficulty}}</p>
+<div>
+    {{__('ui.problem.difficulty')}}
+    <div class="progress mb-3" style="max-width: 200px;">
+        <div class="progress-bar" role="progressbar" style="width: {{$problem->difficulty*100/config('oj.difficulty_max')}}%" aria-valuenow="{{$problem->difficulty}}" aria-valuemin="0" aria-valuemax="{{config('oj.difficulty_max')}}">{{$problem->difficulty}}</div>
+    </div>
+</div>
 @if($problem->solved_by(auth()->user()))
 <p class="alert alert-success">{{__('ui.problem.solved')}}</p>
 @endif
