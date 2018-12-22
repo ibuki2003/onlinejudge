@@ -1,16 +1,16 @@
 <template>
     <ul class="pagination" role="navigation">
         <li class="page-item" v-bind:class="{'disabled':this.current==1}" v-bind:aria-disabled="this.current==1" aria-label="@lang('pagination.previous')">
-            <button class="page-link btn btn-link" v-bind:disabled="this.current==1" v-on:click="current--" rel="prev">
+            <button class="page-link btn-link" v-bind:disabled="this.current==1" v-on:click="current--" rel="prev">
                 &lsaquo;
             </button>
         </li>
         <li v-bind:class="{'page-item':true,' active':i==current}" v-for="i in page_links" v-bind:key="i">
-            <button class="page-link btn btn-link" v-on:click="current=i" v-if="i!=current">{{ i }}</button>
+            <button class="page-link btn-link" v-on:click="current=i" v-if="i!=current">{{ i }}</button>
             <span class="page-link" v-else>{{i}}</span>
         </li>
         <li class="page-item" v-bind:class="{'disabled':current==this.last}" v-bind:aria-disabled="current==this.last" aria-label="@lang('pagination.next')">
-            <button class="page-link btn btn-link" v-bind:disabled="current==this.last" v-on:click="current++" rel="next">
+            <button class="page-link btn-link" v-bind:disabled="current==this.last" v-on:click="current++" rel="next">
                 &rsaquo;
             </button>
         </li>
