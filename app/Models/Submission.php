@@ -16,6 +16,7 @@ class Submission extends Model
     protected $dateFormat='Y-m-d H:i:s';
     const CREATED_AT = null;
     const UPDATED_AT = null;
+    protected $perPage = 30;
 
     /**
      * @inheritdoc

@@ -20,7 +20,7 @@ class Problem extends Model
     protected $dates = ['open'];
     const CREATED_AT = null;
     const UPDATED_AT = null;
-
+    protected $perPage = 30;
 
     /**
      * @inheritdoc
