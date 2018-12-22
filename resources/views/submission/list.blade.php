@@ -67,7 +67,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="row in data.data" v-bind:class="'table-'+statusColors[row.status]" v-bind:key="row.id">
+                <tr v-for="row in data" v-bind:class="'table-'+statusColors[row.status]" v-bind:key="row.id">
                     <td>@{{row.id}}</td>
                     <td>
                         <a v-bind:href="'/problems/'+row.problem.id"
@@ -86,9 +86,7 @@
             </tbody>
         </table>
     </div>
-    <p>@{{data.meta.current_page}}/@{{data.meta.last_page}}</p>
-    <button class="btn" v-on:click="prev" v-bind:disabled="data.links.prev===null">{{__('pagination.previous')}}</button>
-    <button class="btn" v-on:click="next" v-bind:disabled="data.links.next===null">{{__('pagination.next')}}</button>
+    <paginate-link v-model="current_page" v-bind:last="last_page" v-on:input="reload()"></paginate-link>
 </div>
 @endsection
 
@@ -98,17 +96,16 @@
 
 @section('script')
 <script>
+    //import paginate_link from '../../js/components/paginate_link.vue'
     new Vue({
         el: '#table-controller',
         data: {
             interval: null,
             filter: {},
             filter_problem: '', filter_lang: '', filter_status: '', filter_sender: '',
-            data: {
-                data: [],
-                links: {prev:null, next: null},
-                meta: {current_page:1,last_page:0}
-            },
+            data: [],
+            current_page: 1,
+            last_page: 1,
             url: '/api/submissions{{$me?'/me':''}}',
             statusColors:{
                 @foreach (config('oj.status_color') as $key=>$data)
@@ -124,9 +121,10 @@
             reload: function(){
                 if(this.loading)return;
                 this.loading=true;
-                $.getJSON(this.url, this.filter)
+                $.getJSON(this.url, Object.assign({page: this.current_page},this.filter))
                 .done(function(data){
-                    this.data=data;
+                    this.data=data.data;
+                    this.last_page=data.meta.last_page;
                     var date = new Date();
                     this.lastupdate = ( '000' + date.getFullYear() ).slice( -4 ) + '/' +
                         ( '0' + (date.getMonth()+1) ).slice( -2 ) + '/' +
