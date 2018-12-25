@@ -100,7 +100,6 @@
     new Vue({
         el: '#table-controller',
         data: {
-            interval: null,
             filter: {},
             filter_problem: '', filter_lang: '', filter_status: '', filter_sender: '',
             data: [],
@@ -143,14 +142,6 @@
                 .always(function() {
                     this.loading=false;
                 }.bind(this));
-            },
-            prev: function(){
-                this.url=this.data.links.prev || this.url;
-                this.reload();
-            },
-            next: function(){
-                this.url=this.data.links.next || this.url;
-                this.reload();
             },
             updatefilter: function(){
                 var filter={};
