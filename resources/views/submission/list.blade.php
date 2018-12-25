@@ -86,7 +86,7 @@
             </tbody>
         </table>
     </div>
-    <paginate-link v-model="current_page" v-bind:last="last_page" v-on:input="reload()"></paginate-link>
+    <paginate-link v-model="current_page" v-bind:last="last_page" v-on:input="reload();set_hash();"></paginate-link>
 </div>
 @endsection
 
@@ -96,7 +96,24 @@
 
 @section('script')
 <script>
-    //import paginate_link from '../../js/components/paginate_link.vue'
+    function getHashParams() {
+        var hashParams = {};
+        var e, q = window.location.hash.substring(1);
+        var re = /([^&;=]+)=?([^&;]*)/g;
+        function d (s) {return decodeURIComponent(s.replace(/\+/g, " "));}
+        while (e = re.exec(q))
+            hashParams[d(e[1])] = d(e[2]);
+        return hashParams;
+    }
+
+    function setHashParams(obj) {
+        var params=[];
+        for (var key in obj){
+            if(obj[key]!='')
+                params.push(key+'='+obj[key]);
+        }
+        location.hash=params.join('&');
+    }
     new Vue({
         el: '#table-controller',
         data: {
@@ -120,7 +137,7 @@
             reload: function(){
                 if(this.loading)return;
                 this.loading=true;
-                $.getJSON(this.url, Object.assign({page: this.current_page},this.filter))
+                $.getJSON(this.url, this.parameters)
                 .done(function(data){
                     this.data=data.data;
                     this.last_page=data.meta.last_page;
@@ -145,19 +162,38 @@
             },
             updatefilter: function(){
                 var filter={};
-                if(this.filter_problem!='')filter.problem_id=filter_problem.value;
-                if(this.filter_lang   !='')filter.lang_id   =filter_lang.value;
-                if(this.filter_status !='')filter.status    =filter_status.value;
-                if(this.filter_sender !='')filter.user_id   =filter_sender.value;
+                
+                if(this.filter_problem!='')filter.problem_id=this.filter_problem;
+                if(this.filter_lang   !='')filter.lang_id   =this.filter_lang;
+                if(this.filter_status !='')filter.status    =this.filter_status;
+                if(this.filter_sender !='')filter.user_id   =this.filter_sender;
                 this.filter=filter;
                 this.reload();
+                this.set_hash();
+            },
+            set_hash: function(){
+                setHashParams(Object.assign({page: this.current_page},this.filter));
+            }
+        },
+        computed: {
+            parameters: function(){
+                return Object.assign({page: this.current_page},this.filter);
             }
         },
         created: function(){
+            if(location.hash){
+                var params=getHashParams();
+                if(params.problem)this.filter_problem=params.problem;
+                if(params.lang   )this.filter_lang   =params.lang;
+                if(params.status )this.filter_status =params.status;
+                if(params.sender )this.filter_sender =params.sender;
+                if(params.page)this.current_page=parseInt(params.page);
+                this.updatefilter();
+            }
+
             setInterval(function(){
                 if(this.autoreload)this.reload()
             }.bind(this),5000);
-            this.reload();
         },
         updated: function(){
             $('[data-toggle="tooltip"]').tooltip();
