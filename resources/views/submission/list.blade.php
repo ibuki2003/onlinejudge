@@ -108,9 +108,10 @@
 
     function setHashParams(obj) {
         var params=[];
+        function e (s) {return encodeURIComponent(s);}
         for (var key in obj){
             if(obj[key]!='')
-                params.push(key+'='+obj[key]);
+                params.push(e(key)+'='+e(obj[key]));
         }
         location.hash=params.join('&');
     }
