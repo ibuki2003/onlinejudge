@@ -108,9 +108,10 @@
 
     function setHashParams(obj) {
         var params=[];
+        function e (s) {return encodeURIComponent(s);}
         for (var key in obj){
             if(obj[key]!='')
-                params.push(key+'='+obj[key]);
+                params.push(e(key)+'='+e(obj[key]));
         }
         location.hash=params.join('&');
     }
@@ -172,7 +173,7 @@
                 this.set_hash();
             },
             set_hash: function(){
-                setHashParams(Object.assign({page: this.current_page},this.filter));
+                setHashParams(this.parameters);
             }
         },
         computed: {
@@ -183,10 +184,10 @@
         created: function(){
             if(location.hash){
                 var params=getHashParams();
-                if(params.problem)this.filter_problem=params.problem;
-                if(params.lang   )this.filter_lang   =params.lang;
-                if(params.status )this.filter_status =params.status;
-                if(params.sender )this.filter_sender =params.sender;
+                if(params.problem_id)this.filter_problem=params.problem_id;
+                if(params.lang_id   )this.filter_lang   =params.lang_id;
+                if(params.status    )this.filter_status =params.status;
+                if(params.user_id   )this.filter_sender =params.user_id;
                 if(params.page)this.current_page=parseInt(params.page);
                 this.updatefilter();
             }else{
