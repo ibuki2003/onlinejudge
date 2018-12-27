@@ -189,6 +189,8 @@
                 if(params.sender )this.filter_sender =params.sender;
                 if(params.page)this.current_page=parseInt(params.page);
                 this.updatefilter();
+            }else{
+                this.reload();
             }
 
             setInterval(function(){
