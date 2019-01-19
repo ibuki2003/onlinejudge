@@ -189,7 +189,6 @@
                 if(params.status    )this.filter_status =params.status;
                 if(params.user_id   )this.filter_sender =params.user_id;
                 if(params.page)this.current_page=parseInt(params.page);
-                this.updatefilter();
             }else{
                 this.reload();
             }
