@@ -34,7 +34,7 @@
             <input type="text" class="form-control" id="filter_sender" v-model.text="filter_sender">
         </div>
         @endif
-        <button class="btn btn-primary" v-on:click="updatefilter">{{__('ui.filter')}}</button>
+        <button class="btn btn-primary" v-on:click="updatefilter();set_hash();">{{__('ui.filter')}}</button>
     </div>
     <div class="form-inline my-4">
         <div class="form-group m-2">
@@ -163,18 +163,25 @@
             },
             updatefilter: function(){
                 var filter={};
-                
                 if(this.filter_problem!='')filter.problem_id=this.filter_problem;
                 if(this.filter_lang   !='')filter.lang_id   =this.filter_lang;
                 if(this.filter_status !='')filter.status    =this.filter_status;
                 if(this.filter_sender !='')filter.user_id   =this.filter_sender;
                 this.filter=filter;
                 this.reload();
-                this.set_hash();
             },
             set_hash: function(){
                 setHashParams(this.parameters);
-            }
+            },
+            get_hash: function(){
+                var params=getHashParams();
+                this.filter_problem=params.problem_id || '';
+                this.filter_lang   =params.lang_id    || '';
+                this.filter_status =params.status     || '';
+                this.filter_sender =params.user_id    || '';
+                if(params.page)this.current_page=parseInt(params.page);
+                this.updatefilter();
+            },
         },
         computed: {
             parameters: function(){
@@ -182,16 +189,8 @@
             }
         },
         created: function(){
-            if(location.hash){
-                var params=getHashParams();
-                if(params.problem_id)this.filter_problem=params.problem_id;
-                if(params.lang_id   )this.filter_lang   =params.lang_id;
-                if(params.status    )this.filter_status =params.status;
-                if(params.user_id   )this.filter_sender =params.user_id;
-                if(params.page)this.current_page=parseInt(params.page);
-            }else{
-                this.reload();
-            }
+            this.get_hash();
+            window.addEventListener("hashchange", this.get_hash, false);
 
             setInterval(function(){
                 if(this.autoreload)this.reload()
