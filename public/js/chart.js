@@ -10,7 +10,7 @@ function drawChart(){
     drawProblemDifficultyChart('problem_difficulty');
     drawSubmissionStatusChart('submission_status');
     drawSubmissionLangChart('submission_lang');
-    drawSubmissionUserChart('submission_user');
+    drawAcceptionUserChart('acception_user');
 }
 
 function getAggregate(dataTable, params, columnClass){
@@ -159,7 +159,7 @@ function drawSubmissionLangChart(target_id){
     });
 }
 
-function drawSubmissionUserChart(target_id){
+function drawAcceptionUserChart(target_id){
     // データの準備
     var data = new google.visualization.DataTable();
     data.addColumn('string', 'Sender');
@@ -172,17 +172,25 @@ function drawSubmissionUserChart(target_id){
         'each': 'user_id',
         'count': '*',
         'order': 'desc',
+        'filter': '(status:AC)',
         'limit': 5,
-        'remain': '',
     }, String).done(function(){df.resolve();});
     df.done(function(){
         // オプションの準備
         var options = {
-            title: 'Submission Sender',
+            title: 'Problem Unique Acception Ranking',
+            vAxis: {
+                title: 'User id',
+            },
+            hAxis: {
+                title: 'problem count',
+                minValue: 0,
+                format: '#',
+            },
         };
 
         // 描画用インスタンスの生成および描画メソッドの呼び出し
-        var chart = new google.visualization.PieChart(document.getElementById(target_id));
+        var chart = new google.visualization.BarChart(document.getElementById(target_id));
         chart.draw(data, options);
     });
 }

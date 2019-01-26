@@ -11,7 +11,7 @@
 <div class="row d-flex flex-wrap">
     <div class="border rounded shadow graph" id="submission_status"></div>
     <div class="border rounded shadow graph" id="submission_lang"></div>
-    <div class="border rounded shadow graph" id="submission_user"></div>
+    <div class="border rounded shadow graph" id="acception_user"></div>
 </div>
 @endsection
 
