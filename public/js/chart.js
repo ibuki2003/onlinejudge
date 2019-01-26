@@ -23,7 +23,15 @@ function drawProblemCreatorChart(target_id){
 
     $.ajax({
         type: "GET",
-        url: '/api/statistics/problem_creator',
+        url: '/api/aggregate',
+        data: {
+            'for': 'problems',
+            'each': 'user_id',
+            'count': '*',
+            'order': 'desc',
+            'limit': 5,
+            'remain': '',
+        },
         dataType: "json",
         success: function(jsondata){
             for(var row of jsondata){
@@ -40,7 +48,7 @@ function drawProblemCreatorChart(target_id){
     df.done(function(){
         // オプションの準備
         var options = {
-            title: 'Problem Creators',
+            title: 'Problem Creator',
         };
 
         // 描画用インスタンスの生成および描画メソッドの呼び出し
@@ -59,11 +67,17 @@ function drawProblemDifficultyChart(target_id){
 
     $.ajax({
         type: "GET",
-        url: '/api/statistics/problem_difficulty',
+        url: '/api/aggregate',
+        data: {
+            'for': 'problems',
+            'each': 'difficulty',
+            'count': '*',
+            'map': '',
+        },
         dataType: "json",
         success: function(jsondata){
-            for(var key = 0; key < jsondata.length; key++) {
-                data.addRow([key+1,jsondata[key]]);
+            for(var key in jsondata) {
+                data.addRow([Number(key),Number(jsondata[key])]);
             }
             df.resolve();
         },
@@ -75,7 +89,7 @@ function drawProblemDifficultyChart(target_id){
     df.done(function(){
         // オプションの準備
         var options = {
-            title: 'Problem Difficulties',
+            title: 'Problem Difficulty',
         };
 
         // 描画用インスタンスの生成および描画メソッドの呼び出し
@@ -83,6 +97,8 @@ function drawProblemDifficultyChart(target_id){
         chart.draw(data, options);
     });
 }
+
+
 
 function drawSubmissionStatusChart(target_id){
     // データの準備
@@ -94,7 +110,15 @@ function drawSubmissionStatusChart(target_id){
 
     $.ajax({
         type: "GET",
-        url: '/api/statistics/submission_status',
+        url: '/api/aggregate',
+        data: {
+            'for': 'submissions',
+            'each': 'status',
+            'count': '*',
+            'order': 'desc',
+            'limit': 5,
+            'remain': '',
+        },
         dataType: "json",
         success: function(jsondata){
             for(var row of jsondata){
@@ -129,7 +153,16 @@ function drawSubmissionLangChart(target_id){
 
     $.ajax({
         type: "GET",
-        url: '/api/statistics/submission_lang',
+        url: '/api/aggregate',
+        data: {
+            'for': 'submissions',
+            'each': 'lang_id',
+            'count': '*',
+            'order': 'desc',
+            'limit': 5,
+            'remain': '',
+        },
+
         dataType: "json",
         success: function(jsondata){
             for(var row of jsondata){
@@ -145,7 +178,7 @@ function drawSubmissionLangChart(target_id){
     df.done(function(){
         // オプションの準備
         var options = {
-            title: 'Submission Langs',
+            title: 'Submission Language',
         };
 
         // 描画用インスタンスの生成および描画メソッドの呼び出し
@@ -164,7 +197,15 @@ function drawSubmissionUserChart(target_id){
 
     $.ajax({
         type: "GET",
-        url: '/api/statistics/submission_user',
+        url: '/api/aggregate',
+        data: {
+            'for': 'submissions',
+            'each': 'user_id',
+            'count': '*',
+            'order': 'desc',
+            'limit': 5,
+            'remain': '',
+        },
         dataType: "json",
         success: function(jsondata){
             for(var row of jsondata){
