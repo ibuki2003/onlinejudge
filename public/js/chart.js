@@ -13,6 +13,23 @@ function drawChart(){
     drawSubmissionUserChart('submission_user');
 }
 
+function getAggregate(dataTable, params, columnClass){
+    return $.ajax({
+        type: "GET",
+        url: '/api/aggregate',
+        data: params,
+        dataType: "json",
+        success: function(jsondata){
+            for(var row of jsondata){
+                dataTable.addRow([columnClass(row[params.each]),Number(row.count)]);
+            }
+        },
+        error: function(error){
+            console.error(error);
+        }
+    });
+}
+
 function drawProblemCreatorChart(target_id){
     // データの準備
     var data = new google.visualization.DataTable();
@@ -20,39 +37,32 @@ function drawProblemCreatorChart(target_id){
     data.addColumn('number', 'count');
 
     var df = $.Deferred();
-
-    $.ajax({
-        type: "GET",
-        url: '/api/aggregate',
-        data: {
-            'for': 'problems',
-            'each': 'user_id',
-            'count': '*',
-            'order': 'desc',
-            'limit': 5,
-            'remain': '',
-        },
-        dataType: "json",
-        success: function(jsondata){
-            for(var row of jsondata){
-                console.debug(row);
-                data.addRow([row.user_id,Number(row.count)]);
-            }
-            df.resolve();
-        },
-        error: function(error){
-            console.log(error);
-        }
-    });
-
+    getAggregate(data, {
+        'for': 'problems',
+        'each': 'user_id',
+        'count': '*',
+        'order': 'desc',
+        'limit': 5,
+        'remain': '',
+    }, String).done(function(){df.resolve();});
     df.done(function(){
         // オプションの準備
         var options = {
             title: 'Problem Creator',
+            vAxis: {
+                title: 'User id',
+            },
+            hAxis: {
+                title: 'problem count',
+                minValue: 0,
+                format: '#',
+            },
         };
 
         // 描画用インスタンスの生成および描画メソッドの呼び出し
-        var chart = new google.visualization.PieChart(document.getElementById(target_id));
+        //var chart = new google.visualization.PieChart(document.getElementById(target_id));
+        var chart = new google.visualization.BarChart(document.getElementById(target_id));
+        
         chart.draw(data, options);
     });
 }
@@ -65,31 +75,23 @@ function drawProblemDifficultyChart(target_id){
 
     var df = $.Deferred();
 
-    $.ajax({
-        type: "GET",
-        url: '/api/aggregate',
-        data: {
-            'for': 'problems',
-            'each': 'difficulty',
-            'count': '*',
-            'map': '',
-        },
-        dataType: "json",
-        success: function(jsondata){
-            for(var key in jsondata) {
-                data.addRow([Number(key),Number(jsondata[key])]);
-            }
-            df.resolve();
-        },
-        error: function(error){
-            console.log(error);
-        }
-    });
-
+    getAggregate(data, {
+        'for': 'problems',
+        'each': 'difficulty',
+        'count': '*',
+        //'map': '',
+    }, Number).done(function(){df.resolve();});
     df.done(function(){
         // オプションの準備
         var options = {
             title: 'Problem Difficulty',
+            hAxis: {
+                title: 'difficulty',
+            },
+            vAxis: {
+                title: 'problem count',
+                format: '#',
+            },
         };
 
         // 描画用インスタンスの生成および描画メソッドの呼び出し
@@ -108,29 +110,14 @@ function drawSubmissionStatusChart(target_id){
 
     var df = $.Deferred();
 
-    $.ajax({
-        type: "GET",
-        url: '/api/aggregate',
-        data: {
-            'for': 'submissions',
-            'each': 'status',
-            'count': '*',
-            'order': 'desc',
-            'limit': 5,
-            'remain': '',
-        },
-        dataType: "json",
-        success: function(jsondata){
-            for(var row of jsondata){
-                data.addRow([row.status,Number(row.count)]);
-            }
-            df.resolve();
-        },
-        error: function(error){
-            console.log(error);
-        }
-    });
-
+    getAggregate(data, {
+        'for': 'submissions',
+        'each': 'status',
+        'count': '*',
+        'order': 'desc',
+        'limit': 5,
+        'remain': '',
+    }, String).done(function(){df.resolve();});
     df.done(function(){
         // オプションの準備
         var options = {
@@ -151,29 +138,14 @@ function drawSubmissionLangChart(target_id){
 
     var df = $.Deferred();
 
-    $.ajax({
-        type: "GET",
-        url: '/api/aggregate',
-        data: {
-            'for': 'submissions',
-            'each': 'lang_id',
-            'count': '*',
-            'order': 'desc',
-            'limit': 5,
-            'remain': '',
-        },
-
-        dataType: "json",
-        success: function(jsondata){
-            for(var row of jsondata){
-                data.addRow([row.lang_id,Number(row.count)]);
-            }
-            df.resolve();
-        },
-        error: function(error){
-            console.log(error);
-        }
-    });
+    getAggregate(data, {
+        'for': 'submissions',
+        'each': 'lang_id',
+        'count': '*',
+        'order': 'desc',
+        'limit': 5,
+        'remain': '',
+    }, String).done(function(){df.resolve();});
 
     df.done(function(){
         // オプションの準備
@@ -195,29 +167,14 @@ function drawSubmissionUserChart(target_id){
 
     var df = $.Deferred();
 
-    $.ajax({
-        type: "GET",
-        url: '/api/aggregate',
-        data: {
-            'for': 'submissions',
-            'each': 'user_id',
-            'count': '*',
-            'order': 'desc',
-            'limit': 5,
-            'remain': '',
-        },
-        dataType: "json",
-        success: function(jsondata){
-            for(var row of jsondata){
-                data.addRow([row.user_id,Number(row.count)]);
-            }
-            df.resolve();
-        },
-        error: function(error){
-            console.log(error);
-        }
-    });
-
+    getAggregate(data, {
+        'for': 'submissions',
+        'each': 'user_id',
+        'count': '*',
+        'order': 'desc',
+        'limit': 5,
+        'remain': '',
+    }, String).done(function(){df.resolve();});
     df.done(function(){
         // オプションの準備
         var options = {
