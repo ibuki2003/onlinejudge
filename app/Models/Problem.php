@@ -10,6 +10,8 @@ use Psy\Exception\ErrorException;
 use \ZipArchive;
 use App\User;
 use Kyslik\ColumnSortable\Sortable;
+use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 
 class Problem extends Model
 {
@@ -90,7 +92,8 @@ class Problem extends Model
      */
     public function scopeVisibleFilter($query){
         return $query->whereNull('open')
-                    ->orWhereTime('open', '<=', 'now()')
+                    ->orWhereDate('open', '<=', Carbon::today())
+                    ->WhereTime('open', '<=', Carbon::now())
                     ->orWhere('user_id', auth()->id());
     }
 
