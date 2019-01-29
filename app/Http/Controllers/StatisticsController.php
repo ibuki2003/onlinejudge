@@ -26,16 +26,13 @@ class StatisticsController extends Controller
         remain show remain params(with limit)   (true if exists)
         */
         $request->validate([
-            'for'   => 'string|required',
+            'for'   => ['string','required',Rule::in(['problems', 'submissions'])],
             'each'  => 'string|required',
             'count' => 'string|required',
             'filter'=> 'string|nullable',
             'order' => [Rule::in(['asc', 'desc']),'nullable'],
             'limit' => 'integer|nullable',
         ]);
-        if($request->for=='users'){
-            throw new HttpException(403, 'Not permitted');
-        }
         if($request->has('filter')){
             try {
                 $decoder = new Rison\RisonDecoder($request->filter);
@@ -53,12 +50,12 @@ class StatisticsController extends Controller
             $request->each,
             DB::raw('count(' . ($request->has('uniq')?'distinct ':'') . $query->getGrammar()->wrap($request->count) . ') as count')
         );
-        
-        
+
+
         foreach ($filter as $key => $value) {
             $query->where($key, $value);
         }
-        
+
         $query->groupBy($request->each);
         if($request->has('order')){
             $query->orderBy('count', $request->order);
@@ -86,7 +83,7 @@ class StatisticsController extends Controller
                 ]);
             }
         }
-        
+
         if($request->has('map')){
             return $data->pluck('count', $request->each);
         }else{
