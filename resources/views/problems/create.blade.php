@@ -1,7 +1,7 @@
 @extends('layouts.page')
 @section('title', __('name.problem.create'))
 @section('content')
-<form action="{{route('create_problem')}}" method="post" name="form" enctype="multipart/form-data">
+<form action="{{route('create_problem')}}" method="post" name="form" enctype="multipart/form-data" autocomplete="off">
     @csrf
     <div class="form-group">
         <label for="title-input">{{__('ui.problem.title')}}</label>
