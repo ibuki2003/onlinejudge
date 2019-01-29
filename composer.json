@@ -10,7 +10,8 @@
         "fideloper/proxy": "^4.0",
         "kyslik/column-sortable": "^5.7",
         "laravel/framework": "5.7.*",
-        "laravel/tinker": "^1.0"
+        "laravel/tinker": "^1.0",
+        "kunststube/rison": "^0.92.1"
     },
     "require-dev": {
         "beyondcode/laravel-dump-server": "^1.0",
@@ -58,6 +59,12 @@
         "sort-packages": true,
         "optimize-autoloader": true
     },
+    "repositories": [
+        {
+            "type": "vcs",  
+            "url": "https://github.com/deceze/Kunststube-Rison"
+        }
+    ],
     "minimum-stability": "dev",
     "prefer-stable": true
 }

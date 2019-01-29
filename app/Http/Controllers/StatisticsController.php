@@ -5,34 +5,89 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-use App\Models\Submission;
-use App\Models\Problem;
+use Illuminate\Database\QueryException;
+use Illuminate\Validation\Rule;
+use Kunststube\Rison;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 
 
 class StatisticsController extends Controller
 {
-    public function problemCreatorApi(){
-        // SELECT user_id, count(*) as count FROM submissions GROUP BY user_id ORDER BY count desc;
-        return Problem::select('user_id', DB::raw('count(*) as count'))->groupBy('user_id')->orderBy('count', 'desc')->get();
-    }
-    public function problemDifficultyApi(){
-        $list=Problem::select('difficulty', DB::raw('count(*) as count'))->groupBy('difficulty')->pluck('count', 'difficulty');
-        $res=[];
-        for($i = 1;$i<=config('oj.difficulty_max');$i++){
-            if($list->has($i))
-                $res[]=(int)$list[$i];
-            else
-                $res[]=0;
+    public function aggregateApi(Request $request){
+        /*
+        for    table to aggregate
+        each   aggregate column
+        count  count value
+        filter filter rows with Rison           (optional)
+        order  sort order                       (optional)
+        map    return values as map             (true if exists)
+        uniq   distinct count value             (true if exists)
+        limit  max row count                    (true if exists)
+        remain show remain params(with limit)   (true if exists)
+        */
+        $request->validate([
+            'for'   => ['string','required',Rule::in(['problems', 'submissions'])],
+            'each'  => 'string|required',
+            'count' => 'string|required',
+            'filter'=> 'string|nullable',
+            'order' => [Rule::in(['asc', 'desc']),'nullable'],
+            'limit' => 'integer|nullable',
+        ]);
+        if($request->has('filter')){
+            try {
+                $decoder = new Rison\RisonDecoder($request->filter);
+                $filter = $decoder->decode();
+            } catch (Rison\RisonParseErrorException $e) {
+                throw new HttpException(400, 'Invalid Rison:'.$e->getMessage());
+            }
+        }else{
+            $filter=[];
         }
-        return $res;
-    }
-    public function submissionStatusApi(){
-        return Submission::select('status', DB::raw('count(*) as count'))->groupBy('status')->orderBy('count', 'desc')->get();
-    }
-    public function submissionLangApi(){
-        return Submission::select('lang_id', DB::raw('count(*) as count'))->groupBy('lang_id')->orderBy('count', 'desc')->get();
-    }
-    public function submissionUserApi(){
-        return Submission::select('user_id', DB::raw('count(*) as count'))->groupBy('user_id')->orderBy('count', 'desc')->get();
+
+        $query=DB::table($request->for);
+
+        $query->select(
+            $request->each,
+            DB::raw('count(' . ($request->has('uniq')?'distinct ':'') . $query->getGrammar()->wrap($request->count) . ') as count')
+        );
+
+
+        foreach ($filter as $key => $value) {
+            $query->where($key, $value);
+        }
+
+        $query->groupBy($request->each);
+        if($request->has('order')){
+            $query->orderBy('count', $request->order);
+        }
+
+        if($request->has('limit'))
+            $query->limit($request->limit);
+
+        try{
+            $data=$query->get();
+        }catch(QueryException $e){
+            throw new HttpException(400, 'Error');
+        }
+
+        if($request->has('limit') && $request->has('remain')){
+            $query=DB::table($request->for);
+            foreach ($filter as $key => $value) {
+                $query->where($key, $value);
+            }
+            $remain_cnt=$query->count() - $data->sum('count');
+            if($remain_cnt>0){
+                $data->push([
+                    $request->each => 'Other',
+                    'count'        => $remain_cnt
+                ]);
+            }
+        }
+
+        if($request->has('map')){
+            return $data->pluck('count', $request->each);
+        }else{
+            return $data;
+        }
     }
 }
