@@ -49,6 +49,7 @@ $problems = Problem::all();
 
     public function show($id){
         $submission = Submission::find($id);
+        abort_if($submission===NULL,404);
         abort_unless($submission->is_visible(),403);
         $source = $submission->get_source();
 
