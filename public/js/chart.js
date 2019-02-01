@@ -62,7 +62,7 @@ function drawProblemCreatorChart(target_id){
         // 描画用インスタンスの生成および描画メソッドの呼び出し
         //var chart = new google.visualization.PieChart(document.getElementById(target_id));
         var chart = new google.visualization.BarChart(document.getElementById(target_id));
-        
+
         chart.draw(data, options);
     });
 }
@@ -170,7 +170,8 @@ function drawAcceptionUserChart(target_id){
     getAggregate(data, {
         'for': 'submissions',
         'each': 'user_id',
-        'count': '*',
+        'count': 'problem_id',
+        'uniq': '',
         'order': 'desc',
         'filter': '(status:AC)',
         'limit': 5,
