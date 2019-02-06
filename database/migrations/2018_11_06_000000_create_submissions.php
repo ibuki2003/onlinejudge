@@ -18,7 +18,7 @@ class CreateSubmissions extends Migration
                 $table->increments('id');
                 $table->integer('problem');
                 $table->string('sender',16);
-                $table->text('status')->default('SB');
+                $table->string('status')->default('SB');
                 $table->integer('point')->default(0);
                 $table->string('lang');
                 $table->integer('size')->default(0);
