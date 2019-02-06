@@ -1,7 +1,7 @@
 @extends('layouts.page')
 @section('title', __('name.problem.edit'))
 @section('content')
-<form action="{{route('problem_edit', ['id' => $problem->id])}}" method="post" name="form" enctype="multipart/form-data">
+<form action="{{route('problem_edit', ['id' => $problem->id])}}" method="post" name="form" enctype="multipart/form-data" autocomplete="off">
     @csrf
     <div class="form-group">
         <label for="title-input">{{__('ui.problem.title')}}</label>
