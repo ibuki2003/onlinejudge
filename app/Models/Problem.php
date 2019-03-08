@@ -92,8 +92,7 @@ class Problem extends Model
      */
     public function scopeVisibleFilter($query){
         return $query->whereNull('open')
-                    ->orWhereDate('open', '<=', Carbon::today())
-                    ->WhereTime('open', '<=', Carbon::now())
+                    ->orWhere('open', '<=', Carbon::now())
                     ->orWhere('user_id', auth()->id());
     }
 
