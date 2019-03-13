@@ -14,7 +14,7 @@
         </thead>
         <tbody>
             @foreach ($problems as $problem)
-            <tr class="{{$problem->solved_by(auth()->user())?'table-success':''}}">
+            <tr class="{{$problem->solved_by(auth()->user())?'table-success':''}}" href="{{route('problem',['id'=>$problem->id])}}">
                 <th scope="row">{{$problem->{'id'} }}</th>
                 <td><a href="{{route('problem',['id'=>$problem->id])}}">{{$problem->{'title'} }}</a></td>
                 <td>{{$problem->user_id}}</td>
@@ -34,5 +34,13 @@
 @endsection
 
 @section('style')
-<style>.progress{min-width:60px;}</style>
+<style>
+.progress{min-width:60px;}
+tbody>tr{cursor: pointer;}
+</style>
+@endsection
+
+@section('script')
+<script src="/js/flexible_link.js"></script>
+<script>$(function(){$('tbody>tr').flexible_link();});</script>
 @endsection
