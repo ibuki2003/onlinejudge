@@ -18,6 +18,5 @@ jQuery.fn.flexible_link = function(){
 
 function flexible_link_listener(elm){
     var url=$(elm.currentTarget).attr('data-original-href');
-    console.log(url);
     location.href=url;
 }
