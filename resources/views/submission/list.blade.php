@@ -67,7 +67,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="row in data" v-bind:class="'table-'+statusColors[row.status]" v-bind:key="row.id">
+                <tr v-for="row in data" v-bind:class="'table-'+statusColors[row.status]" v-bind:key="row.id" v-bind:href="'/submissions/'+row.id">
                     <td>@{{row.id}}</td>
                     <td>
                         <a v-bind:href="'/problems/'+row.problem.id"
@@ -92,9 +92,11 @@
 
 @section('style')
 <link rel="stylesheet" href="{{asset('css/loadicon.css')}}">
+<style>tbody>tr{cursor: pointer;}</style>
 @endsection
 
 @section('script')
+<script src="/js/flexible_link.js"></script>
 <script>
     function getHashParams() {
         var hashParams = {};
@@ -198,6 +200,7 @@
         },
         updated: function(){
             $('[data-toggle="tooltip"]').tooltip();
+            $('tbody>tr').flexible_link();
         }
     });
 </script>
