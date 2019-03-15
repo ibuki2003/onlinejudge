@@ -41,6 +41,5 @@ tbody>tr{cursor: pointer;}
 @endsection
 
 @section('script')
-<script src="/js/flexible_link.js"></script>
 <script>$(function(){$('tbody>tr').flexible_link();});</script>
 @endsection

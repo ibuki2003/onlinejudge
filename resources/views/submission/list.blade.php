@@ -96,7 +96,6 @@
 @endsection
 
 @section('script')
-<script src="/js/flexible_link.js"></script>
 <script>
     function getHashParams() {
         var hashParams = {};
