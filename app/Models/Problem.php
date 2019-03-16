@@ -42,7 +42,7 @@ class Problem extends Model
         $model = static::query()->create($data);
         $id=$model->id;
         Storage::disk('data')->makeDirectory('problems/'.$id);
-        Storage::disk('data')->zipExtractTo($zip, 'problems/'.$id.'/');
+        Storage::disk('data')->zipExtractTo($zip, 'problems/'.$id);
         unlink($filepath);
         return $model;
     }

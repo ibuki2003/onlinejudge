@@ -48,6 +48,7 @@ class ZipExtractTo extends AbstractPlugin
 
     private function cleanPath($path)
     {
+        if(!$this->isDirectory($path)) $path .= '/';
         return str_replace('/', DIRECTORY_SEPARATOR, $path);
     }
 
