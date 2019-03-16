@@ -26,6 +26,7 @@ return [
         'open' => '公開日時',
         'open_empty' => '空欄にすると公開予約を行いません',
         'invalid_zip' => 'zipファイルに不備があります',
+        'zip_not_found' => 'ファイル :filename がzipファイル内に見つかりませんでした.',
         'rejudge' => 'リジャッジ',
         'random' => 'おまかせ出題',
         'solved' => '正解済み',

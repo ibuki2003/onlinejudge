@@ -33,11 +33,11 @@ class Problem extends Model
 
         $filepath = storage_path( 'app/' . $files['zip_content']->store('uploads') );
         $zip = new ZipArchive;
-        abort_unless($zip->open($filepath), 400);
+        abort_unless($zip->open($filepath) === TRUE, 400, __('ui.problem.invalid_zip'));
 
-        abort_if($zip->locateName('main.md'=== FALSE), 400);
-        abort_if($zip->locateName('in/'    === FALSE), 400);
-        abort_if($zip->locateName('out/'   === FALSE), 400);
+        abort_if($zip->locateName('main.md') === FALSE, 400, __('ui.problem.zip_not_found', ['filename' => 'main.md']));
+        abort_if($zip->locateName('in/'    ) === FALSE, 400, __('ui.problem.zip_not_found', ['filename' => 'in']));
+        abort_if($zip->locateName('out/'   ) === FALSE, 400, __('ui.problem.zip_not_found', ['filename' => 'out']));
 
         $model = static::query()->create($data);
         $id=$model->id;
@@ -59,7 +59,7 @@ class Problem extends Model
         if (array_key_exists('zip_content', $files)) {
             $filepath = storage_path( 'app/' . $files['zip_content']->store('uploads') );
             $zip = new ZipArchive;
-            abort_unless($zip->open($filepath), 400);
+            abort_unless($zip->open($filepath) === TRUE, 400, __('ui.problem.invalid_zip'));
             $base_dir='problems/' . $this->id . '/';
             if($zip->locateName('in/')!==FALSE)
                 Storage::disk('data')->deleteDirectory($base_dir . 'in');
