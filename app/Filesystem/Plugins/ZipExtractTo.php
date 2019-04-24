@@ -11,7 +11,7 @@ class ZipExtractTo extends AbstractPlugin
      */
     public function getMethod()
     {
-        return 'extractTo';
+        return 'zipExtractTo';
     }
 
     /**
@@ -22,38 +22,33 @@ class ZipExtractTo extends AbstractPlugin
      *
      * @return bool True on success, false on failure.
      */
-    public function handle($path, $zipFilePath)
+    public function handle($zip, $path)
     {
         $path = $this->cleanPath($path);
 
-        $zipArchive = new ZipArchive();
-        if ($zipArchive->open($zipFilePath) !== true) 
+        for ($i = 0; $i < $zip->numFiles; ++$i)
         {
-            return false;
-        }
-
-        for ($i = 0; $i < $zipArchive->numFiles; ++$i) 
-        {
-            $zipEntryName = $zipArchive->getNameIndex($i);
+            $zipEntryName = $zip->getNameIndex($i);
             $destination = $path . DIRECTORY_SEPARATOR . $this->cleanPath($zipEntryName);
-            if ($this->isDirectory($zipEntryName)) 
+            if ($this->isDirectory($zipEntryName))
             {
                 $this->filesystem->createDir($destination);
                 continue;
             }
-            $this->filesystem->putStream($destination, $zipArchive->getStream($zipEntryName));
+            $this->filesystem->putStream($destination, $zip->getStream($zipEntryName));
         }
 
         return true;
     }
 
-    private function isDirectory($zipEntryName) 
+    private function isDirectory($zipEntryName)
     {
         return substr($zipEntryName, -1) ===  '/';
     }
 
     private function cleanPath($path)
     {
+        if(!$this->isDirectory($path)) $path .= '/';
         return str_replace('/', DIRECTORY_SEPARATOR, $path);
     }
 

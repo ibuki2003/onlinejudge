@@ -31,15 +31,18 @@ class Problem extends Model
         $data['user_id']=auth()->id();
         if($data['open']!==NULL)$data['open']=new Datetime($data['open']);
 
-        $filepath = $files['zip_content']->store('uploads');
-        $filepath=storage_path('app/'.$filepath);
+        $filepath = storage_path( 'app/' . $files['zip_content']->store('uploads') );
+        $zip = new ZipArchive;
+        abort_unless($zip->open($filepath) === TRUE, 400, __('ui.problem.invalid_zip'));
 
-        abort_unless(self::is_valid_problem_zip($filepath),400,__('ui.problem.invalid_zip'));
+        abort_if($zip->locateName('main.md') === FALSE, 400, __('ui.problem.zip_not_found', ['filename' => 'main.md']));
+        abort_if($zip->locateName('in/'    ) === FALSE, 400, __('ui.problem.zip_not_found', ['filename' => 'in']));
+        abort_if($zip->locateName('out/'   ) === FALSE, 400, __('ui.problem.zip_not_found', ['filename' => 'out']));
 
         $model = static::query()->create($data);
         $id=$model->id;
         Storage::disk('data')->makeDirectory('problems/'.$id);
-        Storage::disk('data')->extractTo('problems/'.$id.'/', $filepath);
+        Storage::disk('data')->zipExtractTo($zip, 'problems/'.$id);
         unlink($filepath);
         return $model;
     }
@@ -54,13 +57,16 @@ class Problem extends Model
         else $this->open=NULL;
 
         if (array_key_exists('zip_content', $files)) {
-            $filepath = $files['zip_content']->store('uploads');
-            $filepath=storage_path('app/'.$filepath);
-            abort_unless(self::is_valid_problem_zip($filepath),400,__('ui.problem.invalid_zip'));
+            $filepath = storage_path( 'app/' . $files['zip_content']->store('uploads') );
+            $zip = new ZipArchive;
+            abort_unless($zip->open($filepath) === TRUE, 400, __('ui.problem.invalid_zip'));
+            $base_dir='problems/' . $this->id . '/';
+            if($zip->locateName('in/')!==FALSE)
+                Storage::disk('data')->deleteDirectory($base_dir . 'in');
+            if($zip->locateName('out/')!==FALSE)
+                Storage::disk('data')->deleteDirectory($base_dir . 'out');
 
-            Storage::disk('data')->deleteDirectory('problems/'.$this->id);
-            Storage::disk('data')->makeDirectory('problems/'.$this->id);
-            Storage::disk('data')->extractTo('problems/'.$this->id.'/', $filepath);
+            Storage::disk('data')->zipExtractTo($zip, $base_dir);
             unlink($filepath);
         }
 
@@ -69,22 +75,6 @@ class Problem extends Model
                         'difficulty'=>$this->difficulty,
                         'open'=>$this->open]);
         return $this;
-    }
-
-    /**
-     * returns whether zip file valid
-     * @param string $path
-     * @return bool
-     */
-    private static function is_valid_problem_zip(string $path){
-        $zip = new ZipArchive;
-
-        if ($zip->open($path) !== TRUE) {
-            return false;
-        }
-        $result=$zip->getFromName('main.md',1);
-        $zip->close();
-        return $result;
     }
 
     /**

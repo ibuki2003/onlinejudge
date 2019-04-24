@@ -26,6 +26,7 @@ return [
         'open' => 'Publish Time',
         'open_empty' => 'Empty to no reservation',
         'invalid_zip' => 'zip file is invalid.',
+        'zip_not_found' => 'The file :filename is not found in the zip file.',
         'random' => 'Random Problem',
         'solved' => 'Solved',
     ],
