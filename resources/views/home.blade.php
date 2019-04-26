@@ -4,27 +4,45 @@
 <ul class="nav flex-column">
     @if (auth()->user()->has_permission('submit'))
         <li class="nav-item">
-            <a class="nav-link" href="{{route('problems')}}">{{__('name.problem.list')}}</a>
+            <a class="nav-link" href="{{route('problems')}}">
+                <i class="fas fa-fw fa-server"></i>
+                {{__('name.problem.list')}}
+            </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="{{route('submissions_me')}}">{{__('name.submissions.me')}}</a>
+            <a class="nav-link" href="{{route('submissions_me')}}">
+                <i class="fas fa-fw fa-file"></i>
+                {{__('name.submissions.me')}}
+            </a>
         </li>
     @endif
     @if (auth()->user()->has_permission('create_problem'))
         <li class="nav-item">
-            <a class="nav-link" href="{{route('create_problem')}}">{{__('name.problem.create')}}</a>
+            <a class="nav-link" href="{{route('create_problem')}}">
+                <i class="fas fa-fw fa-upload"></i>
+                {{__('name.problem.create')}}
+            </a>
         </li>
     @endif
     @if (auth()->user()->has_permission('admit_users'))
         <li class="nav-item">
-            <a class="nav-link" href="{{route('submissions')}}">{{__('name.submissions.all')}}</a>
+            <a class="nav-link" href="{{route('submissions')}}">
+                <i class="fas fa-fw fa-file-alt"></i>
+                {{__('name.submissions.all')}}
+            </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="{{route('manage_users')}}">{{__('name.manage_users')}}</a>
+            <a class="nav-link" href="{{route('manage_users')}}">
+                <i class="fas fa-fw fa-user-cog"></i>
+                {{__('name.manage_users')}}
+            </a>
         </li>
     @endif
     <li class="nav-item">
-        <a class="nav-link" href="{{route('statistics')}}">{{__('name.statistics')}}</a>
+        <a class="nav-link" href="{{route('statistics')}}">
+            <i class="fas fa-fw fa-info"></i>
+            {{__('name.statistics')}}
+        </a>
     </li>
 </ul>
 
