@@ -13,6 +13,18 @@ use Kyslik\ColumnSortable\Sortable;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 
+function validate_tcsets($json_text){
+    $json = json_decode($json_text);
+    if(!is_array($json))return false;
+    foreach($json as $val){
+        if(!isset($val->name))return false;
+        if(!isset($val->point))return false;
+        if(!isset($val->problems))return false;
+        if(!is_array($val->problems))return false;
+    }
+    return true;
+}
+
 class Problem extends Model
 {
     use Sortable;
@@ -38,6 +50,11 @@ class Problem extends Model
         abort_if($zip->locateName('main.md') === FALSE, 400, __('ui.problem.zip_not_found', ['filename' => 'main.md']));
         abort_if($zip->locateName('in/'    ) === FALSE, 400, __('ui.problem.zip_not_found', ['filename' => 'in']));
         abort_if($zip->locateName('out/'   ) === FALSE, 400, __('ui.problem.zip_not_found', ['filename' => 'out']));
+
+        $str=$zip->getFromName('tcsets.json');
+        if($str!==FALSE){
+            abort_unless(validate_tcsets($str), 400, __('ui.problem.invalid_tcsets'));
+        }
 
         $model = static::query()->create($data);
         $id=$model->id;
@@ -65,6 +82,11 @@ class Problem extends Model
                 Storage::disk('data')->deleteDirectory($base_dir . 'in');
             if($zip->locateName('out/')!==FALSE)
                 Storage::disk('data')->deleteDirectory($base_dir . 'out');
+
+            $str=$zip->getFromName('tcsets.json');
+            if($str!==FALSE){
+                abort_unless(validate_tcsets($str), 400, __('ui.problem.invalid_tcsets'));
+            }
 
             Storage::disk('data')->zipExtractTo($zip, $base_dir);
             unlink($filepath);
