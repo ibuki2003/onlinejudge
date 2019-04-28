@@ -62,12 +62,20 @@ $problems = Problem::all();
     public function mySubmissionsApi(){
         return SubmissionResource::collection(Submission::ownFilter()->filterWithRequest()->orderBy('id', 'desc')->paginate());
     }
-    
+
+    public function submissionApi($id){
+        $submission = Submission::find($id);
+        abort_if($submission===NULL,404);
+        abort_unless($submission->is_visible(),403);
+
+        return new SubmissionResource($submission);
+    }
+
     public function rejudge($id){
         $submission = Submission::find($id);
         abort_if($submission===NULL,404);
         abort_unless(auth()->user()->has_permission('admit_users'), 403);
-        
+
         Submission::find($id)->rejudge();
         return redirect()->route('submission', ['id'=>$id]);
     }
