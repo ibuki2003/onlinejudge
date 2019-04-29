@@ -73,7 +73,7 @@ class Submission extends Model
         if(auth()->user()->has_permission('admit_users'))return true;
         return $this->user_id===auth()->id();
     }
-    
+
     /**
      * returns the submission source
      * @return string
@@ -107,13 +107,21 @@ class Submission extends Model
     }
 
     /**
+     * returns judge result as json
+     * @return object
+     */
+    public function get_raw_judge_result(){
+        return Storage::disk('data')->get('submissions/'.$this->id.'/judge_log.json');
+    }
+
+    /**
      * returns judge result as object
      * @return object
      */
     public function get_judge_result(){
-        return json_decode(Storage::disk('data')->get('submissions/'.$this->id.'/judge_log.json'));
+        return json_decode(get_raw_judge_result());
     }
-    
+
     /**
      * rejudge the submission
      */

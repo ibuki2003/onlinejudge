@@ -71,12 +71,34 @@ $problems = Problem::all();
         return new SubmissionResource($submission);
     }
 
+    public function compileResultApi($id){
+        $submission = Submission::find($id);
+        abort_if($submission===NULL,404);
+        abort_unless($submission->is_visible(),403);
+
+        if($submission->has_compile_result())
+            return $submission->get_compile_result();
+        else
+            return response(null, 204);
+    }
+
+    public function judgeResultApi($id){
+        $submission = Submission::find($id);
+        abort_if($submission===NULL,404);
+        abort_unless($submission->is_visible(),403);
+
+        if($submission->has_judge_result())
+            return $submission->get_raw_judge_result();
+        else
+            return response(null, 204);
+    }
+
     public function rejudge($id){
         $submission = Submission::find($id);
         abort_if($submission===NULL,404);
         abort_unless(auth()->user()->has_permission('admit_users'), 403);
 
         Submission::find($id)->rejudge();
-        return redirect()->route('submission', ['id'=>$id]);
+        return response(null, 202);
     }
 }
