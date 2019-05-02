@@ -66,8 +66,8 @@ class Problem extends Model
             if($zip->locateName('out/')!==FALSE)
                 Storage::disk('data')->deleteDirectory($base_dir . 'out');
 
-            if(Storage::disk('data')->exists($vase_dir . 'judge'))
-                Storage::disk('data')->delete($vase_dir . 'judge');
+            if(Storage::disk('data')->exists($base_dir . 'judge'))
+                Storage::disk('data')->delete($base_dir . 'judge');
 
             Storage::disk('data')->zipExtractTo($zip, $base_dir);
             unlink($filepath);
