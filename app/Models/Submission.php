@@ -11,7 +11,7 @@ use App\Models\Problem;
 
 class Submission extends Model
 {
-    protected $fillable = ['problem_id', 'lang_id', 'user_id', 'size', 'status', 'exec_time'];
+    protected $fillable = ['problem_id', 'lang_id', 'user_id', 'point', 'size', 'status', 'exec_time'];
     protected $dates = ['time'];
     protected $dateFormat='Y-m-d H:i:s';
     const CREATED_AT = null;
@@ -126,7 +126,11 @@ class Submission extends Model
      * rejudge the submission
      */
     public function rejudge(){
-        $this->update(['status' => 'WR']);
+        $this->update([
+            'status' => 'WR',
+            'point' => 0,
+            'exec_time' => null
+        ]);
     }
 
     public function user(){
