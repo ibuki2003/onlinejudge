@@ -14,7 +14,7 @@
             </tr>
             <tr>
                 <th scope="row">{{__("ui.submission.sender")}}</th>
-                <td>@{{detail.user_id}}</td>
+                <td>@{{detail.sender}}</td>
             </tr>
             <tr>
                 <th scope="row">{{__("ui.submission.lang")}}</th>
@@ -32,7 +32,7 @@
                 <th scope="row">{{__("ui.submission.exec_time")}}</th>
 
                 <td v-if="detail.exec_time===null">--</td>
-                <td v-else>@{{detail.exec_time}}</td>
+                <td v-else>@{{detail.exec_time}}ms</td>
             </tr>
             <tr :class="'table-'+statusColors[detail.status]">
                 <th scope="row">{{__("ui.submission.status")}}</th>
