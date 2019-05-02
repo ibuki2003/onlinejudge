@@ -7,15 +7,32 @@ return [
     */
     'columns'                       => [
         'alpha'   => [
-            'rows'  => ['description', 'email', 'name', 'slug'],
+            'rows'  => [
+                'description',
+                'email',
+                'name',
+                'slug',
+                'user_id',
+            ],
             'class' => 'fa fa-sort-alpha',
         ],
         'amount'  => [
-            'rows'  => ['amount', 'price'],
+            'rows'  => [
+                'amount',
+                'price',
+                'difficulty',
+            ],
             'class' => 'fa fa-sort-amount',
         ],
         'numeric' => [
-            'rows'  => ['created_at', 'updated_at', 'level', 'id', 'phone_number'],
+            'rows'  => [
+                'created_at',
+                'updated_at',
+                'level',
+                'id',
+                'phone_number',
+                'problem_id',
+            ],
             'class' => 'fa fa-sort-numeric',
         ],
     ],
@@ -23,7 +40,7 @@ return [
     /*
     whether icons should be enabled
      */
-    'enable_icons'                  => false,
+    'enable_icons'                  => true,
 
     /*
     defines icon set to use when sorted data is none above (alpha nor amount nor numeric)
@@ -38,7 +55,7 @@ return [
     /*
     generated icon is clickable non-clickable (default)
      */
-    'clickable_icon'                => false,
+    'clickable_icon'                => true,
 
     /*
     icon and text separator (any string)
@@ -49,12 +66,12 @@ return [
     /*
     suffix class that is appended when ascending direction is applied
      */
-    'asc_suffix'                    => '-asc',
+    'asc_suffix'                    => '-up',
 
     /*
     suffix class that is appended when descending direction is applied
      */
-    'desc_suffix'                   => '-desc',
+    'desc_suffix'                   => '-down',
 
     /*
     default anchor class, if value is null none is added
