@@ -58,6 +58,7 @@ class Problem extends Model
 
         $model = static::query()->create($data);
         $id=$model->id;
+        $files['zip_content']->storeAs('', 'problems/'.$id.'.zip', 'data');
         Storage::disk('data')->makeDirectory('problems/'.$id);
         Storage::disk('data')->zipExtractTo($zip, 'problems/'.$id);
         unlink($filepath);
@@ -77,6 +78,7 @@ class Problem extends Model
             $filepath = storage_path( 'app/' . $files['zip_content']->store('uploads') );
             $zip = new ZipArchive;
             abort_unless($zip->open($filepath) === TRUE, 400, __('ui.problem.invalid_zip'));
+            $files['zip_content']->storeAs('', 'problems/'.$this->id.'.zip', 'data');
             $base_dir='problems/' . $this->id . '/';
             if($zip->locateName('in/')!==FALSE)
                 Storage::disk('data')->deleteDirectory($base_dir . 'in');
