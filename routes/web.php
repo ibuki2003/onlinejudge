@@ -33,6 +33,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('problems/{id}/editorial', 'ProblemController@editorial')->where('id', '\d+')->name('problem_editorial');
     Route::get('problems/{id}/edit', 'ProblemController@edit')->where('id', '\d+')->name('problem_edit');
     Route::post('problems/{id}/edit', 'ProblemController@edit_write')->where('id', '\d+');
+    Route::get('problems/{id}/zip', 'ProblemController@zip')->where('id', '\d+')->name('problem_zip');
 
     Route::get('statistics', 'MainController@statistics')->name('statistics');
 

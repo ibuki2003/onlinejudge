@@ -157,6 +157,11 @@ class Problem extends Model
         return Storage::disk('data')->get('problems/'.$this->id.'/editorial.md');
     }
 
+    public function download_zip(){
+        if(!Storage::disk('data')->exists('problems/'.$this->id.'.zip'))return NULL;
+        return Storage::disk('data')->download('problems/'.$this->id.'.zip', ''.$this->id.'.zip');
+    }
+
     /**
      * returns whether the problem solved by user
      * @param \App\User $user

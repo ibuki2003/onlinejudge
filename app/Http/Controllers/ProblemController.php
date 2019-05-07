@@ -24,6 +24,15 @@ class ProblemController extends Controller
         return view('problems/problem', ['problem' => $problem]);
     }
 
+    public function zip($id){
+        $problem = Problem::find($id);
+        abort_if($problem===NULL, 404);
+        abort_unless($problem->user_id===auth()->id() || auth()->user()->has_permission('admit_users'),403);
+        $dl = $problem->download_zip();
+        abort_if($dl === NULL, 404);
+        return $dl;
+    }
+
     public function create(){
         return view('problems/create');
     }
