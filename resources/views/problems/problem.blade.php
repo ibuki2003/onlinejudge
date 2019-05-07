@@ -17,6 +17,9 @@
 @if ($problem->user_id === auth()->id())
 <p><a href="{{route('problem_edit',['id'=>$problem->id])}}" class="btn btn-dark">{{__('name.problem.edit')}}</a></p>
 @endif
+@if ($problem->user_id === auth()->id() || auth()->user()->has_permission('admit_users'))
+    <p><a href="{{route('problem_zip',['id'=>$problem->id])}}" class="btn btn-dark">{{__('ui.problem.dl_zip')}}</a></p>
+@endif
 @if (!$problem->is_opened())
 <div class="alert alert-info" role="alert">{{__('ui.problem.not_opened')}}</div>
 @endif
