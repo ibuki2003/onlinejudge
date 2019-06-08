@@ -12,6 +12,7 @@ use App\User;
 use Kyslik\ColumnSortable\Sortable;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
+use Illuminate\Http\File;
 
 function validate_tcsets($json_text){
     $json = json_decode($json_text);
@@ -58,6 +59,7 @@ class Problem extends Model
 
         $model = static::query()->create($data);
         $id=$model->id;
+        $files['zip_content']->storeAs('', 'problems/'.$id.'.zip', 'data');
         Storage::disk('data')->makeDirectory('problems/'.$id);
         Storage::disk('data')->zipExtractTo($zip, 'problems/'.$id);
         unlink($filepath);
@@ -92,6 +94,8 @@ class Problem extends Model
 
             Storage::disk('data')->zipExtractTo($zip, $base_dir);
             unlink($filepath);
+
+            $this->create_zip();
         }
 
         $model = static::query()->where('id', $this->id);
@@ -153,6 +157,34 @@ class Problem extends Model
     public function get_editorial(){
         if(!$this->has_editorial())return NULL;
         return Storage::disk('data')->get('problems/'.$this->id.'/editorial.md');
+    }
+
+    public function create_zip(){
+        $base_dir='problems/' . $this->id . '/';
+        $temp = tempnam(sys_get_temp_dir(), 'OJ');
+        $zip = new ZipArchive;
+        $zip->open($temp, ZipArchive::OVERWRITE);
+
+        $base_len = strlen($base_dir)+1; // last slash;
+        foreach(Storage::disk('data')->allDirectories($base_dir) as $dirname){
+            $zip->addEmptyDir(substr($dirname, $base_len));
+        }
+        foreach(Storage::disk('data')->allFiles($base_dir) as $filename){
+            if(substr($filename, $base_len) == 'judge') // ignore special judger compiled binary
+                continue;
+            $zip->addFromString(substr($filename, $base_len),
+                Storage::disk('data')->get($filename));
+        }
+        $zip->close();
+        Storage::disk('data')->putFileAs('', new File($temp), $base_dir.'.zip');
+        unlink($temp);
+    }
+
+    public function download_zip(){
+        $base_dir = 'problems/'.$this->id;
+        if(!Storage::disk('data')->exists($base_dir.'.zip'))
+            $this->create_zip();
+        return Storage::disk('data')->download($base_dir.'.zip', ''.$this->id.'.zip');
     }
 
     /**

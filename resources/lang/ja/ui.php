@@ -31,6 +31,7 @@ return [
         'rejudge' => 'リジャッジ',
         'random' => 'おまかせ出題',
         'solved' => '正解済み',
+        'dl_zip' => '問題データをダウンロード',
     ],
     'submission' => [
         'submission' => '提出',

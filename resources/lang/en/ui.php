@@ -30,6 +30,7 @@ return [
         'zip_not_found' => 'The file :filename is not found in the zip file.',
         'random' => 'Random Problem',
         'solved' => 'Solved',
+        'dl_zip' => 'Download problem data',
     ],
     'submission' => [
         'submission' => 'Submission',
