@@ -42,9 +42,9 @@ $problems = Problem::all();
     }
 
     public function store(SubmitRequest $request){
-        Submission::create($request->all());
+        $submission = Submission::create($request->all());
 
-        return redirect()->route('submissions_me');
+        return redirect()->route('submission', ['id' => $submission->id]);
     }
 
     public function show($id){
