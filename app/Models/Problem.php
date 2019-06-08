@@ -160,7 +160,7 @@ class Problem extends Model
     }
 
     public function create_zip(){
-        $base_dir='problems/' . $this->id . '/';
+        $base_dir='problems/' . $this->id;
         $temp = tempnam(sys_get_temp_dir(), 'OJ');
         $zip = new ZipArchive;
         $zip->open($temp, ZipArchive::OVERWRITE);
