@@ -8,4 +8,6 @@ Route::get('/submissions/{id}', 'SubmissionController@submissionApi')->where('id
 Route::get('/submissions/{id}/compile_result', 'SubmissionController@compileResultApi')->where('id', '\d+')->middleware('web');
 Route::get('/submissions/{id}/judge_result', 'SubmissionController@judgeResultApi')->where('id', '\d+')->middleware('web');
 
+Route::get('/contests/standings/{id}', 'ContestController@standingsApi')->where('id', '\d+')->middleware('web');
+
 Route::get('aggregate', 'StatisticsController@aggregateApi');

@@ -21,6 +21,11 @@ return [
         'all' => 'All Submissions',
         'me' => 'My Submissions',
     ],
+    'contest' => [
+        'list' => 'Contests',
+        'new' => 'New contest',
+        'edit' => 'Edit contest',
+    ],
     'submission' => 'Submission',
     'md_editor' => 'Markdown Editor',
     'statistics' => 'Statistics Info',

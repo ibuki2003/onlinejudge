@@ -10,6 +10,12 @@
             </a>
         </li>
         <li class="nav-item">
+            <a class="nav-link" href="{{route('contests')}}">
+                <i class="fas fa-calendar-check"></i>
+                {{__('name.contest.list')}}
+            </a>
+        </li>
+        <li class="nav-item">
             <a class="nav-link" href="{{route('submissions_me')}}">
                 <i class="fas fa-fw fa-file"></i>
                 {{__('name.submissions.me')}}
