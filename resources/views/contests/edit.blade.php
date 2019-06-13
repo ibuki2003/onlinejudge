@@ -16,12 +16,12 @@
     </div>
     <div class="form-group">
         <label for="start_time-input">{{__('ui.contest.start_time')}}</label>
-        <input type="datetime-local" id="start_time-input" name="start_time" class="form-control" value="{{$contest->start_time}}">
+        <input type="datetime-local" id="start_time-input" name="start_time" class="form-control" value="{{str_replace(' ', 'T', $contest->start_time)}}">
         <div class="invalid-feedback" id="start_time-error"></div>
     </div>
     <div class="form-group">
         <label for="end_time-input">{{__('ui.contest.end_time')}}</label>
-        <input type="datetime-local" id="end_time-input" name="end_time" class="form-control" value="{{$contest->end_time}}">
+        <input type="datetime-local" id="end_time-input" name="end_time" class="form-control" value="{{str_replace(' ', 'T', $contest->end_time)}}">
         <div class="invalid-feedback" id="end_time-error"></div>
     </div>
     <div class="form-group">
