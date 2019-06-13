@@ -73,6 +73,8 @@ return [
         'point_allotted' => '配点',
         'penalty' => 'ペナルティ',
         'penalty_in_munites' => 'ペナルティ(分)',
+        'move_up' => '↑',
+        'move_down' => '↓',
     ],
     'user' => [
         'permission' => '権限',
