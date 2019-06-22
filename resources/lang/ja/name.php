@@ -22,6 +22,11 @@ return [
         'all' => 'すべての提出',
         'me' => '自分の提出',
     ],
+    'contest' => [
+        'list' => 'コンテスト一覧',
+        'new' => '新しいコンテスト',
+        'edit' => 'コンテストの変更',
+    ],
     'submission' => '提出',
     'md_editor' => 'Markdownエディタ',
     'statistics' => '統計情報',
