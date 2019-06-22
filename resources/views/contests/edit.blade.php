@@ -56,13 +56,13 @@
                     <td>@{{row.id}}</td>
                     <td><a v-bind:href="'/problems/'+row.id">@{{problem_titles[row.id]}}</a></td>
                     <td>
-						<input type="number" class="form-control" min="0" max="3000" id="point_allotted" v-model:value="row.point" onkeyup="if (!checkValidity(this)) $(this).addClass('is-invalid'); else $(this).removeClass('is-invalid');">
-					</td>
+                        <input type="number" class="form-control" min="0" max="3000" id="point_allotted" v-model:value="row.point" onkeyup="if (!checkValidity(this)) $(this).addClass('is-invalid'); else $(this).removeClass('is-invalid');">
+                    </td>
                     <td>
-						<button type="button" class="btn btn-secondary" v-on:click="remove_problem(row.id)">{{__('ui.contest.remove_problem')}}</button>
-						<button type="button" v-bind:class="'btn btn-secondary' + (index > 0 ? '' : ' invisible')" v-on:click="move_up(row.id)">{{__('ui.contest.move_up')}}</button>
-						<button type="button" v-bind:class="'btn btn-secondary' + (index + 1 < problems.length ? '' : ' invisible')" v-on:click="move_down(row.id)">{{__('ui.contest.move_down')}}</button>
-					</td>
+                        <button type="button" class="btn btn-secondary" v-on:click="remove_problem(row.id)">{{__('ui.contest.remove_problem')}}</button>
+                        <button type="button" v-bind:class="{'btn btn-secondary' : index > 0, 'invisible' : index <= 0}" v-on:click="move_up(row.id)">{{__('ui.contest.move_up')}}</button>
+                        <button type="button" v-bind:class="{'btn btn-secondary' : index + 1 < problems.length, 'invisible' : index + 1 == problems.length}" v-on:click="move_down(row.id)">{{__('ui.contest.move_down')}}</button>
+                    </td>
                 </tr>
             </tbody>
         </table>

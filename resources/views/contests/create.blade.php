@@ -60,8 +60,8 @@
 					</td>
                     <td>
 						<button type="button" class="btn btn-secondary" v-on:click="remove_problem(row.id)">{{__('ui.contest.remove_problem')}}</button>
-						<button type="button" v-bind:class="'btn btn-secondary' + (index > 0 ? '' : ' invisible')" v-on:click="move_up(row.id)">{{__('ui.contest.move_up')}}</button>
-						<button type="button" v-bind:class="'btn btn-secondary' + (index + 1 < problems.length ? '' : ' invisible')" v-on:click="move_down(row.id)">{{__('ui.contest.move_down')}}</button>
+						<button type="button" v-bind:class="{'btn btn-secondary' : index > 0, 'invisible' : index <= 0}" v-on:click="move_up(row.id)">{{__('ui.contest.move_up')}}</button>
+						<button type="button" v-bind:class="{'btn btn-secondary' : index + 1 < problems.length, 'invisible' : index + 1 == problems.length}" v-on:click="move_down(row.id)">{{__('ui.contest.move_down')}}</button>
 					</td>
                 </tr>
             </tbody>
