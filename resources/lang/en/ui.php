@@ -71,8 +71,6 @@ return [
         'point_allotted' => 'Point',
         'penalty' => 'Penalty',
         'penalty_in_munites' => 'Penalty(in minutes)',
-        'move_up' => '^',
-        'move_down' => 'v',
     ],
     'user' => [
         'permission' => 'Permission',
