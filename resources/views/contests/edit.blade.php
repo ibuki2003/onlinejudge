@@ -6,12 +6,12 @@
 <div id="problems-controller">
     <div class="form-group">
         <label for="title-input">{{__('ui.contest.title')}}</label>
-        <input type="text" id="title-input" name="title" class="form-control" value="@{{ {!!str_replace('}', '\}', json_encode($contest->title))!!} }}" required>
+        <input type="text" id="title-input" name="title" class="form-control" value="@{{ {!!str_replace('}', '\}', e(json_encode($contest->title)))!!} }}" required>
         <div class="invalid-feedback" id="title-error"></div>
     </div>
     <div class="form-group">
         <label for="description-input">{{__('ui.contest.description_optional')}}</label>
-        <textarea id="description-input" name="description" class="form-control">@{{ {!!str_replace('}', '\}', json_encode($contest->description))!!} }}</textarea>
+        <textarea id="description-input" name="description" class="form-control">@{{ {!!str_replace('}', '\}', e(json_encode($contest->description)))!!} }}</textarea>
         <div class="invalid-feedback" id="description-error"></div>
     </div>
     <div class="form-group">
@@ -34,7 +34,7 @@
     <div class="input-group m-2">
         <select class="form-control" id="problem_new" v-model="problem_new">
             @foreach($problems as $problem)
-                <option value="{{$problem->id}}">{{$problem->id}} : @{{ {!!str_replace('}', '\}', json_encode($problem->title))!!} }}</option>
+                <option value="{{$problem->id}}">{{$problem->id}} : @{{ {!!str_replace('}', '\}', e(json_encode($problem->title)))!!} }}</option>
             @endforeach
         </select>
         <div class="input-group-append">

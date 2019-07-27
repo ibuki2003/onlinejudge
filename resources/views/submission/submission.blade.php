@@ -46,7 +46,7 @@
 @endif
 <hr>
 <h2>{{__('ui.submission.source')}}</h2>
-<pre><code>@{{ {!! str_replace('}', '\}', json_encode($submission->get_source())) !!} }}</code></pre>
+<pre><code>@{{ {!! str_replace('}', '\}', e(json_encode($submission->get_source()))) !!} }}</code></pre>
 
 <section v-if="compile_result !== null">
 <h2>{{__('ui.submission.compile_result')}}</h2>

@@ -34,7 +34,7 @@
     <div class="input-group m-2">
         <select class="form-control" id="problem_new" v-model="problem_new">
             @foreach($problems as $problem)
-                <option value="{{$problem->id}}">{{$problem->id}} : @{{ {!!str_replace('}', '\}', json_encode($problem->title))!!} }}</option>
+                <option value="{{$problem->id}}">{{$problem->id}} : @{{ {!!str_replace('}', '\}', e(json_encode($problem->title)))!!} }}</option>
             @endforeach
         </select>
         <div class="input-group-append">
