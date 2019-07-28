@@ -6,7 +6,7 @@
 <div id="problems-controller">
     <div class="form-group">
         <label for="title-input">{{__('ui.contest.title')}}</label>
-        <input type="text" id="title-input" name="title" class="form-control" value="@{{ {!!str_replace('}', '\}', e(json_encode($contest->title)))!!} }}" required>
+        <input type="text" id="title-input" name="title" class="form-control" value="{{$contest->title}}" required>
         <div class="invalid-feedback" id="title-error"></div>
     </div>
     <div class="form-group">
