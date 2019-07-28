@@ -2,6 +2,7 @@ function parseMD(md) {
    var html=marked(md, {
         gfm: true,
         breaks: true,
+        sanitize: true,
     });
     var elm=$('<div />').html(html);
     renderMathInElement(elm[0],{delimiters: [
