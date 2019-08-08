@@ -196,8 +196,8 @@ class ContestController extends Controller
         });
         // calculate rank
         foreach ($data['users'] as $index => &$cur_data) {
-            if (!$index || ($data['users'][$last_rank]['score_sum'] != $cur_data['score_sum'] &&
-                            $data['users'][$last_rank]['time_all'] != $cur_data['time_all'])) $last_rank = $index;
+            if (!$index || $data['users'][$last_rank]['score_sum'] != $cur_data['score_sum'] ||
+                           $data['users'][$last_rank]['time_all'] != $cur_data['time_all']) $last_rank = $index;
             $cur_data['rank'] = $last_rank + 1;
         }
         unset($cur_data);
