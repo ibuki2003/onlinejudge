@@ -4,7 +4,7 @@ namespace App\Exceptions;
 
 use Exception;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
-use Symfony\Component\HttpKernel\Exception\HttpException;
+use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
 
 class Handler extends ExceptionHandler
 {
@@ -54,7 +54,7 @@ class Handler extends ExceptionHandler
     }
 
 
-    protected function renderHttpException(HttpException $e){
+    protected function renderHttpException(HttpExceptionInterface $e){
         $this->registerErrorViewPaths();
         $message = $e->getMessage();
         switch ($e->getStatusCode()) {
