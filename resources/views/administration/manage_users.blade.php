@@ -17,6 +17,7 @@
                         <select class="form-control" v-model:value="user.permission" v-bind:disabled="id=='{{auth()->id()}}'">
                             <option value="0">Guest</option>
                             <option value="3">User</option>
+                            <option value="7">ContestOwner</option>
                             <option value="15">Admin</option>
                         </select>
                     </td>
@@ -25,7 +26,7 @@
         </table>
     </div>
     <button class="btn btn-primary" v-on:click="load_status=0" data-toggle="modal" data-target="#confirm-modal">{{__('ui.submit')}}</button>
-    
+
     <div class="modal" tabindex="-1" role="dialog" id="confirm-modal">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
