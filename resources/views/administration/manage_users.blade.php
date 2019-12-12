@@ -16,9 +16,10 @@
                     <td>
                         <select class="form-control" v-model:value="user.permission" v-bind:disabled="id=='{{auth()->id()}}'">
                             <option value="0">Guest</option>
-                            <option value="3">User</option>
+                            <option value="1">Submitter</option>
+                            <option value="3">ProblemCreator</option>
                             <option value="7">ContestOwner</option>
-                            <option value="15">Admin</option>
+                            <option value="15">Administrator</option>
                         </select>
                     </td>
                 </tr>
