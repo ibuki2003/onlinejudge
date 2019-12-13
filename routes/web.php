@@ -44,7 +44,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::group(['middleware' => ['permission:submit']], function () {
         Route::get('submit/{id?}', 'SubmissionController@create')->where('id', '\d+')->name('submit');
         Route::post('submit', 'SubmissionController@store');
-        
+
         Route::get('contests', 'ContestController@list')->name('contests');
         Route::get('contests/{id}', 'ContestController@show')->where('id', '\d+')->name('contest');
         Route::post('contests/{id}/participate', 'ContestController@participate')->where('id', '\d+')->name('contest_participate');
@@ -64,7 +64,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::group(['middleware' => ['permission:admit_users']], function () {
         Route::get('submissions', 'SubmissionController@index')->name('submissions');
     });
-});
 
-Route::get('admin/manage_users', 'AdminController@manage_users')->name('manage_users');
-Route::post('admin/manage_users', 'AdminController@manage_users_apply');
+    Route::get('admin/manage_users', 'AdminController@manage_users')->name('manage_users');
+    Route::post('admin/manage_users', 'AdminController@manage_users_apply');
+});
