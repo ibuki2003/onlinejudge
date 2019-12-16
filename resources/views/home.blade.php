@@ -50,6 +50,14 @@
             {{__('name.statistics')}}
         </a>
     </li>
+    @if (config('oj.help_url'))
+        <li class="nav-item">
+            <a class="nav-link" href="{{config('oj.help_url')}}">
+                <i class="fas fa-fw fa-question-circle"></i>
+                {{__('name.help')}}
+            </a>
+        </li>
+    @endif
 </ul>
 
 @endsection

@@ -31,4 +31,5 @@ return [
     'statistics' => 'Statistics Info',
     'change_password' => 'Change Password',
     'manage_users' => 'Manage Users',
+    'help' => 'show Help',
 ];
