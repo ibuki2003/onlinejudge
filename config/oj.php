@@ -25,4 +25,6 @@ return [
     // all submission
     // contest
     'open_mode' => env('OJ_OPEN_MODE', false),
+
+    'gtag_id' => env('GTAG_ID', ''),
 ];
