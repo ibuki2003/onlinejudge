@@ -23,28 +23,32 @@ class Contest extends Model
     public static function create(array $data) {
         $problem_ids = "";
         $problem_points = "";
-        foreach ($data['problems'] as $problem) {
-            $problem_ids .= $problem['id'] . ',';
-            $problem_points .= $problem['point'] . ',';
-        }
-        $data['problem_ids'] = substr($problem_ids, 0, -1);
-        $data['problem_points'] = substr($problem_points, 0, -1);
         $data['creator'] = auth()->id();
         $model = static::query()->create($data);
         $id=$model->id;
+        foreach ($data['problems'] as $i => $problem) {
+            $model->raw_problems()->attach(
+                $problem['id'],
+                [
+                    'idx' => $i,
+                    'point' => $problem['point']
+                ]);
+        }
+
         return $model;
     }
     public function edit(array $data) {
-        $problem_ids = "";
-        $problem_points = "";
-        foreach ($data['problems'] as $problem) {
-            $problem_ids .= $problem['id'] . ',';
-            $problem_points .= $problem['point'] . ',';
-        }
-        $data['problem_ids'] = substr($problem_ids, 0, -1);
-        $data['problem_points'] = substr($problem_points, 0, -1);
-
         $this->update($data);
+
+        $this->raw_problems()->detach();
+        foreach ($data['problems'] as $i => $problem) {
+            $this->raw_problems()->attach(
+                $problem['id'],
+                [
+                    'idx' => $i,
+                    'point' => $problem['point']
+                ]);
+        }
     }
 
     public function participate() {
@@ -64,5 +68,11 @@ class Contest extends Model
     }
     public function users() {
         return $this->belongsToMany(User::class);
+    }
+    private function raw_problems() {
+        return $this->belongsToMany(Problem::class)->withPivot(['idx', 'point']);
+    }
+    public function problems() {
+        return $this->raw_problems()->orderBy('pivot_idx', 'asc');
     }
 }
