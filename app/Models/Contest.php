@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
 use Kyslik\ColumnSortable\Sortable;
+use App\User;
 
 class Contest extends Model
 {
@@ -42,28 +43,26 @@ class Contest extends Model
         }
         $data['problem_ids'] = substr($problem_ids, 0, -1);
         $data['problem_points'] = substr($problem_points, 0, -1);
-        
+
         $this->update($data);
     }
-    
+
     public function participate() {
-        $users = explode(',', $this->user_ids);
-        if (count($users) == 1 && $users[0] == '') $users[0] = auth()->id(); // eliminate empty id
-        else $users[] = auth()->id();
-        $this->update(['user_ids' => implode(',', $users)]);
+        $this->users()->attach(auth()->id());
     }
     public function cancel_participate() {
-        $users = explode(',', $this->user_ids);
-        array_splice($users, array_search(auth()->id(), $users), 1);
-        $this->update(['user_ids' => implode(',', $users)]);
+        $this->users()->detach(auth()->id());
     }
     public function can_participate() {
         return auth()->user()->has_permission('submit') &&
-               !in_array(auth()->id(), explode(',', $this->user_ids)) && // not participated yet
+               !$this->users()->where('user_id', auth()->id())->exists() && // not participated yet
                strtotime(date("Y-m-d H:i:s")) < strtotime($this->end_time); // still not ended
     }
     public function can_cancel_participate() {
-        return in_array(auth()->id(), explode(',', $this->user_ids)) && 
+        return $this->users()->where('user_id', auth()->id())->exists() &&
                strtotime(date("Y-m-d H:i:s")) < strtotime($this->start_time); // cannot cancel participation once the contest started
+    }
+    public function users() {
+        return $this->belongsToMany(User::class);
     }
 }
