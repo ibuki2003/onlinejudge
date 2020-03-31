@@ -8,16 +8,16 @@
         <div class="progress-bar" role="progressbar" style="width: {{$problem->difficulty*100/config('oj.difficulty_max')}}%" aria-valuenow="{{$problem->difficulty}}" aria-valuemin="0" aria-valuemax="{{config('oj.difficulty_max')}}">{{$problem->difficulty}}</div>
     </div>
 </div>
-@if($problem->solved_by(auth()->user()))
+@if(auth()->check() && $problem->solved_by(auth()->user()))
 <p class="alert alert-success">{{__('ui.problem.solved')}}</p>
 @endif
 @if ($problem->has_editorial())
 <p><a href="{{route('problem_editorial',['id'=>$problem->id])}}" class="btn btn-secondary">{{__('name.editorial')}}</a></p>
 @endif
-@if ($problem->user_id === auth()->id())
+@if (auth()->check() && $problem->user_id === auth()->id())
 <p><a href="{{route('problem_edit',['id'=>$problem->id])}}" class="btn btn-dark">{{__('name.problem.edit')}}</a></p>
 @endif
-@if ($problem->user_id === auth()->id() || auth()->user()->has_permission('admit_users'))
+@if (auth()->check() && ($problem->user_id === auth()->id() || auth()->user()->has_permission('admit_users')))
     <p><a href="{{route('problem_zip',['id'=>$problem->id])}}" class="btn btn-dark">{{__('ui.problem.dl_zip')}}</a></p>
 @endif
 @if (!$problem->is_opened())

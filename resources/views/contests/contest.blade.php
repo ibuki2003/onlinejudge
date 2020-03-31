@@ -14,19 +14,19 @@
                                  __('ui.contest.ended'))}}</p>
 
 
-@if ($contest->can_participate())
+@if (auth()->check() && $contest->can_participate())
 <form method="post" name="form_participate" action="{{route('contest_participate', ['id' => $contest->id])}}">
     @csrf
     <p><button type="submit" class="btn btn-primary">{{__('ui.contest.participate')}}</button></p>
 </form>
 @endif
-@if ($contest->can_cancel_participate())
+@if (auth()->check() && $contest->can_cancel_participate())
 <form method="post" name="form_cancel_participate" action="{{route('contest_cancel_participate', ['id' => $contest->id])}}">
     @csrf
     <p><button type="submit" class="btn btn-danger">{{__('ui.contest.cancel_participate')}}</button></p>
 </form>
 @endif
-@if (auth()->id() == $contest->creator)
+@if (auth()->check() && auth()->id() == $contest->creator)
     <p><a href="/contests/{{$contest->id}}/edit" class="btn btn-dark" >{{__('name.contest.edit')}}</a></p>
 @endif
 <hr>

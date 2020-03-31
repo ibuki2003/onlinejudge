@@ -14,7 +14,7 @@
         </thead>
         <tbody>
             @foreach ($problems as $problem)
-            <tr class="{{$problem->solved_by(auth()->user())?'table-success':''}}" href="{{route('problem',['id'=>$problem->id])}}">
+            <tr class="{{auth()->check() && $problem->solved_by(auth()->user())?'table-success':''}}" href="{{route('problem',['id'=>$problem->id])}}">
                 <th scope="row">{{$problem->{'id'} }}</th>
                 <td><a href="{{route('problem',['id'=>$problem->id])}}">{{$problem->{'title'} }}</a></td>
                 <td>{{$problem->user_id}}</td>

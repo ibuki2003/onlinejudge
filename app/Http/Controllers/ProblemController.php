@@ -10,6 +10,16 @@ use App\Http\Requests\EditProblemRequest;
 
 class ProblemController extends Controller
 {
+    public function __construct() {
+        if (!config('oj.open_mode'))
+            $this->middleware('permission:submit')->only([
+                'list',
+                'problem',
+                'editorial',
+                'random',
+            ]);
+    }
+
     public function list(){
         $problems = Problem::visibleFilter()->sortable()->paginate();
         return view('problems/list', ['problems' => $problems]);

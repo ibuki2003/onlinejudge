@@ -18,14 +18,21 @@ class ContestController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        if (!config('oj.open_mode')) {
+            $this->middleware('auth');
+            $this->middleware('permission:submit')->only([
+                'list',
+                'show',
+                'standingsApi',
+            ]);
+        }
     }
 
     public function list() {
         $contests = Contest::sortable()->paginate();
         return view('contests/list', ['contests' => $contests]);
     }
-    
+
     public function create(){
         $problems = Problem::all();
         return view('contests/create', ['problems' => $problems]);
