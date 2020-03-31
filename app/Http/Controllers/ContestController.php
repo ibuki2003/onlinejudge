@@ -90,8 +90,9 @@ class ContestController extends Controller
             $problem_id = (int) $problem_id;
         }
         unset($problem_id);
-        $user_ids = [];
-        if ($contest->user_ids !== "") $user_ids = explode(",", $contest->user_ids);
+
+        $user_ids = $contest->users->pluck('id');
+        
         $submissions = Submission::whereBetween('time', [$contest->start_time, $contest->end_time])
                                  ->whereIn('user_id', $user_ids)
                                  ->whereIn('problem_id', $problem_ids)->get();
