@@ -89,8 +89,8 @@
         el: '#problems-controller',
         data: {
             problems : [ // [i]['id'] : problem id, [i]['point'] : point
-                @foreach(explode(',', $contest->problem_ids) as $index => $problem_id)
-                    {id : {{$problem_id}}, point : {{explode(',', $contest->problem_points)[$index]}}},
+                @foreach($contest->problems as $index => $problem)
+                    {id : {{$problem->id}}, point : {{$problem->pivot->point}} },
                 @endforeach
             ],
             problem_titles : {
