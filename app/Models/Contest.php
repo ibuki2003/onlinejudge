@@ -11,7 +11,7 @@ class Contest extends Model
 {
     use Sortable;
     protected $sortable = ['id', 'start_time', 'end_time'];
-    protected $fillable = ['title', 'description', 'creator', 'penalty', 'problem_ids', 'problem_points', 'user_ids', 'start_time', 'end_time'];
+    protected $fillable = ['title', 'description', 'creator', 'penalty', 'problem_ids', 'problem_points', 'start_time', 'end_time'];
     protected $dateFormat='Y-m-d H:i:s';
     const CREATED_AT = null;
     const UPDATED_AT = null;
