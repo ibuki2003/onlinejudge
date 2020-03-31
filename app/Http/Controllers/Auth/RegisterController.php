@@ -65,7 +65,7 @@ class RegisterController extends Controller
         return User::create([
             'id' => $data['id'],
             'password' => Hash::make($data['password']),
-            'permission' => 0,
+            'permission' => config('oj.initial_permission', 0),
         ]);
     }
 }

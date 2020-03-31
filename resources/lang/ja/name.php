@@ -32,4 +32,5 @@ return [
     'statistics' => '統計情報',
     'change_password' => 'パスワードの変更',
     'manage_users' => 'ユーザーの管理',
+    'help' => 'ヘルプを見る',
 ];

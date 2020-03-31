@@ -14,5 +14,9 @@ return [
         'OLE'=>'warning',
         'IE'=>'danger',
         'RE'=>'danger',
-    ]
+    ],
+
+    'initial_permission' => env('INITIAL_PERMISSION', 0),
+
+    'help_url' => env('HELP_URL', null),
 ];
