@@ -41,7 +41,7 @@
         </tbody>
     </table>
 </div>
-@if (auth()->user()->has_permission('admit_users'))
+@if (auth()->check() && auth()->user()->has_permission('admit_users'))
 <button type="button" class="btn btn-danger" @click="rejudge">{{__('ui.problem.rejudge')}}</button>
 @endif
 <hr>

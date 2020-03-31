@@ -2,7 +2,7 @@
 @section('title', config('app.name', 'Laravel'))
 @section('content')
 <ul class="nav flex-column">
-    @if (auth()->user()->has_permission('submit'))
+    @if (config('oj.open_mode') || auth()->check() && auth()->user()->has_permission('submit'))
         <li class="nav-item">
             <a class="nav-link" href="{{route('problems')}}">
                 <i class="fas fa-fw fa-server"></i>
@@ -15,6 +15,8 @@
                 {{__('name.contest.list')}}
             </a>
         </li>
+    @endif
+    @if (auth()->check() && auth()->user()->has_permission('submit'))
         <li class="nav-item">
             <a class="nav-link" href="{{route('submissions_me')}}">
                 <i class="fas fa-fw fa-file"></i>
@@ -22,7 +24,7 @@
             </a>
         </li>
     @endif
-    @if (auth()->user()->has_permission('create_problem'))
+    @if (auth()->check() && auth()->user()->has_permission('create_problem'))
         <li class="nav-item">
             <a class="nav-link" href="{{route('create_problem')}}">
                 <i class="fas fa-fw fa-upload"></i>
@@ -30,14 +32,16 @@
             </a>
         </li>
     @endif
-    @if (auth()->user()->has_permission('admit_users'))
+    @if (config('oj.open_mode') || auth()->check() && auth()->user()->has_permission('admit_users'))
         <li class="nav-item">
             <a class="nav-link" href="{{route('submissions')}}">
                 <i class="fas fa-fw fa-file-alt"></i>
                 {{__('name.submissions.all')}}
             </a>
         </li>
-        <li class="nav-item">
+    @endif
+    @if (auth()->check() && auth()->user()->has_permission('admit_users'))
+            <li class="nav-item">
             <a class="nav-link" href="{{route('manage_users')}}">
                 <i class="fas fa-fw fa-user-cog"></i>
                 {{__('name.manage_users')}}

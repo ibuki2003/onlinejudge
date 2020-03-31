@@ -16,6 +16,7 @@ class RequirePermission
      */
     public function handle($request, Closure $next ,string $permission)
     {
+        if(!auth()->check()) return redirect()->route('login');
         abort_unless(auth()->user()->has_permission($permission),403);
         return $next($request);
     }

@@ -7,6 +7,15 @@ use Illuminate\Support\Facades\DB;
 
 
 class MainController extends Controller{
+
+    public function __construct() {
+        if (!config('oj.open_mode'))
+            $this->middleware('permission:submit')->only([
+                'index',
+                'statistics',
+            ]);
+    }
+
     /**
      * Show the application dashboard.
      *

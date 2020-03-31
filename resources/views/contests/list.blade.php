@@ -2,7 +2,7 @@
 @section('title', __('name.contest.list'))
 @section('content')
 
-@if (auth()->user()->has_permission('create_contest'))
+@if (auth()->check() && auth()->user()->has_permission('create_contest'))
 <p><a href="{{route('create_contest')}}" class="btn btn-info">{{__('ui.contest.create_new')}}</a></p>
 @endif
 <div class="table-responsive">

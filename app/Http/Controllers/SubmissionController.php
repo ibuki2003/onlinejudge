@@ -17,7 +17,13 @@ class SubmissionController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        if(!config('oj.open_mode')) {
+            $this->middleware('auth');
+            $this->middleware('permission:admit_users')->only([
+                'index',
+                'allSubmissionsApi',
+            ]);
+        }
     }
 
     public function index(){
