@@ -75,4 +75,9 @@ class Contest extends Model
     public function problems() {
         return $this->raw_problems()->orderBy('pivot_idx', 'asc');
     }
+    public function scopeRunningFilter($query) {
+        return $query
+            ->where('start_time', '<=', Carbon::now())
+            ->where('end_time', '>=', Carbon::now());
+    }
 }
