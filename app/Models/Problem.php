@@ -203,4 +203,8 @@ class Problem extends Model
     public function submissions(){
         return $this->hasMany('App\Models\Submission');
     }
+
+    public function contests() {
+        return $this->belongsToMaany('App\Models\Contests');
+    }
 }
