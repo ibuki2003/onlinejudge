@@ -53,14 +53,7 @@ class ContestController extends Controller
     public function show($id){
         $contest = Contest::find($id);
         abort_if($contest===NULL,404);
-        $problem_ids = explode(",", $contest->problem_ids);
-        foreach ($problem_ids as &$problem_id) {
-            $problem_id = (int) $problem_id;
-        }
-        unset($problem_id);
-        $problems = Problem::whereIn('id', $problem_ids)->sortable()->paginate();
-
-        return view('contests/contest', ['contest' => $contest, 'problems' => $problems]);
+        return view('contests/contest', ['contest' => $contest]);
     }
     public function participate($id) {
         $contest = Contest::find($id);
@@ -84,18 +77,19 @@ class ContestController extends Controller
     public function standingsApi($id) {
         $contest = Contest::find($id);
         abort_if($contest===NULL,404);
-        $problem_ids = [];
-        if ($contest->problem_ids !== "") $problem_ids = explode(",", $contest->problem_ids);
-        foreach ($problem_ids as &$problem_id) {
-            $problem_id = (int) $problem_id;
-        }
-        unset($problem_id);
-        $user_ids = [];
-        if ($contest->user_ids !== "") $user_ids = explode(",", $contest->user_ids);
+
+        $user_ids = $contest->users->pluck('id');
+
+        $problems = $contest->problems;
+        // var_dump($problems->toJson());
+        $problem_ids = $problems->pluck('id');
+        $problem_points = $problems->pluck('pivot.point');
+
+
         $submissions = Submission::whereBetween('time', [$contest->start_time, $contest->end_time])
                                  ->whereIn('user_id', $user_ids)
                                  ->whereIn('problem_id', $problem_ids)->get();
-        
+
         // info per user per problem
         $scores = [];
         $penalties = [];
@@ -146,7 +140,6 @@ class ContestController extends Controller
         $data = [];
         // store problems data
         $data['problems'] = [];
-        $problem_points = explode(',', $contest->problem_points);
         foreach ($problem_ids as $index => $problem_id) {
             $problem = Problem::find($problem_id)->toArray();
             $problem['point'] = $problem_points[$index];
@@ -179,7 +172,7 @@ class ContestController extends Controller
                 $cur_user_data['data'][] = $cur_data;
                 $cur_user_data['score_sum'] += $scores[$user_id][$problem_id];
                 if ($penalties[$user_id][$problem_id] >= 0 && $has_ac[$user_id][$problem_id]) {
-                    if ($cur_user_data['penalty_sum'] == -1) $cur_user_data['penalty_sum'] = 0; 
+                    if ($cur_user_data['penalty_sum'] == -1) $cur_user_data['penalty_sum'] = 0;
                     $cur_user_data['penalty_sum'] += $penalties[$user_id][$problem_id];
                 }
                 if ($cur_user_data['time_all'] < $accept_time[$user_id][$problem_id])
