@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
 use Kyslik\ColumnSortable\Sortable;
 use App\User;
+use Carbon\Carbon;
 
 class Contest extends Model
 {

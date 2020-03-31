@@ -27,6 +27,10 @@ class SubmissionController extends Controller
     }
 
     public function index(){
+        abort_if(
+            auth()->check() &&
+            !auth()->user()->has_permission('admit_users') &&
+            auth()->user()->contests()->runningFilter()->exists(), 403);
         $submissions = Submission::all();
         $langs = Lang::all();
 $problems = Problem::all();
@@ -63,6 +67,10 @@ $problems = Problem::all();
     }
 
     public function allSubmissionsApi(){
+        abort_if(
+            auth()->check() &&
+            !auth()->user()->has_permission('admit_users') &&
+            auth()->user()->contests()->runningFilter()->exists(), 403);
         return SubmissionResource::collection(Submission::filterWithRequest()->orderBy('id', 'desc')->paginate());
     }
     public function mySubmissionsApi(){
