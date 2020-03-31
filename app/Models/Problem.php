@@ -196,6 +196,13 @@ class Problem extends Model
         return Submission::Where('user_id', $user->id)->Where('problem_id',$this->id)->Where('status','AC')->limit(1)->count()!=0;
     }
 
+    public function is_editorial_visible() {
+        if (!$this->has_editorial()) return false;
+        if(auth()->user()->has_permission('admit_users')) return true;
+        if ($this->contests()->runningFilter()->exists()) return false;
+        return true;
+    }
+
     public function user(){
         return $this->belongsTo('App\User');
     }

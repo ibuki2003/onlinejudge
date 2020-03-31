@@ -11,7 +11,7 @@
 @if(auth()->check() && $problem->solved_by(auth()->user()))
 <p class="alert alert-success">{{__('ui.problem.solved')}}</p>
 @endif
-@if ($problem->has_editorial())
+@if ($problem->is_editorial_visible())
 <p><a href="{{route('problem_editorial',['id'=>$problem->id])}}" class="btn btn-secondary">{{__('name.editorial')}}</a></p>
 @endif
 @if (auth()->check() && $problem->user_id === auth()->id())

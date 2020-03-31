@@ -57,6 +57,7 @@ class ProblemController extends Controller
         abort_if($problem===NULL,404);
         abort_unless($problem->is_visible(),403);
         abort_unless($problem->has_editorial(),404);
+        abort_unless($problem->is_editorial_visible(), 403);
         return view('problems/editorial', ['problem' => $problem]);
     }
 
