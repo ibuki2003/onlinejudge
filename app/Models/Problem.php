@@ -212,6 +212,6 @@ class Problem extends Model
     }
 
     public function contests() {
-        return $this->belongsToMany('App\Models\Contests');
+        return $this->belongsToMany('App\Models\Contest');
     }
 }
