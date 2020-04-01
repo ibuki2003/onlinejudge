@@ -198,7 +198,7 @@ class Problem extends Model
 
     public function is_editorial_visible() {
         if (!$this->has_editorial()) return false;
-        if(auth()->user()->has_permission('admit_users')) return true;
+        if(auth()->check() && auth()->user()->has_permission('admit_users')) return true;
         if ($this->contests()->runningFilter()->exists()) return false;
         return true;
     }
