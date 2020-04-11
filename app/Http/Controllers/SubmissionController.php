@@ -27,20 +27,14 @@ class SubmissionController extends Controller
     }
 
     public function index(){
-        abort_if(
-            auth()->check() &&
-            !auth()->user()->has_permission('admit_users') &&
-            auth()->user()->contests()->runningFilter()->exists(), 403);
-        $submissions = Submission::all();
         $langs = Lang::all();
-$problems = Problem::all();
-        return view('submission/list', ['submissions' => $submissions, 'me' => FALSE, 'langs' => $langs, 'problems' => $problems]);
+        $problems = Problem::all();
+        return view('submission/list', ['me' => FALSE, 'langs' => $langs, 'problems' => $problems]);
     }
     public function index_my(){
-        $submissions = Submission::ownFilter()->get();
         $langs = Lang::all();
-$problems = Problem::all();
-        return view('submission/list', ['submissions' => $submissions, 'me' => TRUE, 'langs' => $langs, 'problems' => $problems]);
+        $problems = Problem::all();
+        return view('submission/list', ['me' => TRUE, 'langs' => $langs, 'problems' => $problems]);
     }
 
 
@@ -67,11 +61,7 @@ $problems = Problem::all();
     }
 
     public function allSubmissionsApi(){
-        abort_if(
-            auth()->check() &&
-            !auth()->user()->has_permission('admit_users') &&
-            auth()->user()->contests()->runningFilter()->exists(), 403);
-        return SubmissionResource::collection(Submission::filterWithRequest()->orderBy('id', 'desc')->paginate());
+        return SubmissionResource::collection(Submission::filterWithRequest()->visibleFilter()->orderBy('id', 'desc')->paginate());
     }
     public function mySubmissionsApi(){
         return SubmissionResource::collection(Submission::ownFilter()->filterWithRequest()->orderBy('id', 'desc')->paginate());
