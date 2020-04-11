@@ -70,7 +70,14 @@ class Submission extends Model
      * @return bool
      */
     public function is_visible(){
-        if (config('oj.open_mode'))return true;
+        if (config('oj.open_mode')) {
+            if (auth()->check()) {
+                if ($this->user_id===auth()->id())return true;
+                if (auth()->user()->has_permission('admit_users'))return true;
+            }
+            if ($this->problem->contests()->runningFilter()->exists()) return false;
+            return true;
+        }
         if(auth()->user()->has_permission('admit_users'))return true;
         return $this->user_id===auth()->id();
     }
