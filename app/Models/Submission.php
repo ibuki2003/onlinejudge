@@ -154,6 +154,9 @@ class Submission extends Model
     }
 
     public function scopeVisibleFilter($query) {
+        if (auth()->check()) {
+            if (auth()->user()->has_permission('admit_users'))return $query;
+        }
         $running_contests = Contest::runningFilter()->get();
         $running_contest_problem_ids = collect();
         foreach ($running_contests as $contest) {
