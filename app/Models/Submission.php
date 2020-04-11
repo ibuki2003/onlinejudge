@@ -153,4 +153,13 @@ class Submission extends Model
         return $this->belongsTo('App\Models\Lang');
     }
 
+    public function scopeVisibleFilter($query) {
+        $running_contests = Contest::runningFilter()->get();
+        $running_contest_problem_ids = collect();
+        foreach ($running_contests as $contest) {
+            $running_contest_problem_ids = $running_contest_problem_ids->concat($contest->problems()->get()->pluck('id'));
+        }
+        $running_contest_problem_ids = $running_contest_problem_ids->unique();
+        return $query->whereNotIn('problem_id', $running_contest_problem_ids);
+    }
 }
