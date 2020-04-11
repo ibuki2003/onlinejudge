@@ -160,6 +160,8 @@ class Submission extends Model
             $running_contest_problem_ids = $running_contest_problem_ids->concat($contest->problems()->get()->pluck('id'));
         }
         $running_contest_problem_ids = $running_contest_problem_ids->unique();
-        return $query->whereNotIn('problem_id', $running_contest_problem_ids);
+        $q = $query->whereNotIn('problem_id', $running_contest_problem_ids);
+        if (auth()->check())return $q->orWhere('user_id', auth()->id());
+        return $q;
     }
 }
