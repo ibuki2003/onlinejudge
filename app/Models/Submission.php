@@ -70,7 +70,14 @@ class Submission extends Model
      * @return bool
      */
     public function is_visible(){
-        if (config('oj.open_mode'))return true;
+        if (config('oj.open_mode')) {
+            if (auth()->check()) {
+                if ($this->user_id===auth()->id())return true;
+                if (auth()->user()->has_permission('admit_users'))return true;
+            }
+            if ($this->problem->contests()->runningFilter()->exists()) return false;
+            return true;
+        }
         if(auth()->user()->has_permission('admit_users'))return true;
         return $this->user_id===auth()->id();
     }
@@ -146,4 +153,18 @@ class Submission extends Model
         return $this->belongsTo('App\Models\Lang');
     }
 
+    public function scopeVisibleFilter($query) {
+        if (auth()->check()) {
+            if (auth()->user()->has_permission('admit_users'))return $query;
+        }
+        $running_contests = Contest::runningFilter()->get();
+        $running_contest_problem_ids = collect();
+        foreach ($running_contests as $contest) {
+            $running_contest_problem_ids = $running_contest_problem_ids->concat($contest->problems()->get()->pluck('id'));
+        }
+        $running_contest_problem_ids = $running_contest_problem_ids->unique();
+        $q = $query->whereNotIn('problem_id', $running_contest_problem_ids);
+        if (auth()->check())return $q->orWhere('user_id', auth()->id());
+        return $q;
+    }
 }
