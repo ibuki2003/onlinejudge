@@ -2,7 +2,7 @@
 @section('title', $contest->title)
 @section('content')
 @csrf
-<p><pre>{{$contest->description}}</pre></p>
+<p style="white-space: pre-wrap;">{{$contest->description}}</p>
 <h2>{{__('ui.contest.creator')}}:{{$contest->creator}}</h2>
 <br>
 <p>{{__('ui.contest.open')}} : {{$contest->start_time}}</p>
