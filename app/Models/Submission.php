@@ -76,6 +76,7 @@ class Submission extends Model
                 if (auth()->user()->has_permission('admit_users'))return true;
             }
             if ($this->problem->contests()->runningFilter()->exists()) return false;
+            if (!$this->problem->is_visible()) return false;
             return true;
         }
         if(auth()->user()->has_permission('admit_users'))return true;
@@ -163,7 +164,11 @@ class Submission extends Model
             $running_contest_problem_ids = $running_contest_problem_ids->concat($contest->problems()->get()->pluck('id'));
         }
         $running_contest_problem_ids = $running_contest_problem_ids->unique();
-        $q = $query->whereNotIn('problem_id', $running_contest_problem_ids);
+
+        $visible_problem_ids = Problem::visibleFilter()->get()->pluck('id');
+
+        $q = $query->whereNotIn('problem_id', $running_contest_problem_ids)
+            ->whereIn('problem_id', $visible_problem_ids);
         if (auth()->check())return $q->orWhere('user_id', auth()->id());
         return $q;
     }
