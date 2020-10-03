@@ -10,7 +10,7 @@ class MainController extends Controller{
 
     public function __construct() {
         if (!config('oj.open_mode'))
-            $this->middleware('permission:submit')->only([
+            $this->middleware('auth')->only([
                 'index',
                 'statistics',
             ]);
