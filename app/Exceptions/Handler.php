@@ -33,12 +33,12 @@ class Handler extends ExceptionHandler
      * @param  \Exception  $exception
      * @return void
      */
-    public function report(Exception $exception)
+    public function report(\Throwable $exception)
     {
         parent::report($exception);
     }
 
-    public function render($request, Exception $e)
+    public function render($request, \Throwable $e)
     {
         if($request->is('api/*') || $request->ajax()){
             $status = 400;
